@@ -1,8 +1,85 @@
 		<%= stylesheet_link_tag 'custom'%>
+	
+<style type="text/css">
+        /*demo page css*/
+			
 
-<script src="http://jquery.bassistance.de/validate/jquery.validate.js" type="text/javascript"></script>
-		<%= javascript_include_tag 'jquery-1.3.2.min.js' %>
+#modalPage
+{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px; left: 0px;
+}
+.modalBackground
+{
+    filter: Alpha(Opacity=40); -moz-opacity:0.4; opacity: 0.4;
+    width: 100%; height: 100%; background-color: #999999;
+    position: absolute;
+    z-index: 500;
+    top: 0px; left: 0px;
+}
+.modalContainer
+{
+    position: absolute;
+    width: 760px;
+    left: 40%;
+    top: 40%;
+    z-index: 750;
+}
+.modal
+{
+
+    background-color: #ffffff;
+    border: solid 2px #0d457f; position: relative;
+    top: -150px;
+    left: -150px;
+    z-index: 1000;
+    width: 760px;
+    height: 440px;
+    *height: 340px;
+    padding: 0px;
+}
+.modalTop
+{
+    width: 760px; 
+    !width: 760px !important;
+    background-color: #0d457f;
+    padding: 2px;
+    color: #4E6CA3;
+    text-align: left;
+}
+.modalTop a, .modalTop a:visited
+{
+    color: #ccc;
+}
+.modalBody
+{
+    padding: 10px;
+    height: 650px;
+}
+
+
+
+.subHeader {
+	font-weight:bold;
+	font-family:verdana;
+	font-size:12px;
+	color:#710101;
+}
+
+.details {
+	font-weight:normal;
+	font-family:verdana;
+	font-size:12px;
+	color:#710101;
+}
+
+    </style>
+
 	<script type="text/javascript">
+
 	function revealModal(divID)
 {
     window.onscroll = function () { document.getElementById(divID).style.top = document.body.scrollTop; };
@@ -16,21 +93,45 @@ function hideModal(divID)
     document.getElementById(divID).style.display = "none";
 }
 
-$.validator.setDefaults({
-	submitHandler: function() { alert("submitted!"); }
-});
+		$(document).ready( function()
+		    {
+			//	$("#formID").validationEngine()
+		        $("#ResultsHolder").hide();
+		     
+		    }
+		  );
+		
+		$(function(){
+		//Tabs
+		$("#tabs").tabs();
+		$("#navi").tabs();
+		//ACCORDIAN
+		$("#accordion").accordion({ header: "h3" });
+		
+		// Datepicker
+			$('#d1ob,#recv1er,#rec1exp,#lic1expdate,#pexpda1te1,#licex1pdate1,#dlnex1p').datepicker({
+					inline: true
+				});
+		
+		//hover states on the static widgets
+				$('#dialog_link, ul#icons li').hover(
+					function() { $(this).addClass('ui-state-hover'); }, 
+					function() { $(this).removeClass('ui-state-hover'); }
+				);
 
-$().ready(function() {
-	// validate the comment form when it is submitted
-	$("#customerForm").validate();
-});
-
+		});
+		
+		
+		function ShowResults() {
+		        $('#ResultsHolder').show();
+				$('#ResultTable').dataTable();
+			} 
 		
 		</script>
 
 
 <p style="color: green"><%= flash[:customerpage] %></p>
-<% form_for :url => '/pages/customer', :html => { :class => "new_post", :id => "new_post" } do %>
+    <% form_tag '/pages/customer', :id => 'formID' do %>
     <center>
 <div class="depot-form">
 	<fieldset style="width: 70%">		
@@ -47,12 +148,19 @@ $().ready(function() {
 		                    <td align="right">First&nbsp;Name:
 				            </td>
 				            
-				            <td align="left"><%= text_field_tag :firstname, params[:firstname] %></td>
-				            
+				         <td align="left"><%= text_field_tag :firstname, params[:firstname]%></td>
+				             <script type="text/javascript"> 
+		            var firstname = new LiveValidation('firstname');
+		            firstname.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
 				            <td align="right">Last&nbsp;Name:
 				            </td>
 				            
-				            <td align="left"><%= text_field_tag :lastname, params[:lastname] %> </td>
+				            <td align="left"><%= text_field_tag :lastname, params[:lastname] %></td>
+								<script type="text/javascript"> 
+								var lastname = new LiveValidation('lastname');
+							 lastname.add(Validate.Presence, 4e3,{failureMessage: "*"});
+							</script> 
 							<td align="right">Suffix:</td>
 				             <td align="left">
 							<%= select_tag "suffix", options_for_select([ "Jr", "I", "II", "III", "IV"],"Jr")  %>
@@ -61,6 +169,11 @@ $().ready(function() {
 				            <td align="right">DOB:</td>
 				            
                             <td align="left"><%= text_field_tag :dob, params[:dob] %> </td>
+							<script type="text/javascript"> 
+		            var dob = new LiveValidation('dob');
+		            dob.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					dob.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+		          </script>
                             </div>
 				            <td align="right">Gender:</td>
 				             <td align="left">
@@ -80,16 +193,27 @@ $().ready(function() {
                                  <td align="right">Referred&nbsp;By:                 
                                  </td>
                                  
-                                 <td align="left"><%= text_field_tag :reffredby, params[:reffredby] %>
+                                 <td align="left" style="width:123px"><%= text_field_tag :reffredby, params[:reffredby] %>
                                  </td>
-                                 
+                                 	<script type="text/javascript"> 
+		            var reffredby = new LiveValidation('reffredby');
+		            reffredby.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
                                  <td align="right">Notes:
                                  </td>
                                  
-                                 <td colspan="1" align="left"><%= text_field_tag :notes, params[:notes] %>
+                                 <td colspan="1" align="left"><%= text_field_tag :notes, params[:notes] %></td>
+	<script type="text/javascript"> 
+		            var notes = new LiveValidation('notes');
+		            notes.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
 				            <td align="right">DLN:</td>
 				            
 				            <td  align="left"><%= text_field_tag :dln, params[:dln] %></td>
+								<script type="text/javascript"> 
+		            var dln = new LiveValidation('dln');
+		            dln.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
                                  
 		            </tr>
 					  <tr>
@@ -98,11 +222,20 @@ $().ready(function() {
 				            <td style="width:123px" align="left">
 							<%= text_field_tag :dlnstate, params[:dlnstate] %>
                                  </td>
+								  <script type="text/javascript"> 
+					var dlnstate = new LiveValidation('dlnstate');
+		            dlnstate.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
                                    <td align="right">DLN&nbsp;Expiration:
                                  </td>
                                  
                                  <td colspan="1" align="left">
-                                 	<%= text_field_tag :dlnexp, params[:dlnexp] %>
+                                 	<%= text_field_tag :dlnexp, params[:dlnexp] %></td>
+										<script type="text/javascript"> 
+		            var dlnexp = new LiveValidation('dlnexp');
+		            dlnexp.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					dlnexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+		          </script>
 				            <td>&nbsp;</td>
                                  
                                  <td>&nbsp;                
@@ -125,22 +258,46 @@ $().ready(function() {
     				                    <tr>
     				                        <td align="right">Line&nbsp;1:</td>
     				                        <td align="left"><%= text_field_tag :line1, params[:line1] %></td>
+												<script type="text/javascript"> 
+		            var line1 = new LiveValidation('line1');
+		            line1.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
     				                          <td align="right">County:</td>
     				                        <td align="left"><%= text_field_tag :county, params[:county] %></td>
+											<script type="text/javascript"> 
+		            var county = new LiveValidation('county');
+		            county.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
     				                    </tr>
 				                        <tr>
 				                            <td align="right">Line&nbsp;2:</td>
 				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>
-											<td align="right">city:</td>
+											<script type="text/javascript"> 
+		            var line2 = new LiveValidation('line2');
+		            line2.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
+											<td align="right">City:</td>
     				                         <td align="left"><%= text_field_tag :city, params[:city] %></td>
-				                             
+				                             <script type="text/javascript"> 
+		            var city = new LiveValidation('city');
+		            city.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
 				                        </tr>
 				                        
     				                    <tr>
     				                    	 <td align="right">State:</td>
     				                         <td align="left"><%= text_field_tag :state, params[:state] %></td>
+											 <script type="text/javascript"> 
+		            var state = new LiveValidation('state');
+		            state.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
     				                      <td align="right">Zipcode:</td>
     				                         <td align="left"><%= text_field_tag :zip, params[:zip] %></td>
+											 <script type="text/javascript"> 
+		            var zip = new LiveValidation('zip');
+		            zip.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					zip.add( Validate.Length, { is: 5 } );
+		          </script>
     				                       
 				                        </tr>
     				                     <tr>
@@ -159,13 +316,26 @@ $().ready(function() {
     				                    <tr>
     				                            <td align="right">Home&nbsp;Phone:</td>
     				                            <td align="left"><%= text_field_tag :hphone, params[:hphone] %></td>
+												<script type="text/javascript"> 
+		            var hphone = new LiveValidation('hphone');
+		            hphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
     				                            <td align="right">Mobile:</td>
 				                                <td align="left"><%= text_field_tag :mphone, params[:mphone] %></td>
+												<script type="text/javascript"> 
+		            var mphone = new LiveValidation('mphone');
+		            mphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
                                         </tr>
                                         
     				                    <tr>
     				                            <td align="right">Email:</td>
     				                            <td align="left"><%= text_field_tag :cemail, params[:cemail] %></td>
+												 <script type="text/javascript"> 
+												var cemail = new LiveValidation('cemail');
+												 cemail.add(Validate.Presence, 4e3,{failureMessage: "*"});
+												cemail.add(Validate.Email);
+												 </script>
 				                                <td align="right">Provider:</td>
 				                                <td  align="left">
 						<%= select_tag "provider", options_for_select([ "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],"Alltel")  %>
@@ -199,10 +369,22 @@ $().ready(function() {
 				            <tr>
 							<td align="right">County&nbsp;Number:</td>
 				            <td align="left"><%= text_field_tag :countyid, params[:countyid] %></td>
+							<script type="text/javascript"> 
+		            var countyid = new LiveValidation('countyid');
+		            countyid.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
 				            <td align="right">State&nbsp;MMP:</td>
 				            <td align="left"><%= text_field_tag :statemmp, params[:statemmp] %></td>
+							<script type="text/javascript"> 
+		            var statemmp = new LiveValidation('statemmp');
+		            statemmp.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
 				            <td align="right">Recommendation:</td>
 				            <td align="left"><%= text_field_tag :recom, params[:recom] %></td>
+							<script type="text/javascript"> 
+		            var recom = new LiveValidation('recom');
+		            recom.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
 				            
 				            </tr>
 				            </table>
@@ -237,7 +419,7 @@ $().ready(function() {
 				            <table cellpadding="3px" cellspacing="3px">
 							  <tr>
 				            <td align="right">
-				            Physician: 
+				            Doctor's Name: 
 				            </td>
 				            <td align="left"> 
 							
@@ -251,13 +433,28 @@ $().ready(function() {
                              <td></td>
 				            </tr>
 				            <tr>
-				            <td align="right">Recomm.&nbsp;Verified:
+				            <td align="right">Recommendation&nbsp;Date:
 				            </td>
 				            <td align="left"><%= text_field_tag :recver, params[:recver] %></td>
-				            <td align="right">Recomm.&nbsp;Expires:</td>
+							<script type="text/javascript"> 
+		            var recver = new LiveValidation('recver');
+		            recver.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					recver.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+		          </script>
+				            <td align="right">Reco.&nbsp;Expiration&nbsp;Date</td>
 				            <td align="left"><%= text_field_tag :recexp, params[:recexp] %></td>
-				            <td align="right">Physician&nbsp;Verified:</td>
+							<script type="text/javascript"> 
+		            var recexp = new LiveValidation('recexp');
+		            recexp.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					recexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+		          </script>
+				            <td align="right">Reco.&nbsp; Verification&nbsp;Date</td>
 				            <td align="left"><%= text_field_tag :physver, params[:physver] %></td>
+							<script type="text/javascript"> 
+		            var physver = new LiveValidation('physver');
+		            physver.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					physver.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+		          </script>
 							</tr>
 							<tr>
 						<td colspan="6" align="center">	<br> <%= submit_tag "Add Customer Information" %>
@@ -295,22 +492,31 @@ $().ready(function() {
 	<table cellpadding="5px" cellspacing="5px">				            
 	<tr>				          
 	<td>				            
-	Physician: 				            
+	Doctor's Name: 				            
 	</td>				            
 	<td> 						
 	<!--	<%= select_tag "recipro", options_for_select([ "Received", "Sent", "Go"],"Go")  %> -->                                 
 	<%= text_field_tag :pname1, params[:pname1] %>			            
-	</td>				            
-	<td>Degree:</td>
+	</td>
+	<script type="text/javascript"> 
+		            var pname1 = new LiveValidation('dob');
+		            pname1.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					</script>
+	<td>Phone Number:</td>
 	<!-- sample checkbox<%=check_box_tag("chkbox", value = "1", checked = false, options = {})  %> -->                             
 	<td><%= text_field_tag :pdegree1, params[:pdegree1] %></td>                               
 	<td>&nbsp;</td>                              
 	<td>&nbsp;</td>				            
 	</tr>		                <tr>		                    
-	<td>License&nbsp;Number:</td> 		                    
+	<td>Medical License Number</td> 		                    
 	<td><%= text_field_tag :plicnum1, params[:plicnum1] %></td> 		                    
 	<td>License&nbsp;Expiration&nbsp;date:</td> 		                    
-	<td><%= text_field_tag :licexpdate1, params[:licexpdate1] %></td> 		                
+	<td><%= text_field_tag :licexpdate1, params[:licexpdate1] %></td> 
+	<script type="text/javascript"> 
+		            var licexpdate1 = new LiveValidation('dob');
+		            licexpdate1.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					licexpdate1.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+		          </script>
 	</tr>		
 	<tr>						
 	<td>						
