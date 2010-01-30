@@ -220,7 +220,11 @@ function hideModal(divID)
 				            <td align="right">DLN&nbsp;State:</td>
 				            
 				            <td style="width:123px" align="left">
-							<%= text_field_tag :dlnstate, params[:dlnstate] %>
+<%= select_tag "dlnstate", options_for_select([ "Select One", "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", 
+"District of Columbia", "Delaware", "Florida", "Georgia", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", 
+"Massachusetts", "Maryland", "Maine", "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina","North Dakota", "Nebraska", 
+"New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
+"South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"],"California")  %>
                                  </td>
 								  <script type="text/javascript"> 
 					var dlnstate = new LiveValidation('dlnstate');
