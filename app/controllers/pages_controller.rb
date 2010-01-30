@@ -242,7 +242,7 @@ if params[:commit] == "delete"
 		end
 			@prods = Product.find_by_id(params[:ptype])
 			@condition = "prodid = '" +params[:ptype]+"'"
-			@pid = @prods.prodname
+			@pid = @prods.prod_name
 			@Productprice = Productprice.sum("priceperunit", :conditions => [@condition])
 			@Discountprice = Proddiscount.sum("discount", :conditions => [@condition])
 		@applymemdisc = "select Count(prodid) from orderdetails A, orders B where A.prodid='6' and A.orderid= B.id  and B.custid='"+session[:customerid]+"'"
