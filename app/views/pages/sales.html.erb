@@ -655,7 +655,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.quantity%></td>
 			                <td><%=  c.price  %></td>
 			                <td><%=  c.discount %></td>
-							<td> <%= submit_tag "delete", :confirm => 'Are you sure you want to delete the item?',:disable_with => "Deleting", %>	
+							<td> <%= submit_tag "delete"%>	
 							<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 							</td>
 			        </tr>
