@@ -43,11 +43,11 @@ background-color:#7FB545;
 					            <td><%=p.text_field :prod_name%></td>
 				            </tr>
 				            <tr>
-					            <td><%=p.label 'Product Price*'%></td>
+					            <td>Product Discount</td>
                       <td><%=p.text_field :prod_orig_price%></td>  
 				            </tr>
 		                <tr>
-		                    <td><%=p.label 'Product Discount'%></td>
+		                    <td><%=Product Price%></td>
 		                    <td><%=p.text_field :prod_dis_per%></td>
 		                </tr>
 		                <tr>
@@ -86,7 +86,7 @@ background-color:#7FB545;
 		<td><%=p.prod_orig_price%></td>
 		<td><%=p.prod_dis_price%></td>
 		<td><%=p.prod_promo%></td>
-		<td><%=link_to "#{image_tag("edit.png", :width=>'70px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
+		<td><%=link_to "#{image_tag("edit.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
 	</tr>
 	<%end%>
 </table>

@@ -81,9 +81,55 @@ class PagesController < ApplicationController
   def contactus
   end
   def index
-  	
+  	redirect_to :controller => 'admin', :action => 'login' 
   end
   
+  
+  
+  #edit
+  def editcustomer
+@custid = params[:id]
+ if params[:commit] == "Update Customer Information"
+  
+  @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dlnexp]}
+  @cust = Customer.update(@custid, @varinsert)
+  @varinsert = {:line1=>params[:line1] , :county=>params[:county], :line2=>params[:line2], :city=>params[:city],:state=>params[:state], :zip=>params[:zip]}
+  @cust = Address.update(@custid, @varinsert)
+  @varinsert = {:hphone=>params[:hphone] , :mphone=>params[:mphone], :cemail=>params[:cemail]}
+  @cust = Contact.update(@custid, @varinsert)
+  flash[:edit_customer]= "Customer Information Updated"
+  redirect_to :controller => 'pages', :action => 'search' 
+  return
+else 
+ flash[:notice]= params[:commit]
+@cond = "id = " + params[:id]
+@customer = Customer.find(:all, :conditions => [@cond], :include => :contact, :include => :address )
+params[:firstname] = @customer.first.firstname
+params[:lastname] = @customer.first.lastname
+params[:dob] = @customer.first.dob
+params[:dln] = @customer.first.dln
+params[:sex] = @customer.first.sex
+params[:referral] = @customer.first.referral
+params[:reffredby] = @customer.first.reffredby
+params[:notes] = @customer.first.notes
+params[:statemmp] = @customer.first.statemmp
+params[:recom] = @customer.first.recom
+params[:countyid] = @customer.first.countyid
+params[:suffix] = @customer.first.suffix
+params[:dlnstate] = @customer.first.dlnstate
+params[:dlnexp] = @customer.first.dlnexpiry
+params[:line1]  = @customer.first.address.line1
+params[:county] = @customer.first.address.county
+params[:line2] = @customer.first.address.line2
+params[:city] = @customer.first.address.city
+params[:state] = @customer.first.address.state
+params[:zip] = @customer.first.address.zip
+params[:hphone] = @customer.first.contact.hphone
+params[:mphone] = @customer.first.contact.mphone
+params[:cemail] = @customer.first.contact.cemail
+params[:provider] = @customer.first.contact.provider
+end
+end
   
   
   def customer
@@ -130,7 +176,7 @@ class PagesController < ApplicationController
 		 @varemail = "yes"
      end
   # sql statement to insert into contact links table
-		@sqlcontact =  "INSERT INTO contacts (\"cid\", \"hphone\", mphone, provider, cemail, email, sms , mail) VALUES ('" + @id1  + "', '"+ params[:hphone] + "', '"+params[:mphone]+ "', '" + params[:provider] + "', '" + params[:cemail]+ "', '" +      @varemail+ "', '"+@varsms+ "', '"+ @varmail+"')"
+		@sqlcontact =  "INSERT INTO contacts (id,\"cid\", \"hphone\", mphone, provider, cemail, email, sms , mail) VALUES ('"+@id1+"','" + @id1  + "', '"+ params[:hphone] + "', '"+params[:mphone]+ "', '" + params[:provider] + "', '" + params[:cemail]+ "', '" +      @varemail+ "', '"+@varsms+ "', '"+ @varmail+"')"
 		@sqlstmmt2 = "INSERT INTO contactlinks (\"contactid\", \"addressid\") VALUES ('" + @id1 + "', '"+ @id2+ "')"
 		sql.begin_db_transaction
 		@id3 = sql.insert(@sqlcontact )

@@ -34,22 +34,23 @@
 
     background-color: #ffffff;
     border: solid 2px #0d457f; position: relative;
-    top: -150px;
-    left: -150px;
+    top: -50px;
+    left: -50px;
     z-index: 1000;
-    width: 760px;
-    height: 440px;
-    *height: 340px;
+    width: 500px;
+    height: 250px;
+    *height: 250px;
     padding: 0px;
 }
 .modalTop
 {
-    width: 760px; 
-    !width: 760px !important;
-    background-color: #0d457f;
+    width: 500px; 
+    !width: 500px !important;
+    background-color: #6eac2c;
     padding: 2px;
     color: #4E6CA3;
-    text-align: left;
+	padding-top:20px;
+    text-align: middle;
 }
 .modalTop a, .modalTop a:visited
 {
@@ -58,7 +59,7 @@
 .modalBody
 {
     padding: 10px;
-    height: 650px;
+    height: 350px;
 }
 
 
@@ -92,7 +93,7 @@
     document.getElementById(divID).style.display = "block";
     document.getElementById(divID).style.top = document.body.scrollTop;
     setTimeout("hideModal('" + divID + "')", 1000000);
-	setCursor(document.getElementById('ttoal1'),13,13) 
+	document.getElementById('ttoal1').focus();
 }
 
 function hideModal(divID)
@@ -101,6 +102,8 @@ function hideModal(divID)
 }
 function SwipeParserObj(strParse)
 {
+	document.getElementById('modalPage').style.display = "none";
+	
 	// alert("Parsing function");
 
 	///////////////////////////////////////////////////////////////
@@ -363,11 +366,14 @@ return false;
 	var text = document.getElementById("displayText");
 	if(ele.style.display == "block") {
     		ele.style.display = "none";
-
+			
   	}
 	else {
-
+	if (document.getElementById("paymenttype").value=="Credit Card")
+	{
 ele.style.display = "block";
+revealModal('modalPage');
+    }
 	}
 } 
 			
@@ -655,7 +661,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.quantity%></td>
 			                <td><%=  c.price  %></td>
 			                <td><%=  c.discount %></td>
-							<td> <%= submit_tag "delete", :confirm => 'Are you sure you want to delete the item?',:disable_with => "Deleting", %>	
+							<td> <%= submit_tag "delete", :confirm => 'Are you sure you want to delete the item?',:disable_with => "Deleting...", %>	
 							<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 							</td>
 			        </tr>
@@ -740,12 +746,12 @@ DLN: <%=@cust.dln%><br>
 									<font color="white" >Payment Type</font>
 										</td>
 										<td align="left">
-										<%= select_tag "paymenttype", options_for_select([ "Cash", "Credit Card"],"Credit Card" ),:onchange => "javascript:toggle();"%>
+										<%= select_tag "paymenttype", options_for_select([ "Select a Payment Method","Cash", "Credit Card"],"Select a Payment Method" ),:onchange => "javascript:toggle();"%>
 										</td>
 										</tr>
 									
 										</table>
-	<div id="toggleText" style="display: block">
+	<div id="toggleText" style="display: none">
 <table borderColor="#006400" cellSpacing="0" cellPadding="4" width="30%" summary="This table is for layout"	border="1" style="border-top: 0px;">
 										<tr>
 											<td class="mainTextBold"><font color="white">*Credit Card Type:</font></td>
@@ -761,7 +767,7 @@ DLN: <%=@cust.dln%><br>
 		
 									<tr>
 											<td class="mainTextBold" style="WIDTH: 196px"><font color="white">*Name:</td>
-											<td align="left"><%= text_field_tag :cname, params[:cname]%>&nbsp;&nbsp;<a href="#" onClick="javascript:revealModal('modalPage');" class="menuItem"><img border=0 height="15" width="15" src=" http://icons.iconarchive.com/icons/dryicons/simplistica/48/add-icon.png"></a></td>
+											<td align="left"><%= text_field_tag :cname, params[:cname]%></td>
 									
 										</tr>
 		<tr>
@@ -776,7 +782,7 @@ DLN: <%=@cust.dln%><br>
 										<tr>
 											<td class="mainTextBold" ><font color="white">*Expiration Date:</font></td>
 											
-		<td align="left"><%= text_field_tag :expmon, params[:expmon]%><%= text_field_tag :expyear, params[:expyear]%>
+		<td align="left"><%= text_field_tag :expmon, params[:expmon] , :size=>5%><%= text_field_tag :expyear, params[:expyear], :size=>5%>
 		
 		</td>
 										</tr>
@@ -791,21 +797,22 @@ DLN: <%=@cust.dln%><br>
 			 <br><br><div align="center"><%= submit_tag "Submit",  :confirm => 'This will complete the sale. Are you sure?' %> </div></div>
 		    						
 			<div id="modalPage">   
-<div class="modalBackground">     
+<div class="modalBackground">
 </div>
 <div class="modalContainer">         
 <div class="modal">             
 <div class="modalTop">
 	<b><font color="white">
-		Add&nbsp;Physician&nbsp;Information
+	<center>	Please&nbsp;Swipe&nbsp;Customer&nbsp;Credit/Debit&nbsp;Card</center>
 	</font></b> 			
-	<a href="javascript:hideModal('modalPage')" style="padding-left:440px;">[X]<br><br></a></div> 		
-	<div class="modalBody"> <FONT face="Arial" size="3" color="#C94835">		
+	<br><br></a></div> 		
+	
+	<div class="modalBody" > <FONT face="Arial" size="3" color="#C94835">		
 	<p align="justify">			
 	<FONT face="Arial" size="2" color="black">	
- 	<textarea id="ttoal1" rows="2" cols="50" ></textarea><br><br>
+ 	<textarea id="ttoal1" rows="2" cols="50"  ></textarea><br><br>
 	CVV: <input type="text" id="cvvnum" name="cvvnum" /><br><br><br>
-	<input type="button" value="Submit" onClick="SwipeParserObj(document.getElementById('ttoal1').value)" />
+	<center><input type="button" value="Submit" onClick="SwipeParserObj(document.getElementById('ttoal1').value)" /></center>
 	</p>            
 	</div>         
 	</div>     

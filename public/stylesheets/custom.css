@@ -199,5 +199,13 @@ background-color: #6eac2c;
 	color:#710101;
 }
 
+.LV_valid {
+    color:#00CC00;
+}
+	
+.LV_invalid {
+	color:#CC0000;
+}
+
 
 
