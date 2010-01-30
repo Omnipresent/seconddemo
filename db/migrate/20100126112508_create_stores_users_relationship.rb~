@@ -1,0 +1,10 @@
+class CreateStoresUsersRelationship < ActiveRecord::Migration
+  def self.up
+    create_table :stores_users do |t|
+    t.column :store_id, :integer
+    t.column :user_id, :integer   
+  end
+
+  def self.down
+  end
+end

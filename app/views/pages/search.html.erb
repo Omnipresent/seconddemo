@@ -1,0 +1,89 @@
+		<%= stylesheet_link_tag 'custom'%>
+<style type="text/css"> 
+/*test*/
+#customers
+{
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+width:70%;
+border-collapse:collapse;
+}
+#customers td, #customers th 
+{
+font-size:1.2em;
+border:1px solid #98bf21;
+padding:3px 7px 2px 7px;
+}
+#customers th 
+{
+font-size:1.4em;
+text-align:left;
+padding-top:5px;
+padding-bottom:4px;
+background-color:#006400;
+color:#fff;
+border-color:##FFFFFF;
+}
+#customers tr.alt td 
+{
+color:#000;
+background-color:#7FB545;
+}
+</style>
+<div class="depot-form">
+<center>
+  <fieldset style="width:70%">
+    <legend><b>Search</b></legend>
+ 
+ 
+<div class="form_row">
+ 
+    <% form_tag  do %>
+    <% [ 'Physician', 'Patient'].each do |type| %>
+      <%= radio_button_tag 'type', type, @type == type %>  <%= type.humanize %>
+    <% end %>
+</div>
+ 
+  <table cellpadding="5px" cellspacing="5px">
+<tr><td>Name:</td>
+<td><%= text_field_tag :search, params[:search]%> </td>
+
+<tr><td>Phone Number:</td>
+<td><%= text_field_tag :phone, params[:phone]%> </td>
+</table>
+ 
+									<td colspan="4">
+		    <%= submit_tag "Search"%>
+						</td>
+	
+    <% end %>    
+  </fieldset>
+
+</div>
+ 
+<br>
+
+<p style="color: green; text-align: center"><%= flash[:search] %></p>
+
+<br>
+<%if @customer.size > 0%>
+<table border="2" cellspacing="20" cellpadding="" id="customers" align="center">
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Phone Number</th>
+		<th>Gender</th>
+		<th>Drivers License</th>	
+	</tr>	
+	<% for customer in @customer%>
+	<tr>
+		<td><%= link_to customer.firstname, "/pages/sales?custId=#{customer.id}" %>
+		<%=%></td>
+		<td><%=customer.lastname%></td>
+		<td></td>
+		<td><%=customer.sex%></td>
+		<td><%=customer.dln%></td>				
+	</tr>
+	<%end%>
+</table>
+<%end%>
+  </center>

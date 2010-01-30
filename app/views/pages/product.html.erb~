@@ -1,0 +1,100 @@
+			<%= stylesheet_link_tag 'custom'%>
+
+<style type="text/css"> 
+/*test*/
+#customers
+{
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+width:70%;
+border-collapse:collapse;
+}
+#customers td, #customers th 
+{
+font-size:1.2em;
+border:1px solid #98bf21;
+padding:3px 7px 2px 7px;
+}
+#customers th 
+{
+font-size:1.4em;
+text-align:left;
+padding-top:5px;
+padding-bottom:4px;
+background-color:#006400;
+color:#fff;
+border-color:##FFFFFF;
+}
+#customers tr.alt td 
+{
+color:#000;
+background-color:#7FB545;
+}
+</style>
+				<div id="modalPage"> 
+    <div class="modalBackground"> 
+    </div> 
+    <div class="modalContainer"> 
+        <div class="modal"> 
+            
+		<div class="modalBody"> <FONT face="Arial" size="3" color="#C94835">
+		<p align="justify">	
+		<FONT face="Arial" size="2" color="black">
+		<center>
+
+		<div class="depot-form">
+	<fieldset style="width: 50%"><legend><strong>Product Information</strong></legend>
+			<% form_for :product, @products do |p| %>
+        <table cellpadding="5px" cellspacing="5px">
+	        <%= p.error_messages %>
+				            <tr>
+					            <td><%=p.label 'Product*'%></td>
+					            <td><%=p.text_field :prod_name%></td>
+				            </tr>
+				            <tr>
+					            <td><%=p.label 'Product Price*'%></td>
+                      <td><%=p.text_field :prod_orig_price%></td>  
+				            </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Discount'%></td>
+		                    <td><%=p.text_field :prod_dis_per%></td>
+		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Promo Code'%></td>
+		                    <td><%=p.text_field :prod_promo%></td>
+		                </tr>
+						<tr align="center">
+						<td colspan="4">
+						<%= submit_tag "Add Product" %>
+						</td>
+						</tr>
+				            </table>
+				            <%end%>
+	
+</fieldset>
+		<p style="color: green"><%= flash[:product] %></p>
+</div>
+</center>
+		</p>
+            </div> 
+        </div> 
+    </div> 
+    <% 
+    if @prods != nil%>
+<table border="2" cellspacing="20" cellpadding="" id="customers" align="center">
+	<tr>
+		<th>Product Name</th>
+		<th>Product Price</th>
+		<th>Product Discount</th>
+		<th>Product Promocode</th>
+	</tr>	
+	<% for p in @prods%>
+	<tr>
+		<td><%=p.prod_name%></td>
+		<td><%=p.prod_orig_price%></td>
+		<td><%=p.prod_dis_price%></td>
+		<td><%=p.prod_promo%></td>
+	</tr>
+	<%end%>
+</table>
+<%end%>
+</div> 

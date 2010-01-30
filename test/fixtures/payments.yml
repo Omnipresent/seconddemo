@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  orderid: 1
+  prodid: 1
+  ttlprodcost: 1
+  paytype: MyString
+
+two:
+  orderid: 1
+  prodid: 1
+  ttlprodcost: 1
+  paytype: MyString

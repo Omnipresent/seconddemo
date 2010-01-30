@@ -1,0 +1,297 @@
+		<script type="text/javascript " charset="utf-8">
+			
+		$(function(){
+		//Tabs
+		$("#tabs").tabs();
+		$("#navi").tabs();
+		//ACCORDIAN
+	
+		
+		// Datepicker
+				$('#datepicker, #RecoDate, #RecoExpire, #LicExpDate').datepicker({
+					inline: true
+				});
+		
+		//hover states on the static widgets
+				
+
+		});
+		
+	//DataTable Initialization
+	    var oTable;
+		var oS;
+		
+		var SubTotal=0;
+		varTotal=0;
+
+			$(document).ready(function() {
+				oTable = $('#cartTable').dataTable( {
+					"bStateSave": true,
+					"bLengthChange": false,
+		"bFilter": false,
+		"bInfo": false,
+		"bSort": false
+				} );
+				oS = oTable.fnSettings();
+				console.dir( oS.aoColumns );
+			} );
+			
+			function fnClickAddRow() {
+			
+	        oTable.fnAddData( [
+		               $("#Item_ID").val(),
+					$("#Item_Type").val(),
+					$("#Item_Name").val(),
+					$("#Item_Quality").val(),
+					$("#Item_Quantity").val(),
+					"Discount",
+					"$"+$("#Item_Price").val()
+					 
+		                 ] );
+	Sub_Total= Sub_Total+ $("#Item_Price").val();
+	                   
+	                      $('#POS_Total').val(SubTotal);
+                            }
+                           // $('#POS_SubTotal').val(SubTotal);
+						   
+						     function	calc(sum)
+		{
+		
+		}
+       function	add()
+		{
+		var txt = 'some text';
+		var tbox = document.getElementById('POS_Total');
+		if (tbox)
+{
+tbox.value = txt;
+}
+		
+		}
+		var total=0
+		</script>
+
+		
+
+    <style type="text/css">
+        /*demo page css*/
+			body{ font: 62.5% "Trebuchet MS", sans-serif; margin:10 20 0 10;}
+			.demoHeaders { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <% form_tag  do %>
+<!---Tabs Start--><%= flash[:notice] %>
+		<div id="tabs">
+			<ul>
+				
+				<li><a href="#tabs-4">Point Of Sale</a></li>
+				<li><a href="#tabs-2">Payment</a></li>
+			</ul>
+					
+			<!------End of Tab1-Seach--->
+			            
+			
+			
+			<div id="tabs-4">
+			
+
+			<br />
+			<fieldset>
+			
+			<legend><strong>Cart</strong></legend>
+			<form id="CartForm" action="#">
+			
+			
+			<table cellspacing="5px" cellpadding="5px">
+			<tr>
+							
+			<td>Item ID</td>
+			
+			<td><input type="text" id="Item_ID" /></td>
+			
+			<td>Item Type
+					</td>
+					
+			<td>
+			<select id="Item_Type">
+			    
+			        <option value="Flower">
+			        Flower
+		            </option>
+		            <option value="Capsule">
+		           Capsule
+		            </option>
+		            <option value="Concentrate">
+		            Concentrate
+		            </option>
+		            
+	            
+			</select>
+			</td>
+			
+			<td>Item Name
+			</td>
+			
+			<td>
+			<select id="Item_Name">
+			    
+			        <option value="PineApple Express">
+			        PineApple Express
+		            </option>
+		            <option value="Black Knight">
+		           BlackKnight
+		            </option>
+		            <option value="Blue Sky">
+		            BlueSky
+		            </option>
+		            
+	            
+			</select>
+			</td>
+			
+			<td>Quality
+			</td>
+			
+			<td>
+			<select id="Item_Quality">
+			    
+			        <option value="A">
+			        A
+		            </option>
+		            <option value="B">
+		          B
+		            </option>
+		            <option value="C">
+		           C
+		            </option>
+		            
+	            
+			</select>
+			</td>
+			
+			<td>Quantity</td>
+			
+			<td><select id="Item_Quantity">
+			<option value="1">1g
+			</option>
+			<option value="2">2g</option>
+			<option value="12">.5 oz
+			</option>
+			<option value="24">1 oz</option> </select>
+			</td>
+			
+			<td>Price</td>
+			
+			<td><input type="text" id="Item_Price" /></td>
+			<td>
+			
+			<button onclick="fnClickAddRow()">Add to Cart</button>
+			</td>
+			
+			</tr>
+			
+			</table>
+			
+	
+			</form>
+			
+			<table id="cartTable" class="display" >
+			<thead>
+			    <tr>
+			    
+			        <th>Product ID
+			        </th>
+			        
+			        <th>Product Type
+			        </th>
+			        
+			        <th>Item Name
+			        </th>
+			        
+			        <th>Item Quality</th>
+			        			        
+			        <th>Quantity
+			            </th>
+			         <th>Discount
+			            </th>			            
+			         <th>Price
+			            </th>
+			            
+			        			        
+			    </tr>
+			    </thead>
+			    <tbody>
+			        <tr>
+			                <td>&nbsp;</td>			               
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp</td>
+			                <td>&nbsp</td>
+			        </tr>
+			    </tbody>
+			    <tfoot>
+			    <tr>
+			        <td>&nbsp;</td>
+			         <td>&nbsp;</td>
+			         <td>&nbsp;</td>
+			          <td>&nbsp;</td>
+			           <td>&nbsp</td>
+		            <td>
+		            &nbsp;
+		                    
+		            </td>
+			             
+			        
+			    </tr>
+			    </tfoot>
+			    			
+			</table>
+		
+			<div class="Billing">
+			                <table  width=""100%" cellpadding="3px" cellspacing="0px">
+    		                <tr>
+    		                    <td>Sub Total
+    		                    </td>
+    		                    <td><label id="POS_SubTotal" >&nbsp;</label>
+    		                    </td>    		        
+    		                </tr>
+    		                <tr>
+    		                    <td>Discount
+    		                    </td>
+    		                    <td><label id="POS_Discount" >&nbsp;</label>
+    		                    </td>
+    		                </tr>
+    		                  <tr>
+    		                    <td>Tax
+    		                    </td>
+    		                    <td><label id="POS_Tax" >&nbsp;</label>
+    		                    </td>
+    		                </tr>
+    		                
+    		                  <tr >
+    		                    <td rowspan="2" cellpadding="5" style="font-size:medium;">Total
+    		                    </td>
+    		                    <td rowspan="2" cellpadding="5"><input type="text" id="POS_Total" />
+    		                    </td>
+    		                </tr>
+    		                <tr >
+    		                    <td colspan="2" rowspan="2" cellpadding="5" style="font-size:medium;"><input type="button" onClick="add();" value="submit"/>
+    		                    </td>
+    		                   
+    		                </tr>
+		        
+		                    </table>
+			</div>
+			</fieldset>
+			</div>
+			
+			<div id="tabs-2">
+				Payment Options and Payment Information Goes Here 
+			</div>
+			 </div>
+		    <% end %>
+</body>
+</html

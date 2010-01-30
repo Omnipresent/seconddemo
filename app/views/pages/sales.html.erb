@@ -1,0 +1,819 @@
+			<%= stylesheet_link_tag 'custom'%>
+
+	
+			<style type="text/css">
+        /*demo page css*/
+			
+
+#modalPage
+{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px; left: 0px;
+}
+.modalBackground
+{
+    filter: Alpha(Opacity=40); -moz-opacity:0.4; opacity: 0.4;
+    width: 100%; height: 100%; background-color: #999999;
+    position: absolute;
+    z-index: 500;
+    top: 0px; left: 0px;
+}
+.modalContainer
+{
+    position: absolute;
+    width: 760px;
+    left: 40%;
+    top: 40%;
+    z-index: 750;
+}
+.modal
+{
+
+    background-color: #ffffff;
+    border: solid 2px #0d457f; position: relative;
+    top: -150px;
+    left: -150px;
+    z-index: 1000;
+    width: 760px;
+    height: 440px;
+    *height: 340px;
+    padding: 0px;
+}
+.modalTop
+{
+    width: 760px; 
+    !width: 760px !important;
+    background-color: #0d457f;
+    padding: 2px;
+    color: #4E6CA3;
+    text-align: left;
+}
+.modalTop a, .modalTop a:visited
+{
+    color: #ccc;
+}
+.modalBody
+{
+    padding: 10px;
+    height: 650px;
+}
+
+
+
+.subHeader {
+	font-weight:bold;
+	font-family:verdana;
+	font-size:12px;
+	color:#710101;
+}
+
+.details {
+	font-weight:normal;
+	font-family:verdana;
+	font-size:12px;
+	color:#710101;
+}
+
+    </style>
+
+
+			<script type="text/javascript" charset="utf-8">
+			
+
+
+
+			
+	function revealModal(divID)
+{
+    window.onscroll = function () { document.getElementById(divID).style.top = document.body.scrollTop; };
+    document.getElementById(divID).style.display = "block";
+    document.getElementById(divID).style.top = document.body.scrollTop;
+    setTimeout("hideModal('" + divID + "')", 1000000);
+	setCursor(document.getElementById('ttoal1'),13,13) 
+}
+
+function hideModal(divID)
+{
+    document.getElementById(divID).style.display = "none";
+}
+function SwipeParserObj(strParse)
+{
+	// alert("Parsing function");
+
+	///////////////////////////////////////////////////////////////
+	///////////////////// member variables ////////////////////////
+	strParse = strParse.replace(/^\s*|\s*$/g,'');
+	// alert(strParse);
+	this.input_trackdata_str = strParse;
+	this.account_name = null;
+	this.surname = null;
+	this.firstname = null;
+	this.acccount = null;
+	this.exp_month = null;
+	this.exp_year = null;
+	this.track1 = null;
+	this.track2 = null;
+	this.hasTrack1 = false;
+	this.hasTrack2 = false;
+	/////////////////////////// end member fields /////////////////
+	
+	
+	sTrackData = this.input_trackdata_str;     //--- Get the track data
+
+  //-- Example: Track 1 & 2 Data
+  //-- %B1234123412341234^CardUser/John^030510100000019301000000877000000?;1234123412341234=0305101193010877?
+  //-- Key off of the presence of "^" and "="
+
+  //-- Example: Track 1 Data Only
+  //-- B1234123412341234^CardUser/John^030510100000019301000000877000000?
+  //-- Key off of the presence of "^" but not "="
+
+  //-- Example: Track 2 Data Only
+  //-- 1234123412341234=0305101193010877?
+  //-- Key off of the presence of "=" but not "^"
+
+  if ( strParse != '' )
+  {
+    // alert(strParse);
+
+    //--- Determine the presence of special characters
+    nHasTrack1 = strParse.indexOf("^");
+    nHasTrack2 = strParse.indexOf("=");
+
+    //--- Set boolean values based off of character presence
+    this.hasTrack1 = bHasTrack1 = false;
+    this.hasTrack2 = bHasTrack2 = false;
+    if (nHasTrack1 > 0) { this.hasTrack1 = bHasTrack1 = true; }
+    if (nHasTrack2 > 0) { this.hasTrack2 = bHasTrack2 = true; }
+
+    //--- Test messages
+    // alert('nHasTrack1: ' + nHasTrack1 + ' nHasTrack2: ' + nHasTrack2);
+    // alert('bHasTrack1: ' + bHasTrack1 + ' bHasTrack2: ' + bHasTrack2);    
+
+    //--- Initialize
+    bTrack1_2  = false;
+    bTrack1    = false;
+    bTrack2    = false;
+
+    //--- Determine tracks present
+    if (( bHasTrack1) && ( bHasTrack2)) { bTrack1_2 = true; }
+    if (( bHasTrack1) && (!bHasTrack2)) { bTrack1   = true; }
+    if ((!bHasTrack1) && ( bHasTrack2)) { bTrack2   = true; }
+
+    //--- Test messages
+    // alert('bTrack1_2: ' + bTrack1_2 + ' bTrack1: ' + bTrack1 + ' bTrack2: ' + bTrack2);
+
+    //--- Initialize alert message on error
+    bShowAlert = false;
+    
+    //-----------------------------------------------------------------------------    
+    //--- Track 1 & 2 cards
+    //--- Ex: B1234123412341234^CardUser/John^030510100000019301000000877000000?;1234123412341234=0305101193010877?
+    //-----------------------------------------------------------------------------    
+    if (bTrack1_2)
+    { 
+//      alert('Track 1 & 2 swipe');
+
+      strCutUpSwipe = '' + strParse + ' ';
+      arrayStrSwipe = new Array(4);
+      arrayStrSwipe = strCutUpSwipe.split("^");
+  
+      var sAccountNumber, sName, sShipToName, sMonth, sYear;
+  
+      if ( arrayStrSwipe.length > 2 )
+      {
+        this.account = stripAlpha( arrayStrSwipe[0].substring(1,arrayStrSwipe[0].length) );
+        this.account_name          = arrayStrSwipe[1];
+        this.exp_month         = arrayStrSwipe[2].substring(2,4);
+        this.exp_year          = '20' + arrayStrSwipe[2].substring(0,2); 
+	//	alert(this.exp_year);
+		document.getElementById('expmon').value= this.exp_month ;
+		document.getElementById('expyear').value= this.exp_year;
+		document.getElementById('cvv').value= document.getElementById('cvvnum').value;
+        
+        //--- Different card swipe readers include or exclude the % in the front of the track data - when it's there, there are
+        //---   problems with parsing on the part of credit cards processor - so strip it off
+        if ( sTrackData.substring(0,1) == '%' ) {
+        	sTrackData = sTrackData.substring(1,sTrackData.length);
+        }
+
+       	var track2sentinel = sTrackData.indexOf(";");
+       	if( track2sentinel != -1 ){
+       		this.track1 = sTrackData.substring(0, track2sentinel);
+       		this.track2 = sTrackData.substring(track2sentinel);
+       	}
+
+		//--- parse name field into first/last names
+		var nameDelim = this.account_name.indexOf("/");
+		if( nameDelim != -1 ){
+			this.surname = this.account_name.substring(0, nameDelim);
+			this.firstname = this.account_name.substring(nameDelim+1);
+			document.getElementById('cname').value= this.surname +" "+ this.firstname ;
+			
+			document.getElementById('ccnum').value= this.account;
+		}
+      }
+      else  //--- for "if ( arrayStrSwipe.length > 2 )"
+      { 
+        bShowAlert = true;  //--- Error -- show alert message
+      }
+    }
+    
+    //-----------------------------------------------------------------------------
+    //--- Track 1 only cards
+    //--- Ex: B1234123412341234^CardUser/John^030510100000019301000000877000000?
+    //-----------------------------------------------------------------------------    
+    if (bTrack1)
+    {
+//      alert('Track 1 swipe');
+
+      strCutUpSwipe = '' + strParse + ' ';
+      arrayStrSwipe = new Array(4);
+      arrayStrSwipe = strCutUpSwipe.split("^");
+  
+      var sAccountNumber, sName, sShipToName, sMonth, sYear;
+  
+      if ( arrayStrSwipe.length > 2 )
+      {
+        this.account = sAccountNumber = stripAlpha( arrayStrSwipe[0].substring( 1,arrayStrSwipe[0].length) );
+        this.account_name = sName	= arrayStrSwipe[1];
+        this.exp_month = sMonth	= arrayStrSwipe[2].substring(2,4);
+        this.exp_year = sYear	= '20' + arrayStrSwipe[2].substring(0,2); 
+  
+        
+        //--- Different card swipe readers include or exclude the % in
+        //--- the front of the track data - when it's there, there are
+        //---   problems with parsing on the part of credit cards processor - so strip it off
+        if ( sTrackData.substring(0,1) == '%' ) { 
+        	this.track1 = sTrackData = sTrackData.substring(1,sTrackData.length);
+        }
+  
+        //--- Add track 2 data to the string for processing reasons
+//        if (sTrackData.substring(sTrackData.length-1,1) != '?')  //--- Add a ? if not present
+//        { sTrackData = sTrackData + '?'; }
+		this.track2 = ';' + sAccountNumber + '=' + sYear.substring(2,4) + sMonth + '111111111111?';
+        sTrackData = sTrackData + this.track2;
+  
+		//--- parse name field into first/last names
+		var nameDelim = this.account_name.indexOf("/");
+		if( nameDelim != -1 ){
+			this.surname = this.account_name.substring(0, nameDelim);
+			this.firstname = this.account_name.substring(nameDelim+1);
+		}
+
+      }
+      else  //--- for "if ( arrayStrSwipe.length > 2 )"
+      { 
+        bShowAlert = true;  //--- Error -- show alert message
+      }
+    }
+    
+    //-----------------------------------------------------------------------------
+    //--- Track 2 only cards
+    //--- Ex: 1234123412341234=0305101193010877?
+    //-----------------------------------------------------------------------------    
+    if (bTrack2)
+    {
+//      alert('Track 2 swipe');
+    
+      nSeperator  = strParse.indexOf("=");
+      sCardNumber = strParse.substring(1,nSeperator);
+      sYear       = strParse.substr(nSeperator+1,2);
+      sMonth      = strParse.substr(nSeperator+3,2);
+
+      // alert(sCardNumber + ' -- ' + sMonth + '/' + sYear);
+
+      this.account = sAccountNumber = stripAlpha(sCardNumber);
+      this.exp_month = sMonth		= sMonth;
+      this.exp_year = sYear			= '20' + sYear; 
+        
+      //--- Different card swipe readers include or exclude the % in the front of the track data - when it's there, 
+      //---  there are problems with parsing on the part of credit cards processor - so strip it off
+      if ( sTrackData.substring(0,1) == '%' ) {
+		sTrackData = sTrackData.substring(1,sTrackData.length);
+      }
+  
+    }
+    
+    //-----------------------------------------------------------------------------
+    //--- No Track Match
+    //-----------------------------------------------------------------------------    
+    if (((!bTrack1_2) && (!bTrack1) && (!bTrack2)) || (bShowAlert))
+    {
+      //alert('Difficulty Reading Card Information.\n\nPlease Swipe Card Again.');
+    }
+
+//    alert('Track Data: ' + document.formFinal.trackdata.value);
+    
+    //document.formFinal.trackdata.value = replaceChars(document.formFinal.trackdata.value,';','');
+    //document.formFinal.trackdata.value = replaceChars(document.formFinal.trackdata.value,'?','');
+
+//    alert('Track Data: ' + document.formFinal.trackdata.value);
+
+  } //--- end "if ( strParse != '' )"
+
+
+	this.dump = function(){
+
+		var s = "";
+		var sep = "\r"; // line separator
+		s += "Name: " + this.account_name + sep;
+		s += "Surname: " + this.surname + sep;
+		s += "first name: " + this.firstname + sep;
+		s += "account: " + this.account + sep;
+		s += "exp_month: " + this.exp_month + sep;
+		s += "exp_year: " + this.exp_year + sep;
+		s += "has track1: " + this.hasTrack1 + sep;
+		s += "has track2: " + this.hasTrack2 + sep;
+		s += "TRACK 1: " + this.track1 + sep;
+		s += "TRACK 2: " + this.track2 + sep;
+		s += "Raw Input Str: " + this.input_trackdata_str + sep;
+		
+		return s;
+	}
+
+	function stripAlpha(sInput){
+		if( sInput == null )	return '';
+		return sInput.replace(/[^0-9]/g, '');
+	}
+
+}
+			
+			
+			 SubTotal=0;
+		Total = 0;
+		function printdiv(printpage)
+{
+
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = headstr+newstr+footstr;
+window.print(); 
+document.body.innerHTML = oldstr;
+return false;
+}
+
+		function toggle() {
+	var ele = document.getElementById("toggleText");
+	var text = document.getElementById("displayText");
+	if(ele.style.display == "block") {
+    		ele.style.display = "none";
+
+  	}
+	else {
+
+ele.style.display = "block";
+	}
+} 
+			
+	$(function(){
+		//Tabs
+		$("#tabs").tabs();
+		$("#navi").tabs();
+		//ACCORDIAN
+	
+		
+		// Datepicker
+				$('#datepicker, #RecoDate, #RecoExpire, #LicExpDate').datepicker({
+					inline: true
+				});
+		
+		//hover states on the static widgets
+				
+
+		});
+		
+	//DataTable Initialization
+	    var oTable;
+		var oS;
+		
+	
+
+			$(document).ready(function() {
+				oTable = $('#cartTable').dataTable( {
+					"bStateSave": true,
+					"bLengthChange": false,
+		"bFilter": false,
+		"bInfo": false,
+		"bSort": false
+				} );
+				oS = oTable.fnSettings();
+			//	console.dir( oS.aoColumns );
+			} );
+			
+			function fnClickAddRow() {
+			
+	    /*    oTable.fnAddData( [
+		               $("#Item_ID").val(),
+					$("#Item_Type").val(),
+					$("#Item_Name").val(),
+					$("#Item_Quality").val(),
+					$("#Item_Quantity").val(),
+					$("#Item_Disc").val(),
+					"$"+$("#Item_Price").val()
+		                 ] ); */
+						 temp=0
+						temp = $("#Item_Price").val()
+						temp1 =0 
+						temp2 =0 
+						temp1 = (($("#Item_Disc").val())/100)
+						alert(temp1)
+						temp2 = temp1 * temp
+					SubTotal = (SubTotal*1+temp*1 - temp2*1)*1
+					Totalamt = SubTotal*1 + (SubTotal*.15)
+						$('#POS_SubTotal').val(SubTotal);
+	                    $('#POS_Total').val(Totalamt);
+                            }
+                           // $('#POS_SubTotal').val(SubTotal);
+        			
+		</script>
+		
+
+    <style type="text/css">
+        /*demo page css*/
+			body{ font: 62.5% "Trebuchet MS", sans-serif; margin:10 20 0 10;}
+			.demoHeaders { margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <% form_tag  do %>
+<!---Tabs Start-->
+
+
+<p style="color: green"><%= flash[:finished] %>
+
+<%if @cust != nil%>
+<input type="hidden" name="MyHiddenField" value=@cust.id />
+Customer: <%=@cust.lastname%>, <%=@cust.firstname%><br>
+DOB: <%=@cust.dob%><br>
+DLN: <%=@cust.dln%><br>
+<%end%>
+
+</p>
+		<div id="tabs">
+			<ul>
+				
+				<li><a href="#tabs-4">Point Of Sale</a></li>
+				<li><a href="#tabs-2">Payment</a></li>
+				<li><a href="#tabs-5">Receipt</a></li>
+			</ul>
+					
+			<!------End of Tab1-Seach--->
+			      
+			<div id="tabs-5">
+			<div id="printdiv">
+			<br><br><font size="4em"><b>Store Name goes here</b></font>
+
+			<br><br><font size="3em">Listed below are the individual charges that have been applied for this order to date.</font><br><br>
+			<br><b><font size="3em">Order #</b><%= text_field_tag :orderdate, params[:orderdate] %></font> <br>
+			<div class="Billing">
+			                <table  width=""100%" cellpadding="3x" cellspacing="0px">
+							<font size="3em">Payment Information</font>
+    		                <tr>
+    		                    <td>Sub Total
+    		                    </td>
+    		                    <td><%= text_field_tag :stotal, params[:stotal] %>
+    		                    </td>    		        
+    		                </tr>
+    		                  <tr>
+    		                    <td>Tax
+    		                    </td>
+    		                    <td><label id="POS_Tax" >15%</label>
+    		                    </td>
+    		                </tr>
+    		                
+    		                  <tr >
+    		                    <td rowspan="2" cellpadding="0" style="font-size:medium;">Total
+    		                    </td>
+    		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, params[:ttoal] %>
+    		                    </td>
+    		                </tr>
+    		                <tr >
+    		                    <td colspan="2" rowspan="2" cellpadding="0" style="font-size:medium;">
+    		                    </td>
+    		                   
+    		                </tr>
+		        
+		                    </table>
+			</div>
+	
+			<table id="cartTable" class="display" >
+			<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+			</tr>
+			<thead>
+			    <tr>       
+			        <th>OrderProduct Type </font>
+			        </th>
+			        
+			        <th>OrderItem Quality </font></th>
+			        			        
+			        <th>OrderQuantity </font>
+			            </th>
+						 <th>OrderPrice </font>
+			            </th>
+			         <th>OrderDiscount </font>
+			            </th>			            
+					
+			            
+			        			        
+			    </tr>
+			    </thead>
+				<% @subjects.each do |d| %>
+
+ <tbody>
+			        <tr>
+			              	<% form_tag  do %>	               
+			                <td><%= d.ptype %></td>
+			                <td><%=  d.quality %></td>
+			                <td><%=  d.quantity%></td>
+			                <td><%=  d.price  %></td>
+			                <td><%=  d.discount %></td>	
+							 <% end %>
+							</td>
+			        </tr>
+			    </tbody>
+<% end %>
+ 
+			    <tbody>
+			        <tr>
+			                <td>&nbsp;</td>			               
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp</td>
+			                <td>&nbsp</td>
+			        </tr>
+			    </tbody>
+			    <tfoot>
+			    <tr>
+			        <td>&nbsp;</td>
+			         <td>&nbsp;</td>
+			         <td>&nbsp;</td>
+			          <td>&nbsp;</td>
+			           <td>&nbsp</td>
+		            <td>
+		            &nbsp;
+		                    
+		            </td>
+			             
+			        
+			    </tr>
+				<tr>
+											<td align="left">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+										</tr>
+			    </tfoot>
+			    			
+			</table>
+			</div>
+			<input name="b_print" type="button" class="ipt" size="10"   onClick="printdiv('printdiv');" value=" Print Receipt">
+			</div>
+			<div id="tabs-4">
+			
+
+			<br />
+			<fieldset>
+			
+			<legend><strong>Cart</strong></legend>
+			<form id="CartForm" action="#">
+			
+			
+			<table cellspacing="5px" cellpadding="5px">
+			<tr>
+							
+			
+			
+			<td>Item Type
+					</td>
+					
+			<td >
+ <select name="ptype">
+    <%= options_from_collection_for_select @prods, 'id','prod_name',3 %>
+  
+			
+			</select>			
+			
+			</td>
+
+			
+			<td>Quality
+			</td>
+			
+			<td>
+			<%= select_tag "quality", options_for_select([ "A", "B", "C"],"A")  %>
+			
+			</td>
+			
+			<td>Quantity</td>
+
+			<td>
+			<%= select_tag "quantity", options_for_select([ "1", "2", "3", "4"],"1")  %>
+			</td>
+			
+			<td>
+			
+			<%= submit_tag "Add to Cart" %>
+			</td>
+			</tr>
+			</table>
+			<table id="cartTable" class="display" >
+			<thead>
+			    <tr>       
+			        <th>Product Type
+			        </th>
+			        
+			        <th>Item Quality</th>
+			        			        
+			        <th>Quantity
+			            </th>
+						 <th>Price
+			            </th>
+			         <th>Discount
+			            </th>			            
+						<th>Action
+			            </th>
+			            
+			        			        
+			    </tr>
+			    </thead>
+				<% @subjects.each do |c| %>
+
+ <tbody>
+			        <tr>
+			              	<% form_tag  do %>	               
+			                <td><%= c.ptype %></td>
+			                <td><%=  c.quality %></td>
+			                <td><%=  c.quantity%></td>
+			                <td><%=  c.price  %></td>
+			                <td><%=  c.discount %></td>
+							<td> <%= submit_tag "delete", :confirm => 'Are you sure you want to delete the item?',:disable_with => "Deleting...", %>	
+							<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
+							</td>
+			        </tr>
+			    </tbody>
+<% end %>
+ 
+			    <tbody>
+			        <tr>
+			                <td>&nbsp;</td>			               
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp;</td>
+			                <td>&nbsp</td>
+			                <td>&nbsp</td>
+			        </tr>
+			    </tbody>
+			    <tfoot>
+			    <tr>
+			        <td>&nbsp;</td>
+			         <td>&nbsp;</td>
+			         <td>&nbsp;</td>
+			          <td>&nbsp;</td>
+			           <td>&nbsp</td>
+		            <td>
+		            &nbsp;
+		                    
+		            </td>
+			             
+			        
+			    </tr>
+			    </tfoot>
+			    			
+			</table>
+		
+			<div class="Billing">
+			                <table  width=""100%" cellpadding="3x" cellspacing="0px">
+    		                <tr>
+    		                    <td>Sub Total
+    		                    </td>
+    		                    <td><%= text_field_tag :stotal, params[:stotal] %>
+    		                    </td>    		        
+    		                </tr>
+    		                  <tr>
+    		                    <td>Tax
+    		                    </td>
+    		                    <td><label id="POS_Tax" >15%</label>
+    		                    </td>
+    		                </tr>
+    		                
+    		                  <tr >
+    		                    <td rowspan="2" cellpadding="0" style="font-size:medium;">Total
+    		                    </td>
+    		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, params[:ttoal] %>
+    		                    </td>
+    		                </tr>
+    		                <tr >
+    		                    <td colspan="2" rowspan="2" cellpadding="0" style="font-size:medium;">
+    		                    </td>
+    		                   
+    		                </tr>
+		        
+		                    </table>
+			</div>
+			</fieldset>
+			</div>
+			
+			<div id="tabs-2">
+<div align="center">
+<!-- <input name="b_print" type="button" class="ipt"   onClick="printdiv('tabs-2');" value=" Print "> -->
+
+<table borderColor="#006400" cellSpacing="0" cellPadding="4" width="30%" summary="This table is for layout"	border="1" style="border-bottom: 0px;">
+<tr>
+											<td class="mainTextBold" ><font color="white">Total Fees:</font></td>
+											<td align="left">
+<%= text_field_tag :ttoal, params[:ttoal]%>
+
+</td>
+										</tr>
+																			<tr>
+										<td class="mainTextBold" style="WIDTH:196px">
+									<font color="white" >Payment Type</font>
+										</td>
+										<td align="left">
+										<%= select_tag "paymenttype", options_for_select([ "Cash", "Credit Card"],"Credit Card" ),:onchange => "javascript:toggle();"%>
+										</td>
+										</tr>
+									
+										</table>
+	<div id="toggleText" style="display: block">
+<table borderColor="#006400" cellSpacing="0" cellPadding="4" width="30%" summary="This table is for layout"	border="1" style="border-top: 0px;">
+										<tr>
+											<td class="mainTextBold"><font color="white">*Credit Card Type:</font></td>
+											<td align="left">
+											<select id="ddlCCType" tabIndex="201" >
+													<option Value="-1">Select One</option>
+													<option Value="D">American Express</option>
+													<option Value="D">DISCOVER</option>
+													<option Value="M">MASTER CARD</option>
+													<option Value="V">VISA</option>
+												</select></td>
+										</tr>
+		
+									<tr>
+											<td class="mainTextBold" style="WIDTH: 196px"><font color="white">*Name:</td>
+											<td align="left"><%= text_field_tag :cname, params[:cname]%>&nbsp;&nbsp;<a href="#" onClick="javascript:revealModal('modalPage');" class="menuItem"><img border=0 height="15" width="15" src=" http://icons.iconarchive.com/icons/dryicons/simplistica/48/add-icon.png"></a></td>
+									
+										</tr>
+		<tr>
+											<td class="mainTextBold" style="WIDTH:196px"><font color="white">*Credit Card Number:</font></td>
+											<td align="left"><%= text_field_tag :ccnum, params[:ccnum]%></td>
+	
+		 </tr>
+										<tr>
+											<td class="mainTextBold" ><font color="white">*CVV:</font></td>
+											<td align="left"><%= text_field_tag :cvv, params[:cvv]%></td>
+										</tr>
+										<tr>
+											<td class="mainTextBold" ><font color="white">*Expiration Date:</font></td>
+											
+		<td align="left"><%= text_field_tag :expmon, params[:expmon]%><%= text_field_tag :expyear, params[:expyear]%>
+		
+		</td>
+										</tr>
+										
+										</div>
+									</table>
+									
+                </div>
+
+			</div>
+			
+			 <br><br><div align="center"><%= submit_tag "Submit",  :confirm => 'This will complete the sale. Are you sure?' %> </div></div>
+		    						
+			<div id="modalPage">   
+<div class="modalBackground">     
+</div>
+<div class="modalContainer">         
+<div class="modal">             
+<div class="modalTop">
+	<b><font color="white">
+		Add&nbsp;Physician&nbsp;Information
+	</font></b> 			
+	<a href="javascript:hideModal('modalPage')" style="padding-left:440px;">[X]<br><br></a></div> 		
+	<div class="modalBody"> <FONT face="Arial" size="3" color="#C94835">		
+	<p align="justify">			
+	<FONT face="Arial" size="2" color="black">	
+ 	<textarea id="ttoal1" rows="2" cols="50" ></textarea><br><br>
+	CVV: <input type="text" id="cvvnum" name="cvvnum" /><br><br><br>
+	<input type="button" value="Submit" onClick="SwipeParserObj(document.getElementById('ttoal1').value)" />
+	</p>            
+	</div>         
+	</div>     
+	</div> 
+	</div> 
+		<% end %>
+	</form>
+</body>
+</html
+
+

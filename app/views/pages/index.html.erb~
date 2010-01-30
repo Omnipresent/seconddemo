@@ -1,0 +1,16 @@
+		<%= stylesheet_link_tag 'custom'%>
+<br>
+<br>
+<br>
+<br>
+<center>
+<h1><font face="Georgia" size="16pt">pharmakia POS</font></h1>
+<p>
+  <%if loggedIn.length > %>
+	 <br><%= loggedIn %>
+  <%end%>
+  <br><br>
+  
+  <%= link_to "Start Demo!", '/admin/login', :class => "signup_button round" %>
+</p>
+</center>

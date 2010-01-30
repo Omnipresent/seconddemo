@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  prod_name: 
+  prod_orig_price: 9.99
+  prod_dis_per: 1
+  prod_dis_price: 9.99
+  prod_promo: MyString
+
+two:
+  prod_name: 
+  prod_orig_price: 9.99
+  prod_dis_per: 1
+  prod_dis_price: 9.99
+  prod_promo: MyString

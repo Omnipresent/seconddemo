@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  payid: 1
+  taxtypeid: 1
+  taxamnt: 1
+
+two:
+  payid: 1
+  taxtypeid: 1
+  taxamnt: 1

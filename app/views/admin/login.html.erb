@@ -1,0 +1,28 @@
+		<%= stylesheet_link_tag 'custom'%>
+<br>
+<br>
+<br>
+<br>
+<%= link_to "#{image_tag("Rx.gif", :width=>370, :class=>"float-left")}", {} %>  
+<div class="depot-form">
+<br><br>
+  <fieldset style="width: 40%; margin-top: 50px;">
+    <legend><b>Please Log In</b></legend>
+			<p style="color: green"><%= flash[:notice] %></p>
+    <% form_for :user do |f| %>
+    <%= f.error_messages %>
+      <p><label for="name">User ID:</label> 
+        <%= f.text_field :userid %>
+      </p>
+      <p><label for="password">Password:</label>
+        <%= f.password_field :password%>
+      </p>
+      <p style="padding-left:100px">
+        <%= submit_tag 'Login' %>
+      </p>
+    <% end %>
+
+  </fieldset>
+
+</div>
+

@@ -1,0 +1,2 @@
+class Userization < ActiveRecord::Base
+end

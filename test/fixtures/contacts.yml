@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  cid: MyString
+  hphone: MyString
+  mphone: MyString
+  provider: MyString
+  cemail: MyString
+  email: MyString
+  sms: MyString
+  mail: MyString
+  group: MyString
+
+two:
+  cid: MyString
+  hphone: MyString
+  mphone: MyString
+  provider: MyString
+  cemail: MyString
+  email: MyString
+  sms: MyString
+  mail: MyString
+  group: MyString

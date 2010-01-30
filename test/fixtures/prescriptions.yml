@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  recver: 2010-01-21
+  recexp: 2010-01-21
+  physver: MyString
+
+two:
+  recver: 2010-01-21
+  recexp: 2010-01-21
+  physver: MyString

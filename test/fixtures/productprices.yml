@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  prodid: 1
+  priceperunit: 1
+  unit: 1
+
+two:
+  prodid: 1
+  priceperunit: 1
+  unit: 1

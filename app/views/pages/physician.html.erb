@@ -1,0 +1,52 @@
+			<%= stylesheet_link_tag 'custom'%>
+				<div id="modalPage"> 
+    <div class="modalBackground"> 
+    </div> 
+    <div class="modalContainer"> 
+        <div class="modal"> 
+            
+		<div class="modalBody"> <FONT face="Arial" size="3" color="#C94835">
+		<p align="justify">	
+		<FONT face="Arial" size="2" color="black">
+<center>
+		<div class="depot-form">
+	<fieldset style="width: 70%"><legend><strong>Physician Information</strong></legend>
+        <table cellpadding="5px" cellspacing="5px">
+				            <tr>
+				            <td>
+				            Physician 
+				            </td>
+				            <td> 
+						<!--	<%= select_tag "recipro", options_for_select([ "Received", "Sent", "Go"],"Go")  %> -->
+                                 <%= text_field_tag :pname1, params[:pname1] %>
+			            </td>
+				            <td>Degree</td><!-- sample checkbox<%=check_box_tag("chkbox", value = "1", checked = false, options = {})  %> -->
+                             <td><%= text_field_tag :pdegree1, params[:pdegree1] %></td>  
+                             <td>Practice Group</td> 
+                             <td><%= text_field_tag :pgroup1, params[:pgroup1] %></td>
+				            </tr>
+		                <tr>
+		                    <td>License Number</td>
+		                    
+		                    <td><%= text_field_tag :plicnum1, params[:plicnum1] %></td>
+		                    
+		                    <td>License Expiration date</td>
+		                    
+		                    <td><%= text_field_tag :licexpdate1, params[:licexpdate1] %></td>
+		                    
+		                </tr>
+						<tr>
+						<td colspan="4">
+						<%= submit_tag "save" %>
+						</td>
+						</tr>
+				            </table>
+	
+</fieldset>
+</div>
+</center>
+		</p>
+            </div> 
+        </div> 
+    </div> 
+</div> 

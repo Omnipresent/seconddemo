@@ -1,0 +1,22 @@
+<!--test-->
+<div class="depot-form">
+  <fieldset>
+    <legend>Customer List</legend>
+<br><p style="color: green"><%= flash[:notice] %></p>
+    <% form_tag do %>
+     <ul id="subject_list">
+<% @subjects.each do |c| %>
+<li>userid: <%= link_to c.firstname, :action => 'show', :id => c.id %>&nbsp;&nbsp;and password:<%= link_to c.lastname, :action => 'show', :id => c.id %>&nbsp;&nbsp;&nbsp;<a href="/pages/customer?userid=<%=c.id %>">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to c.dln, :action => 'show', :id => c.id %> &nbsp;&nbsp;&nbsp;&nbsp;
+
+<%= link_to c.line1, :action => 'show', :id => c.id %>
+</li>
+<% end %>
+</ul>
+<p>
+<a href="/pages/customer">link to Add Customers</a>
+</p>
+    <% end %>
+  </fieldset>
+</div>
+
+

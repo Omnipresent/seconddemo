@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  prodid: 1
+  discount: 1
+  discountfrom: 2010-01-27
+  discountto: 2010-01-27
+
+two:
+  prodid: 1
+  discount: 1
+  discountfrom: 2010-01-27
+  discountto: 2010-01-27

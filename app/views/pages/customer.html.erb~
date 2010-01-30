@@ -1,0 +1,341 @@
+		<%= stylesheet_link_tag 'custom'%>
+
+<script src="http://jquery.bassistance.de/validate/jquery.validate.js" type="text/javascript"></script>
+		<%= javascript_include_tag 'jquery-1.3.2.min.js' %>
+	<script type="text/javascript">
+	function revealModal(divID)
+{
+    window.onscroll = function () { document.getElementById(divID).style.top = document.body.scrollTop; };
+    document.getElementById(divID).style.display = "block";
+    document.getElementById(divID).style.top = document.body.scrollTop;
+    setTimeout("hideModal('" + divID + "')", 1000000);
+}
+
+function hideModal(divID)
+{
+    document.getElementById(divID).style.display = "none";
+}
+
+$.validator.setDefaults({
+	submitHandler: function() { alert("submitted!"); }
+});
+
+$().ready(function() {
+	// validate the comment form when it is submitted
+	$("#customerForm").validate();
+});
+
+		
+		</script>
+
+
+<p style="color: green"><%= flash[:customerpage] %></p>
+<% form_for :url => '/pages/customer', :html => { :class => "new_post", :id => "new_post" } do %>
+    <center>
+<div class="depot-form">
+	<fieldset style="width: 70%">		
+    <legend><strong>Personal Information</strong></legend>
+       
+				
+				<!------Begin Patient Personal Information--->
+				<table width="100%" cellpadding="5px" border="0">
+				
+		            <tr>
+					
+						
+		            
+		                    <td align="right">First&nbsp;Name:
+				            </td>
+				            
+				            <td align="left"><%= text_field_tag :firstname, params[:firstname] %></td>
+				            
+				            <td align="right">Last&nbsp;Name:
+				            </td>
+				            
+				            <td align="left"><%= text_field_tag :lastname, params[:lastname] %> </td>
+							<td align="right">Suffix:</td>
+				             <td align="left">
+							<%= select_tag "suffix", options_for_select([ "Jr", "I", "II", "III", "IV"],"Jr")  %>
+						</td> 
+				            		<div id="tabs-2">
+				            <td align="right">DOB:</td>
+				            
+                            <td align="left"><%= text_field_tag :dob, params[:dob] %> </td>
+                            </div>
+				            <td align="right">Gender:</td>
+				             <td align="left">
+							<%= select_tag "sex", options_for_select([ "Male", "Female"],"Male")  %>
+						</td> 
+                            
+				            
+		            </tr>
+		            <tr>
+				            <td align="right">Referral&nbsp;Source:</td>
+				            
+				            <td style="width:123px" align="left">
+							<%= select_tag "referral", options_for_select([ "Walk-In", "Friend", "Newspaper", "Magazine", "Newspaper", "Web", "Other", "WeedTracker.com", "Twitter", "RADIO", "DOCTOR'S OFFICE", "Google"],"Google")  %>
+                                 </td>
+                                 
+                                 
+                                 <td align="right">Referred&nbsp;By:                 
+                                 </td>
+                                 
+                                 <td align="left"><%= text_field_tag :reffredby, params[:reffredby] %>
+                                 </td>
+                                 
+                                 <td align="right">Notes:
+                                 </td>
+                                 
+                                 <td colspan="1" align="left"><%= text_field_tag :notes, params[:notes] %>
+				            <td align="right">DLN:</td>
+				            
+				            <td  align="left"><%= text_field_tag :dln, params[:dln] %></td>
+                                 
+		            </tr>
+					  <tr>
+				            <td align="right">DLN&nbsp;State:</td>
+				            
+				            <td style="width:123px" align="left">
+							<%= text_field_tag :dlnstate, params[:dlnstate] %>
+                                 </td>
+                                   <td align="right">DLN&nbsp;Expiration:
+                                 </td>
+                                 
+                                 <td colspan="1" align="left">
+                                 	<%= text_field_tag :dlnexp, params[:dlnexp] %>
+				            <td>&nbsp;</td>
+                                 
+                                 <td>&nbsp;                
+                                 </td>
+                                 
+                                 <td>&nbsp;
+                                 </td>
+                                 
+                               
+				            
+				            <td  align="left">&nbsp;</td>
+                                 
+		            </tr>
+		            <tr>
+			            <td colspan="5">
+			            
+			                <fieldset ><legend ><strong >Address</strong></legend>
+			                 
+    				                <table cellpadding="1px" cellspacing="1px">
+    				                    <tr>
+    				                        <td align="right">Line&nbsp;1:</td>
+    				                        <td align="left"><%= text_field_tag :line1, params[:line1] %></td>
+    				                          <td align="right">County:</td>
+    				                        <td align="left"><%= text_field_tag :county, params[:county] %></td>
+    				                    </tr>
+				                        <tr>
+				                            <td align="right">Line&nbsp;2:</td>
+				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>
+											<td align="right">city:</td>
+    				                         <td align="left"><%= text_field_tag :city, params[:city] %></td>
+				                             
+				                        </tr>
+				                        
+    				                    <tr>
+    				                    	 <td align="right">State:</td>
+    				                         <td align="left"><%= text_field_tag :state, params[:state] %></td>
+    				                      <td align="right">Zipcode:</td>
+    				                         <td align="left"><%= text_field_tag :zip, params[:zip] %></td>
+    				                       
+				                        </tr>
+    				                     <tr>
+    				                         <td></td>
+    				                         <td></td>
+    				                         <td></td>
+    				                         <td></td>
+				                         </tr>
+                				       
+    				                </table>
+				                </fieldset>
+				            </td>
+			            <td colspan="5">
+		              <fieldset><legend><strong>Contact</strong></legend> 
+    				                <table cellpadding="1px" cellspacing="1px" border="0">
+    				                    <tr>
+    				                            <td align="right">Home&nbsp;Phone:</td>
+    				                            <td align="left"><%= text_field_tag :hphone, params[:hphone] %></td>
+    				                            <td align="right">Mobile:</td>
+				                                <td align="left"><%= text_field_tag :mphone, params[:mphone] %></td>
+                                        </tr>
+                                        
+    				                    <tr>
+    				                            <td align="right">Email:</td>
+    				                            <td align="left"><%= text_field_tag :cemail, params[:cemail] %></td>
+				                                <td align="right">Provider:</td>
+				                                <td  align="left">
+						<%= select_tag "provider", options_for_select([ "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],"Alltel")  %>
+                                                </td>
+
+			                            </tr>
+			                            
+    				                    <tr>
+    				                    </tr>
+    				                    
+    				                    <tr>
+    				                            <td align="right">Notification:</td>
+    				                                <td colspan="5" align="left">
+													 <%=check_box_tag 'email', 'yes' 'no'%> E-mail
+													<%=check_box_tag 'sms', 'yes'  'no'%> SMS
+													 <%=check_box_tag 'mail', 'yes'  'no'%> Mail
+                         </td>
+                                        </tr>
+    				                        
+	                    </table>
+		                </fieldset>
+		            </td>
+	            </tr>
+				<tr>
+				<td colspan="9">
+
+            			<fieldset>
+    <legend><strong>State/County&nbsp;Registration&nbsp;Information</strong></legend>
+        
+             <table>
+				            <tr>
+							<td align="right">County&nbsp;Number:</td>
+				            <td align="left"><%= text_field_tag :countyid, params[:countyid] %></td>
+				            <td align="right">State&nbsp;MMP:</td>
+				            <td align="left"><%= text_field_tag :statemmp, params[:statemmp] %></td>
+				            <td align="right">Recommendation:</td>
+				            <td align="left"><%= text_field_tag :recom, params[:recom] %></td>
+				            
+				            </tr>
+				            </table>
+		
+</fieldset>	
+						</td>
+						</tr>
+            				
+            </table>
+			
+						
+			
+									
+
+
+				
+		
+		
+</fieldset>
+			</div>
+			</center>
+ <br />
+ <center>
+</center>
+<br />
+<center>
+						<div class="depot-form">
+<fieldset style="width: 70%"><legend><strong>Prescription&nbsp;Information</strong></legend> 
+
+    
+
+				            <table cellpadding="3px" cellspacing="3px">
+							  <tr>
+				            <td align="right">
+				            Physician: 
+				            </td>
+				            <td align="left"> 
+							
+							 <select name="pname">
+						<%= options_from_collection_for_select @phys , 'id','pname' %> 
+						</select> &nbsp; &nbsp;<a href="#" onClick="javascript:revealModal('modalPage');" class="menuItem"><img border=0 height="15" width="15" src=" http://icons.iconarchive.com/icons/dryicons/simplistica/48/add-icon.png"></a>
+			            </td>
+				            <td></td>
+                             <td></td>  
+                             <td></td> 
+                             <td></td>
+				            </tr>
+				            <tr>
+				            <td align="right">Recomm.&nbsp;Verified:
+				            </td>
+				            <td align="left"><%= text_field_tag :recver, params[:recver] %></td>
+				            <td align="right">Recomm.&nbsp;Expires:</td>
+				            <td align="left"><%= text_field_tag :recexp, params[:recexp] %></td>
+				            <td align="right">Physician&nbsp;Verified:</td>
+				            <td align="left"><%= text_field_tag :physver, params[:physver] %></td>
+							</tr>
+							<tr>
+						<td colspan="6" align="center">	<br> <%= submit_tag "Add Customer Information" %>
+							</td>
+				            </tr>
+							
+
+				</table>
+		
+</fieldset>
+			</div>	
+				            
+				            
+<br><br>
+   
+  
+</div>
+
+</center>
+
+<div id="modalPage">   
+<div class="modalBackground">     
+</div>
+<div class="modalContainer">         
+<div class="modal">             
+<div class="modalTop">
+	<b><font color="white">
+		Add&nbsp;Physician&nbsp;Information
+	</font></b> 			
+	<a href="javascript:hideModal('modalPage')" style="padding-left:440px;">[X]<br><br></a></div> 		
+	<div class="modalBody"> <FONT face="Arial" size="3" color="#C94835">		
+	<p align="justify">			
+	<FONT face="Arial" size="2" color="black">	
+	<fieldset><legend><strong>Physician&nbsp;Information</strong></legend>        
+	<table cellpadding="5px" cellspacing="5px">				            
+	<tr>				          
+	<td>				            
+	Physician: 				            
+	</td>				            
+	<td> 						
+	<!--	<%= select_tag "recipro", options_for_select([ "Received", "Sent", "Go"],"Go")  %> -->                                 
+	<%= text_field_tag :pname1, params[:pname1] %>			            
+	</td>				            
+	<td>Degree:</td>
+	<!-- sample checkbox<%=check_box_tag("chkbox", value = "1", checked = false, options = {})  %> -->                             
+	<td><%= text_field_tag :pdegree1, params[:pdegree1] %></td>                               
+	<td>&nbsp;</td>                              
+	<td>&nbsp;</td>				            
+	</tr>		                <tr>		                    
+	<td>License&nbsp;Number:</td> 		                    
+	<td><%= text_field_tag :plicnum1, params[:plicnum1] %></td> 		                    
+	<td>License&nbsp;Expiration&nbsp;date:</td> 		                    
+	<td><%= text_field_tag :licexpdate1, params[:licexpdate1] %></td> 		                
+	</tr>		
+	<tr>						
+	<td>						
+	Practice&nbsp;Group:					
+	</td>		
+	<td colspan="3">
+	<%= text_field_tag :pgroup1, params[:pgroup1] %></td>
+	<tr><tr>						
+	<td colspan="4">						
+	<%= submit_tag "save" %> 					
+	</td>					
+	<tr>
+		<td colspan="4">
+			
+		</td>
+	</tr>	
+	</tr>				            
+	</table> 
+	</fieldset> 	
+	</p>            
+	</div>         
+	</div>     
+	</div> 
+	</div> 
+    <% end %>
+
+
+	

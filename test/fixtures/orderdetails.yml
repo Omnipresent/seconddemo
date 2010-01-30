@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  orderid: 1
+  prodid: 1
+  productpriceid: 1
+  proddiscountid: 1
+  prodsaleprice: 1
+  quantity: 1
+
+two:
+  orderid: 1
+  prodid: 1
+  productpriceid: 1
+  proddiscountid: 1
+  prodsaleprice: 1
+  quantity: 1

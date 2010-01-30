@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  customid: MyString
+  physid: MyString
+  prescid: MyString
+
+two:
+  customid: MyString
+  physid: MyString
+  prescid: MyString

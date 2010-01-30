@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  lastname: MyString
+  firstname: MyString
+  dob: 2010-01-21
+  dln: MyString
+  sex: MyString
+  referral: MyString
+  reffredby: MyString
+  notes: MyString
+  statemmp: MyString
+  recom: MyString
+  countyid: MyString
+
+two:
+  lastname: MyString
+  firstname: MyString
+  dob: 2010-01-21
+  dln: MyString
+  sex: MyString
+  referral: MyString
+  reffredby: MyString
+  notes: MyString
+  statemmp: MyString
+  recom: MyString
+  countyid: MyString

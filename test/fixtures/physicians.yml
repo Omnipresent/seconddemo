@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  pname: MyString
+  degree: MyString
+  pgroup: MyString
+  plicnum: MyString
+  licexpdate: 2010-01-21
+
+two:
+  pname: MyString
+  degree: MyString
+  pgroup: MyString
+  plicnum: MyString
+  licexpdate: 2010-01-21
