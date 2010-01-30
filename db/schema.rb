@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100128032029) do
+ActiveRecord::Schema.define(:version => 20100130162252) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(:version => 20100128032029) do
   create_table "customers", :force => true do |t|
     t.string   "lastname"
     t.string   "firstname"
-    t.date     "dob"
     t.string   "dln"
     t.string   "sex"
     t.string   "referral"
@@ -79,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20100128032029) do
     t.string   "dlnexpiry"
     t.integer  "userid"
     t.integer  "storeid"
+    t.string   "dob"
   end
 
   create_table "custphyslinks", :force => true do |t|
@@ -206,15 +206,5 @@ ActiveRecord::Schema.define(:version => 20100128032029) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "z1schema_migrations", :id => false, :force => true do |t|
-    t.string "version", :null => false
-  end
-
-  create_table "zschema_migrations", :id => false, :force => true do |t|
-    t.string "version", :null => false
-  end
-
-  add_index "zschema_migrations", ["version"], :name => "unique_schema_migrations", :unique => true
 
 end
