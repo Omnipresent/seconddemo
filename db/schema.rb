@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100130162252) do
+ActiveRecord::Schema.define(:version => 20100130163114) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -140,30 +140,30 @@ ActiveRecord::Schema.define(:version => 20100130162252) do
     t.string   "degree"
     t.string   "pgroup"
     t.string   "plicnum"
-    t.date     "licexpdate"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "userid"
     t.integer  "storeid"
+    t.string   "licexpdate"
   end
 
   create_table "prescriptions", :force => true do |t|
-    t.date     "recver"
-    t.date     "recexp"
     t.string   "physver"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "userid"
     t.integer  "storeid"
+    t.string   "recver"
+    t.string   "recexp"
   end
 
   create_table "proddiscounts", :force => true do |t|
     t.integer  "prodid"
     t.integer  "discount"
-    t.date     "discountfrom"
-    t.date     "discountto"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "discountfrom"
+    t.string   "discountto"
   end
 
   create_table "productprices", :force => true do |t|
