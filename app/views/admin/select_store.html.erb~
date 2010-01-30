@@ -3,16 +3,27 @@
 <br>
 <br>
 <br>
-<%= link_to "#{image_tag("Rx.gif", :width=>370, :class=>"float-left")}", {} %>  
+<center>
 <div class="depot-form">
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
   <fieldset style="width: 50%">
     <legend><b>Select Store</b></legend>
-			<p style="color: green">You belong to multiple stores. Please select one to continue</p>
+    
+    <table border="1" cellspacing="0" cellpadding="0">
+
+    	<tr>
+	    	<td><%= link_to "#{image_tag("login.png", :width=>90, :class=>"float-left")}", {} %> </td>
+	    	<td>
+	    				<p style="color: green">You belong to multiple stores. Please select one to continue</p>
 			<%form_tag do%>
 			<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
 			<p><%= submit_tag 'Submit'%></p>
 			<%end%>
+
+	    	</td>
+    	</tr>
+    	
+    </table>
   </fieldset>
 </div>
-
+</center>
