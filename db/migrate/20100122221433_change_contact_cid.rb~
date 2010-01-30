@@ -1,6 +1,6 @@
 class ChangeContactCid < ActiveRecord::Migration
   def self.up
-  	remove_column :contacts, :cid, :integer
+  	remove_column :contacts, :cid, :string
   	add_column :contacts, :cid, :integer
   end
 
