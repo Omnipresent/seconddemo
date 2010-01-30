@@ -473,7 +473,7 @@ DLN: <%=@cust.dln%><br>
 			      
 			<div id="tabs-5">
 			<div id="printdiv">
-			<br><br><font size="4em"><b>Store Name goes here</b></font>
+			<br><br><font size="4em"><b><%=session[:store_name]%></b></font>
 
 			<br><br><font size="3em">Listed below are the individual charges that have been applied for this order to date.</font><br><br>
 			<br><b><font size="3em">Order #</b><%= text_field_tag :orderdate, params[:orderdate] %></font> <br>
