@@ -222,7 +222,9 @@ def sales
 				session[:ordersid] = nil
 			end
 			sql.begin_db_transaction
-				@sqladdpayment = "INSERT INTO payments (orderid, ttlprodcost, paytype, paystatus,created_at,updated_at,userid,storeid) VALUES ('" + session[:ordersid]+ "', '" + params[:ttoal] + "', '"  + params[:paymenttype]+ "', '"  + "complete" +"',current_date, current_date, '"+session[:user_id]+"','"+session[:store_id]+"')"
+				@sqladdpayment = "INSERT INTO payments (orderid, ttlprodcost, paytype, paystatus,created_at,updated_at,userid,storeid) VALUES ('" + "1"+ "', '" + "100" + "', '"  + 
+				"1"+ "', '"  + "complete" +"',current_date, current_date, '"+"1"+"','"+
+				session[:store_id]+"')"
 				@paymentid= sql.insert(@sqladdpayment)
 				session[:payid] = @paymentid
 			sql.commit_db_transaction
@@ -241,7 +243,7 @@ def sales
 			sql.commit_db_transaction
 			end
 			sql.begin_db_transaction
-				@sqladdpayment = "INSERT INTO payments (custid,created_at,updated_at,userid,storeid) VALUES ('" + session[:customerid] +"',current_date, current_date, '"+session[:user_id]+"','"+session[:store_id]+"')"
+				@sqladdpayment = "INSERT INTO payments (custid,created_at,updated_at,userid,storeid) VALUES ('" + session[:customerid] +"',current_date, current_date, '"+"1"+"','"+"1"+"')"
 				@paymentid= sql.insert(@sqladdpayment)
 				session[:payid] = @paymentid
 			sql.commit_db_transaction
@@ -331,7 +333,7 @@ if params[:commit] == "delete"
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
 		sql.commit_db_transaction
-		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ "6"  + "', '"+ "-25" + "', '"+ "1" +"',current_date, current_date, 'p','"+@id3+"','"+session[:user_id]+"','"+session[:store_id]+"')"
+		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ "6"  + "', '"+ "-25" + "', '"+ "1" +"',current_date, current_date, 'p','"+@id3+"','"+"1"+"','"+"1"+"')"
 		sql.begin_db_transaction
 		@orderdetailsid= sql.insert(@sqladdorderdetails)
 		sql.commit_db_transaction
