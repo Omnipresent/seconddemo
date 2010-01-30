@@ -1,22 +1,11 @@
 		<%= stylesheet_link_tag 'custom'%>
-		<style type="text/css" media="screen">
-		/* <![CDATA[ */
-		.float-left {
-		  float: left;
-		  padding: 0 55px 5px 5px;
-		}
-
-			
-		/* ]]> */
-		</style>
-		
 <br>
 <br>
 <br>
 <br>
 <%= link_to "#{image_tag("Rx.gif", :width=>370, :class=>"float-left")}", {} %>  
 <div class="depot-form">
-<br><br>
+<br><br><br><br><br><br><br><br>
   <fieldset style="width: 50%">
     <legend><b>Select Store</b></legend>
 			<p style="color: green">You belong to multiple stores. Please select one to continue</p>

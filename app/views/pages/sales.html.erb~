@@ -597,7 +597,7 @@ DLN: <%=@cust.dln%><br>
 					
 			<td >
  <select name="ptype">
-    <%= options_from_collection_for_select @prods, 'id','prodname',3 %>
+    <%= options_from_collection_for_select @prods, 'id','prod_name',3 %>
   
 			
 			</select>			

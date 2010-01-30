@@ -35,7 +35,7 @@ background-color:#7FB545;
 
 		<div class="depot-form">
 	<fieldset style="width: 50%"><legend><strong>Product Information</strong></legend>
-			<% form_for :product, @products do |p| %>
+			<% form_for :product, @products, :url => { :action => "product" } do |p| %>
         <table cellpadding="5px" cellspacing="5px">
 	        <%= p.error_messages %>
 				            <tr>
@@ -48,7 +48,7 @@ background-color:#7FB545;
 				            </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Discount'%></td>
-		                    <td><%=p.text_field :prod_dis_per%></td>
+		                    <td><%=p.text_field :prod_dis_price%></td>
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Promo Code'%></td>
@@ -56,39 +56,14 @@ background-color:#7FB545;
 		                </tr>
 						<tr align="center">
 						<td colspan="4">
-						<%= submit_tag "Add Product" %>
+						<%= submit_tag "Edit Product", :action => "product" %>
 						</td>
 						</tr>
 				            </table>
 				            <%end%>
 	
 </fieldset>
-		<p style="color: green"><%= flash[:product] %></p>
+		
 </div>
 </center>
-		</p>
-            </div> 
-        </div> 
-    </div> 
-    <% 
-    if @prods != nil%>
-<table border="2" cellspacing="20" cellpadding="" id="customers" align="center">
-	<tr>
-		<th>Product Name</th>
-		<th>Product Price</th>
-		<th>Product Discount</th>
-		<th>Product Promocode</th>
-		<th>Edit Product</th>
-	</tr>	
-	<% for p in @prods%>
-	<tr>
-		<td><%=p.prod_name%></td>
-		<td><%=p.prod_orig_price%></td>
-		<td><%=p.prod_dis_price%></td>
-		<td><%=p.prod_promo%></td>
-		<td><%=link_to "#{image_tag("edit.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
-	</tr>
-	<%end%>
-</table>
-<%end%>
-</div> 
+

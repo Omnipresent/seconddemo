@@ -12,6 +12,7 @@
 		<%= javascript_include_tag 'interface' %>
 		<%= javascript_include_tag 'jquery-ui-1.7.2.custom.min' %>
 		<%= javascript_include_tag 'jquery.dataTables' %>
+		<%= javascript_include_tag 'livevalidation_standalone' %>
 
     <title>Sample Application</title>
   </head>
@@ -34,7 +35,7 @@
 <%= link_to "#{image_tag("Physician-01.png", :border=>0)}<span></span>", {:action => 'physician', :controller => 'pages'}%></a>
 <%= link_to "#{image_tag("Rx-01.png", :border=>0)}<span></span>", {:action => 'customer', :controller => 'pages'}%></a>
 <%= link_to "#{image_tag("Sales-01.png", :border=>0)}<span></span>", {:action => 'sales', :controller => 'pages'}%></a>
-<%= link_to "#{image_tag("Reports-01.png", :border=>0)}<span></span>", {:action => 'reports', :controller => 'pages'}%></a>
+<%= link_to "#{image_tag("reports.png", :border=>0)}<span></span>", {:action => 'reports', :controller => 'pages'}%></a>
 <div style="float: right"><%= link_to "#{image_tag("Exit-01.png", :height=>100)}", {:action => 'mainpage', :controller => 'pages'} %>  </div>
 
 

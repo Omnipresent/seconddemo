@@ -2,8 +2,19 @@ class PagesController < ApplicationController
 	layout "application", :except => [:index, :mainpage]
 	
 	
+	def edit_product			
+#		@products = Product.new
+		@products = Product.find_by_id(params[:id])
+		if request.post?
+			if (Product.update(params[:id], params[:product]) != nil)
+		  	redirect_to :controller => 'pages', :action => 'product' 
+		  end
+		end
+	end
+	
 	def product
 		@products = Product.new(params[:product])
+
 			@prods = Product.find(:all)
 			flash[:product] = "Currently there are #{@prods.size} products"
 		if request.post?

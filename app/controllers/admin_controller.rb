@@ -33,7 +33,7 @@ class AdminController < ApplicationController
 
   def logout
 		session = nil
-  	redirect_to(:controller => "pages", :action => "index")
+  	redirect_to(:controller => "admin", :action => "login")
   end
 
 	def store

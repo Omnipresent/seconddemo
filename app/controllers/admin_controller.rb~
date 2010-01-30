@@ -32,7 +32,7 @@ class AdminController < ApplicationController
 
 
   def logout
-		session.destroy
+		session = nil
   	redirect_to(:controller => "pages", :action => "index")
   end
 

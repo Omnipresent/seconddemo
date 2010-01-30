@@ -30,15 +30,7 @@ color:#000;
 background-color:#7FB545;
 }
 </style>
-				<div id="modalPage"> 
-    <div class="modalBackground"> 
-    </div> 
-    <div class="modalContainer"> 
-        <div class="modal"> 
-            
-		<div class="modalBody"> <FONT face="Arial" size="3" color="#C94835">
-		<p align="justify">	
-		<FONT face="Arial" size="2" color="black">
+
 		<center>
 
 		<div class="depot-form">
@@ -86,6 +78,7 @@ background-color:#7FB545;
 		<th>Product Price</th>
 		<th>Product Discount</th>
 		<th>Product Promocode</th>
+		<th>Edit Product</th>
 	</tr>	
 	<% for p in @prods%>
 	<tr>
@@ -93,6 +86,7 @@ background-color:#7FB545;
 		<td><%=p.prod_orig_price%></td>
 		<td><%=p.prod_dis_price%></td>
 		<td><%=p.prod_promo%></td>
+		<td><%=link_to "#{image_tag("edit.png", :width=>'70px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
 	</tr>
 	<%end%>
 </table>
