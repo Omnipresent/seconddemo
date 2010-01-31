@@ -9,7 +9,7 @@
   <fieldset style="width: 50%">
     <legend><b>Select Store</b></legend>
     
-    <table border="1" cellspacing="0" cellpadding="0">
+    <table border="0" cellspacing="0" cellpadding="0">
 
     	<tr>
 	    	<td><%= link_to "#{image_tag("login.png", :width=>90, :class=>"float-left")}", {} %> </td>

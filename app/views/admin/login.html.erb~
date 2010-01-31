@@ -5,11 +5,11 @@
 <br>
 <center>
 <div class="depot-form">
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
   <fieldset style="width: 40%; margin-top: 50px;">
     <legend><b>Please Log In</b></legend>
 
-    <table border="1" cellspacing="0" cellpadding="0" align="center">
+    <table border="0" cellspacing="0" cellpadding="0" align="center">
     	
     	<tr>
     	<td> <%= link_to "#{image_tag("login.png", :width=>90, :class=>"float-left")}", {} %>  </td>
@@ -23,8 +23,8 @@
       <p><label for="password">Password:</label>
         <%= f.password_field :password%>
       </p>
-      <p style="padding-left:100px">
-        <%= submit_tag 'Login' %>
+      <p style="padding-left:100px;"">
+        <%= image_submit_tag 'Login_small.png' %>
       </p>
     <% end %>
     	

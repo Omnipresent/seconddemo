@@ -228,7 +228,8 @@ def sales
 				@paymentid= sql.insert(@sqladdpayment)
 				session[:payid] = @paymentid
 			sql.commit_db_transaction
-			flash[:finished] = "Cash: Your card has been charged. Thanks"
+			flash[:finished] = "Cash: Transaction has been paid. Thanks"
+			@current_tab = 2
 			@prods = Product.find(:all)
 			@subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
 			@subjects = Cartitem.find_by_sql(@subjects1)

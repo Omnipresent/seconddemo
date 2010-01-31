@@ -588,7 +588,7 @@ var Validate = {
     	var is = ((paramsObj.is) || (paramsObj.is == 0)) ? paramsObj.is : null;
         var notANumberMessage = paramsObj.notANumberMessage || "Must be a number!";
         var notAnIntegerMessage = paramsObj.notAnIntegerMessage || "Must be an integer!";
-    	var wrongNumberMessage = paramsObj.wrongNumberMessage || "Must be " + is + "!";
+    	var wrongNumberMessage = paramsObj.wrongNumberMessage || "You cannot process a payment with empty card or zero payment";
     	var tooLowMessage = paramsObj.tooLowMessage || "Must not be less than " + minimum + "!";
     	var tooHighMessage = paramsObj.tooHighMessage || "Must not be more than " + maximum + "!";
         if (!isFinite(value)) Validate.fail(notANumberMessage);

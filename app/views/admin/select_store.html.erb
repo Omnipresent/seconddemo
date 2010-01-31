@@ -17,7 +17,7 @@
 	    				<p style="color: green">You belong to multiple stores. Please select one to continue</p>
 			<%form_tag do%>
 			<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
-			<p><%= submit_tag 'Submit'%></p>
+			<p>        <%= image_submit_tag 'submit_small.png' %></p>
 			<%end%>
 
 	    	</td>

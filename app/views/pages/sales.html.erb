@@ -379,8 +379,12 @@ revealModal('modalPage');
 			
 	$(function(){
 		//Tabs
-		$("#tabs").tabs();
-		$("#navi").tabs();
+		var $tabs = $("#tabs").tabs();
+		<%if @current_tab == nil%>
+				<%@current_tab = 0%>
+	  <%end%>
+$tabs.tabs('select', <%= @current_tab %>); 
+		
 		//ACCORDIAN
 	
 		
@@ -446,7 +450,12 @@ revealModal('modalPage');
 			.demoHeaders { margin-top: 1em; }
     </style>
 </head>
-<body>
+<%if @current_tab > 0%>
+	<body onload="window.print();">
+
+<%else%>
+	<body>
+<%end%>
     <% form_tag  do %>
 <!---Tabs Start-->
 
@@ -473,42 +482,50 @@ DLN: <%=@cust.dln%><br>
 			      
 			<div id="tabs-5">
 			<div id="printdiv">
-			<br><br><font size="4em"><b><%=session[:store_name]%></b></font>
-
-			<br><br><font size="3em">Listed below are the individual charges that have been applied for this order to date.</font><br><br>
-			<br><b><font size="3em">Order #</b><%= text_field_tag :orderdate, params[:orderdate] %></font> <br>
-			<div class="Billing">
-			                <table  width=""100%" cellpadding="3x" cellspacing="0px">
-							<font size="3em">Payment Information</font>
-    		                <tr>
-    		                    <td>Sub Total
-    		                    </td>
-    		                    <td><%= text_field_tag :stotal, params[:stotal] %>
-    		                    </td>    		        
-    		                </tr>
-    		                  <tr>
-    		                    <td>Tax
-    		                    </td>
-    		                    <td><label id="POS_Tax" >15%</label>
-    		                    </td>
-    		                </tr>
-    		                
-    		                  <tr >
-    		                    <td rowspan="2" cellpadding="0" style="font-size:medium;">Total
-    		                    </td>
-    		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, params[:ttoal] %>
-    		                    </td>
-    		                </tr>
-    		                <tr >
-    		                    <td colspan="2" rowspan="2" cellpadding="0" style="font-size:medium;">
-    		                    </td>
-    		                   
-    		                </tr>
-		        
-		                    </table>
-			</div>
-	
-			<table id="cartTable" class="display" >
+			<center>
+			<table border=0 width="50%" bgcolor="#e3e3e3">
+			<tr>
+			<td colspan="4" align="center">
+			<b><font face="Arial" size="5em">Sales Receipt</font></b>
+			</td>
+			</tr>
+			<tr>
+			<td colspan="4" align="center">
+			&nbsp;
+			</td>
+			</tr>
+			<tr>
+			<td colspan="4" align="center">
+			<b><font face="Arial" size="3em">Store&nbsp;Name <%=session[:store_name]%></font></b>
+			</td>
+			</tr>
+			<tr>
+				<td align="right">Date:
+				</td>
+				<td>01/21/2010
+				</td>
+				<td align="right">Order Id:
+				</td>
+				<td><%= session[:ordersid]%>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Sold to:
+				</td>
+				<td>
+<%if @cust != nil%>
+<%=@cust.lastname%>, <%=@cust.firstname%>
+<%end%>
+				</td>
+				<td align="right">Payment Method :
+				</td>
+				<td><%= params[:paymenttype]%>
+				</td>
+			</tr>
+			</table>
+			</ceneter>
+			<br><font>Listed below are the individual charges that have been applied for this order to date.</font><br>
+			<table id="cartTable" border=0 class="display" width="60%" >
 			<tr>
 			<td>
 			</td>
@@ -516,17 +533,17 @@ DLN: <%=@cust.dln%><br>
 			</td>
 			</tr>
 			<thead>
-			    <tr>       
-			        <th>OrderProduct Type </font>
+			    <tr bgcolor="grey">       
+			        <th align="left">OrderProduct Type </font>
 			        </th>
 			        
-			        <th>OrderItem Quality </font></th>
+			        <th align="left">OrderItem Quality </font></th>
 			        			        
-			        <th>OrderQuantity </font>
+			        <th align="left">OrderQuantity </font>
 			            </th>
-						 <th>OrderPrice </font>
+						 <th align="left">OrderPrice </font>
 			            </th>
-			         <th>OrderDiscount </font>
+			         <th align="left">OrderDiscount </font>
 			            </th>			            
 					
 			            
@@ -556,8 +573,7 @@ DLN: <%=@cust.dln%><br>
 			                <td>&nbsp;</td>
 			                <td>&nbsp;</td>
 			                <td>&nbsp;</td>
-			                <td>&nbsp</td>
-			                <td>&nbsp</td>
+			          
 			        </tr>
 			    </tbody>
 			    <tfoot>
@@ -578,10 +594,28 @@ DLN: <%=@cust.dln%><br>
 											<td align="left">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 										</tr>
 			    </tfoot>
-			    			
+			    		<tr >
+						<td colspan =3 ></td>
+			        <td align="right" bgcolor="#e3e3e3">Sub Total</td>
+			           <td bgcolor="#e3e3e3"><%= params[:stotal]%></td>
+		                       
+			    </tr>	
+<tr>
+			        <td colspan =4 align="right">Sales Tax</td>
+			           <td>15%</td>
+		                      
+			    </tr>	
+<tr >
+			        <td colspan =3 ></td>
+					<td align="right" bgcolor="#e3e3e3"><B>Total</b></td>
+			           <td bgcolor="#e3e3e3"><%= params[:ttoal]%></td>
+		                       
+			    </tr>					
 			</table>
 			</div>
+			
 			<input name="b_print" type="button" class="ipt" size="10"   onClick="printdiv('printdiv');" value=" Print Receipt">
+			<%= submit_tag "Complete Transaction" %>
 			</div>
 			<div id="tabs-4">
 			
@@ -631,21 +665,21 @@ DLN: <%=@cust.dln%><br>
 			</td>
 			</tr>
 			</table>
-			<table id="cartTable" class="display" >
+			<table id="cartTable" class="display" cellspacing="0px">
 			<thead>
-			    <tr>       
-			        <th>Product Type
+			    <tr bgcolor="#E1E3FE">       
+			        <th align="left">Product Type
 			        </th>
 			        
-			        <th>Item Quality</th>
+			        <th align="left">Item Quality</th>
 			        			        
-			        <th>Quantity
+			        <th align="left">Quantity
 			            </th>
-						 <th>Price
+						 <th align="left">Price
 			            </th>
-			         <th>Discount
+			         <th align="left">Discount
 			            </th>			            
-						<th>Action
+						<th align="left">Action
 			            </th>
 			            
 			        			        
@@ -661,7 +695,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.quantity%></td>
 			                <td><%=  c.price  %></td>
 			                <td><%=  c.discount %></td>
-							<td> <%= submit_tag "delete"%>	
+							<td> <%= submit_tag "delete" %>	
 							<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 							</td>
 			        </tr>
@@ -689,12 +723,10 @@ DLN: <%=@cust.dln%><br>
 		            <td>
 		            &nbsp;
 		                    
-		            </td>
-			             
-			        
-			    </tr>
+		            </td>             
+			    </tr>		
 			    </tfoot>
-			    			
+			    	    			
 			</table>
 		
 			<div class="Billing">
@@ -737,9 +769,10 @@ DLN: <%=@cust.dln%><br>
 <tr>
 											<td class="mainTextBold" ><font color="white">Total Fees:</font></td>
 											<td align="left">
-<%= text_field_tag :ttoal, params[:ttoal]%>
+<%= text_field_tag :firstname, params[:ttoal]%>
 
 </td>
+
 										</tr>
 																			<tr>
 										<td class="mainTextBold" style="WIDTH:196px">
@@ -810,7 +843,7 @@ DLN: <%=@cust.dln%><br>
 	<div class="modalBody" > <FONT face="Arial" size="3" color="#C94835">		
 	<p align="justify">			
 	<FONT face="Arial" size="2" color="black">	
- 	<textarea id="ttoal1" rows="2" cols="50"  ></textarea><br><br>
+ 	<textarea id="ttoal1" rows="2" cols="50" style="color: white;" ></textarea><br><br>
 	CVV: <input type="text" id="cvvnum" name="cvvnum" /><br><br><br>
 	<center><input type="button" value="Submit" onClick="SwipeParserObj(document.getElementById('ttoal1').value)" /></center>
 	</p>            

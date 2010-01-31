@@ -88,6 +88,7 @@ a.signup_button {
   background: #FEFEFE;
   color:#006600;
   font-size:1.00em;
+  font: Arial;
  
 }
 
@@ -97,6 +98,7 @@ a.signup_button {
   font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
   font-size:1.0em;
   padding: 0.25em 1em;
+  font: Arial;
 }
 
 .depot-form label {
@@ -110,6 +112,7 @@ a.signup_button {
 	width: 12em;
 	padding-left: 12em;
 	margin-left: 12em;
+	font: Arial;
 }
 
 .mainTextBold {
