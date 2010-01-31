@@ -19,7 +19,7 @@
 						</td>
 						</tr>
 						<tr >
-						<td style="margin-top: 5px;">
+						<td>
 											<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
 						</td>
 					</tr>
