@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
 	validates_presence_of :userid, :password
 
   def self.authenticate(userid, password)
-    user = self.find_by_userid_and_password(userid, password)
+  	puts "test"
+  		user = self.find_by_userid_and_password(userid, password)	    
     user
   end
 
