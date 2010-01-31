@@ -1,7 +1,7 @@
 <center>
 <div class="depot-form">
 <br><br><br><br><br>
-  <fieldset style="width: 60%; margin-top: 50px;">
+  <fieldset style="width: 60%; background-color: #e3e3e3; margin-top: 50px; ">
     <legend><b>Please Log In</b></legend>
 
     <table border="0" cellspacing="0" cellpadding="0" align="center">
@@ -14,17 +14,17 @@
 	    				<%form_tag do%>
 					<tr><td colspan=2>&nbsp;</td></tr>
 					<tr>
-						<td>		
+						<td align="center">		
 							<label for="name"><b><p style="color: green">You belong to multiple stores. Please select one to continue</p></b></label> 
 						</td>
 						</tr>
 						<tr >
-						<td>
+						<td align="center">
 											<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
 						</td>
 					</tr>
-					<tr>
-					<td>
+					<tr >
+					<td align="center">
 								        <%= image_submit_tag 'submit_small.png' %></td>
 								        </tr>
 	    	<%end%>

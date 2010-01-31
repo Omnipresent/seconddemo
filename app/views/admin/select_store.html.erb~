@@ -1,13 +1,13 @@
 <center>
 <div class="depot-form">
 <br><br><br><br><br>
-  <fieldset style="width: 60%; margin-top: 50px;">
+  <fieldset style="width: 60%; background-color: #e3e3e3; margin-top: 50px; ">
     <legend><b>Please Log In</b></legend>
 
     <table border="0" cellspacing="0" cellpadding="0" align="center">
     	
     	<tr>
-			<td width="40%"> <%= link_to "#{image_tag("login.png", :width=>90, :class=>"float-left")}", {} %>  </td>
+			<td width="40%"> <%= link_to "#{image_tag("login.png", :width=>350, :class=>"float-left")}", {} %>  </td>
 			<td >&nbsp;&nbsp;&nbsp;</td>
 			<td width="60%">
 				<table border="0" WIDTH="100%" cellspacing="1" cellpadding="0" bgcolor="#e3e3e3" align="center">
@@ -19,12 +19,12 @@
 						</td>
 						</tr>
 						<tr >
-						<td>
+						<td align="center">
 											<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
 						</td>
 					</tr>
-					<tr>
-					<td>
+					<tr >
+					<td align="center">
 								        <%= image_submit_tag 'submit_small.png' %></td>
 								        </tr>
 	    	<%end%>
