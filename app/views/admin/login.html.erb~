@@ -6,7 +6,7 @@
 <center>
 <div class="depot-form">
 <br><br><br><br><br>
-  <fieldset style="width: 60%; margin-top: 50px;">
+  <fieldset style="width: 60%; background-color: #e3e3e3; margin-top: 50px; ">
     <legend><b>Please Log In</b></legend>
 
     <table border="0" cellspacing="0" cellpadding="0" align="center">
