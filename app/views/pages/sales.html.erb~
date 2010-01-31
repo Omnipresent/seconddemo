@@ -452,7 +452,7 @@ $tabs.tabs('select', <%= @current_tab %>);
 </head>
 <%if @current_tab > 0%>
 	<body onload="window.print();">
-<%end%>
+
 <%else%>
 	<body>
 <%end%>
@@ -502,7 +502,9 @@ DLN: <%=@cust.dln%><br>
 			<tr>
 				<td align="right">Date:
 				</td>
-				<td>01/21/2010
+<%t = Time.now
+   t.strftime("%m/%d/%Y")%>				
+				<td><%=t%>
 				</td>
 				<td align="right">Order Id:
 				</td>
@@ -765,30 +767,30 @@ DLN: <%=@cust.dln%><br>
 <div align="center">
 <!-- <input name="b_print" type="button" class="ipt"   onClick="printdiv('tabs-2');" value=" Print "> -->
 
-<table borderColor="#006400" cellSpacing="0" cellPadding="4" width="30%" summary="This table is for layout"	border="1" style="border-bottom: 0px;">
+<table borderColor="#006400" cellSpacing="0" cellPadding="4" width="50%" summary="This table is for layout"	border="1" style="border-bottom: 0px;">
 <tr>
-											<td class="mainTextBold" ><font color="white">Total Fees:</font></td>
-											<td align="left">
+											<td class="mainTextBold" width="30%"><font color="white">Total Fees:</font></td>
+											<td align="left" width="70%">
 <%= text_field_tag :firstname, params[:ttoal]%>
 
 </td>
 
 										</tr>
 																			<tr>
-										<td class="mainTextBold" style="WIDTH:196px">
+										<td class="mainTextBold" width="30%"
 									<font color="white" >Payment Type</font>
 										</td>
-										<td align="left">
+										<td align="left" width="70%">
 										<%= select_tag "paymenttype", options_for_select([ "Select a Payment Method","Cash", "Credit Card"],"Select a Payment Method" ),:onchange => "javascript:toggle();"%>
 										</td>
 										</tr>
 									
 										</table>
 	<div id="toggleText" style="display: none">
-<table borderColor="#006400" cellSpacing="0" cellPadding="4" width="30%" summary="This table is for layout"	border="1" style="border-top: 0px;">
+<table borderColor="#006400" cellSpacing="0" cellPadding="4" width="50%" summary="This table is for layout"	border="1" style="border-top: 0px;">
 										<tr>
-											<td class="mainTextBold"><font color="white">*Credit Card Type:</font></td>
-											<td align="left">
+											<td class="mainTextBold" width="30%"><font color="white">*Credit Card Type:</font></td>
+											<td align="left" width="70%">
 											<select id="ddlCCType" tabIndex="201" >
 													<option Value="-1">Select One</option>
 													<option Value="D">American Express</option>
@@ -799,23 +801,23 @@ DLN: <%=@cust.dln%><br>
 										</tr>
 		
 									<tr>
-											<td class="mainTextBold" style="WIDTH: 196px"><font color="white">*Name:</td>
-											<td align="left"><%= text_field_tag :cname, params[:cname]%></td>
+											<td class="mainTextBold" width="30%"><font color="white">*Name:</td>
+											<td align="left" width="70%"><%= text_field_tag :cname, params[:cname]%></td>
 									
 										</tr>
 		<tr>
-											<td class="mainTextBold" style="WIDTH:196px"><font color="white">*Credit Card Number:</font></td>
-											<td align="left"><%= text_field_tag :ccnum, params[:ccnum]%></td>
+											<td class="mainTextBold" width="30%"><font color="white">*Credit Card Number:</font></td>
+											<td align="left" width="70%"><%= text_field_tag :ccnum, params[:ccnum]%></td>
 	
 		 </tr>
 										<tr>
-											<td class="mainTextBold" ><font color="white">*CVV:</font></td>
-											<td align="left"><%= text_field_tag :cvv, params[:cvv]%></td>
+											<td class="mainTextBold" width="30%"><font color="white">*CVV:</font></td>
+											<td align="left" width="70%"><%= text_field_tag :cvv, params[:cvv]%></td>
 										</tr>
 										<tr>
-											<td class="mainTextBold" ><font color="white">*Expiration Date:</font></td>
+											<td class="mainTextBold" width="30%"><font color="white">*Expiration Date:</font></td>
 											
-		<td align="left"><%= text_field_tag :expmon, params[:expmon] , :size=>5%><%= text_field_tag :expyear, params[:expyear], :size=>5%>
+		<td align="left" width="70%"><%= text_field_tag :expmon, params[:expmon] , :size=>5%><%= text_field_tag :expyear, params[:expyear], :size=>5%>
 		
 		</td>
 										</tr>

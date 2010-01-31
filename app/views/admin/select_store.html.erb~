@@ -1,29 +1,42 @@
-		<%= stylesheet_link_tag 'custom'%>
-<br>
-<br>
-<br>
-<br>
 <center>
 <div class="depot-form">
 <br><br><br><br><br>
-  <fieldset style="width: 50%">
-    <legend><b>Select Store</b></legend>
-    
-    <table border="0" cellspacing="0" cellpadding="0">
+  <fieldset style="width: 60%; margin-top: 50px;">
+    <legend><b>Please Log In</b></legend>
 
+    <table border="0" cellspacing="0" cellpadding="0" align="center">
+    	
     	<tr>
-	    	<td><%= link_to "#{image_tag("login.png", :width=>90, :class=>"float-left")}", {} %> </td>
-	    	<td>
-	    				<p style="color: green">You belong to multiple stores. Please select one to continue</p>
-			<%form_tag do%>
-			<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
-			<p>        <%= image_submit_tag 'submit_small.png' %></p>
-			<%end%>
+			<td width="40%"> <%= link_to "#{image_tag("login.png", :width=>90, :class=>"float-left")}", {} %>  </td>
+			<td >&nbsp;&nbsp;&nbsp;</td>
+			<td width="60%">
+				<table border="0" WIDTH="100%" cellspacing="1" cellpadding="0" bgcolor="#e3e3e3" align="center">
+	    				<%form_tag do%>
+					<tr><td colspan=2>&nbsp;</td></tr>
+					<tr>
+						<td>		
+							<label for="name"><b><p style="color: green">You belong to multiple stores. Please select one to continue</p></b></label> 
+						</td>
+						</tr>
+						<tr >
+						<td style="margin-top: 5px;">
+											<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
+						</td>
+					</tr>
+					<tr>
+					<td>
+								        <%= image_submit_tag 'submit_small.png' %></td>
+								        </tr>
+	    	<%end%>
 
-	    	</td>
+				</table>			
+			</td>
     	</tr>
     	
     </table>
+   
+
   </fieldset>
+
 </div>
 </center>

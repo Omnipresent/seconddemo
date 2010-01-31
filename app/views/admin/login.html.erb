@@ -6,33 +6,50 @@
 <center>
 <div class="depot-form">
 <br><br><br><br><br>
-  <fieldset style="width: 40%; margin-top: 50px;">
+  <fieldset style="width: 60%; margin-top: 50px;">
     <legend><b>Please Log In</b></legend>
 
     <table border="0" cellspacing="0" cellpadding="0" align="center">
     	
     	<tr>
-    	<td> <%= link_to "#{image_tag("login.png", :width=>190, :class=>"float-left")}", {} %>  </td>
-    	<td>
-			<p style="color: green"><%= flash[:notice] %></p>
-    <% form_for :user do |f| %>
-    <%= f.error_messages %>
-      <p><label for="name">User ID:</label> 
-        <%= f.text_field :userid %>
-      </p>
-      <p><label for="password">Password:</label>
-        <%= f.password_field :password%>
-      </p>
-      <p style="padding-left:100px;">
-        <%= image_submit_tag 'Login_small.png' %>
-      </p>
-    <% end %>
-    	
-    	</td>
+			<td width="40%"> <%= link_to "#{image_tag("login.png", :width=>90, :class=>"float-left")}", {} %>  </td>
+			<td >&nbsp;&nbsp;&nbsp;</td>
+			<td width="60%">
+				<table border="0" WIDTH="100%" cellspacing="1" cellpadding="0" bgcolor="#e3e3e3" align="center">
+				<p style="color: green"><%= flash[:notice] %></p>
+				<% form_for :user do |f| %>
+				<%= f.error_messages %>
+					<tr><td colspan=2>&nbsp;</td></tr>
+					<tr>
+						<td>		
+							<label for="name"><b>&nbsp;User ID:&nbsp;</b></label> 
+						</td>
+						<td>
+								<%= f.text_field :userid %> 
+						</td>
+					</tr>
+					<tr><td colspan=2>&nbsp;</td></tr>
+					<tr>
+						<td>
+							  <label for="password"><b>&nbsp;Password:&nbsp;</b></label> 
+						</td>
+						<td>
+								<%= f.password_field :password%>
+						</td>
+					</tr>
+					<tr><td colspan=2>&nbsp;</td></tr>
+					<tr>
+						<td colspan=2 align="center">
+									<%= image_submit_tag 'Login_small.png' %>
+						</td>				
+					</tr>
+				<% end %>
+				</table>			
+			</td>
     	</tr>
     	
     </table>
-    
+   
 
   </fieldset>
 

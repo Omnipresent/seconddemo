@@ -23,7 +23,7 @@
       <p><label for="password">Password:</label>
         <%= f.password_field :password%>
       </p>
-      <p style="padding-left:100px;">
+      <p style="padding-left:100px; text-align: center">
         <%= image_submit_tag 'Login_small.png' %>
       </p>
     <% end %>

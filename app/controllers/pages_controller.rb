@@ -45,6 +45,8 @@ class PagesController < ApplicationController
   end
   
   def search
+  	session[:customerid] = nil
+		session[:ordersid] = nil
 		if params[:type] == "Patient"
 			if params[:search] != nil and params[:search].length >0
 				@customer = Customer.all(:conditions => ["UPPER(firstname) LIKE ?", "%#{params[:search]}%".upcase], :include => :contact)
@@ -249,6 +251,7 @@ def sales
 				session[:payid] = @paymentid
 			sql.commit_db_transaction
 			 flash[:finished] = "Credit :Your card has been charged. Thanks"
+			 			@current_tab = 2
 			@prods = Product.find(:all)
 			@subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
 			@subjects = Cartitem.find_by_sql(@subjects1)
@@ -258,6 +261,7 @@ def sales
 			return
 	  end
 if params[:commit] == "delete"
+@cust = Customer.find_by_id(session[:custId])
 		 @prods = Product.find(:all)
 		 flash[:finished] = nil
 	     sql = ActiveRecord::Base.connection();
@@ -285,6 +289,10 @@ if params[:commit] == "delete"
 	return
 	end
 	if params[:commit] == "Add to Cart"
+			
+		 @cust = Customer.find_by_id(session[:custId])
+		 
+		 
 		if (session[:customerid].nil? or session[:customerid] == 0)
 		flash[:search] = "Please select a customer in order to process payment"
 		  redirect_to :controller => 'pages', :action => 'search' 
@@ -352,6 +360,7 @@ if params[:commit] == "delete"
 		return
 else 
 	 @cust = Customer.find_by_id(params[:custId])
+	 session[:custId] = @cust.id
 	 @paramtemp = Product.find_by_id(:conditions => ["UPPER(prod_name) LIKE ?", "Flower".upcase])
 	 @subtotal = Cartitem.sum("price")
 	 @totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)")
