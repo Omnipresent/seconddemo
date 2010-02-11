@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100130163114) do
+ActiveRecord::Schema.define(:version => 20100211144441) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -30,11 +30,21 @@ ActiveRecord::Schema.define(:version => 20100130163114) do
     t.string   "itemname"
     t.string   "quality"
     t.string   "quantity"
-    t.integer  "price"
     t.integer  "discount"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cid"
+    t.decimal  "price"
+    t.string   "conditions"
+    t.string   "prodtype"
+    t.string   "rating"
+    t.string   "thc"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contactlinks", :force => true do |t|
@@ -94,7 +104,6 @@ ActiveRecord::Schema.define(:version => 20100130163114) do
     t.integer  "prodid"
     t.integer  "productpriceid"
     t.integer  "proddiscountid"
-    t.integer  "prodsaleprice"
     t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -102,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20100130163114) do
     t.string   "cartid"
     t.integer  "userid"
     t.integer  "storeid"
+    t.decimal  "prodsaleprice"
   end
 
   create_table "orders", :force => true do |t|
@@ -177,20 +187,24 @@ ActiveRecord::Schema.define(:version => 20100130163114) do
   create_table "products", :force => true do |t|
     t.string   "prod_name"
     t.decimal  "prod_orig_price"
-    t.integer  "prod_dis_per"
-    t.decimal  "prod_dis_price"
-    t.string   "prod_promo"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "userid"
-    t.integer  "storeid"
+    t.integer  "category_id"
+    t.string   "conditions"
+    t.string   "rating"
+    t.string   "thc"
+    t.string   "volume"
+    t.integer  "quantity"
+    t.string   "prod_type"
   end
 
   create_table "stores", :force => true do |t|
-    t.integer  "store_id"
     t.string   "store_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "store_poc"
+    t.string   "created_by"
+    t.string   "store_status"
   end
 
   create_table "userizations", :force => true do |t|
@@ -205,6 +219,10 @@ ActiveRecord::Schema.define(:version => 20100130163114) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_first_name"
+    t.string   "user_last_name"
+    t.string   "user_status"
+    t.string   "user_type"
   end
 
 end

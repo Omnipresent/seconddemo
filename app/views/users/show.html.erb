@@ -1,0 +1,44 @@
+		<%= stylesheet_link_tag 'custom'%>
+		<center>
+<div class="depot-form">
+<p style="color: green"><%= flash[:notice] %></p>
+  <fieldset style="width: 40%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>Show User</b></legend>
+		<table border="0" cellspacing="0" cellpadding="0" id="custom">
+			<tr>
+				<td><b>User ID:</b></td>
+				<td><%=h @user.userid %></td>
+			</tr>
+			<tr>
+				<td><b>User first name:</b></td>
+				<td><%=h @user.user_first_name %></td>
+			</tr>
+			<tr>
+				<td><b>User last name:</b></td>
+				<td><%=h @user.user_last_name %></td>
+			</tr>
+			<tr>
+				<td><b>User Type:</b></td>
+				<td><%=h @user.user_type %></td>
+			</tr>
+			<tr>
+				<td><b>User status:</b></td>
+				<td><%=h @user.user_status %></td>
+			</tr>
+			<tr>
+				<td><b>Stores:</b></td>
+				<td>
+<%=	select_tag 'stores[]', options_for_select(
+@stores.map {|s| [s.store_name, s.id]}, 
+@user.stores.map {|j| j.id}
+), :multiple => true, :size => 10, :disabled => true%>				
+				</td>
+			</tr>
+
+		</table>
+</fieldset>
+</div>
+<br>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+</center>

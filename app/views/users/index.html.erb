@@ -1,0 +1,40 @@
+<%= stylesheet_link_tag 'custom'%>
+<center>
+<div class="depot-form">
+<p style="color: green"><%= flash[:notice] %></p>
+  <fieldset style="width: 70%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>Users</b></legend>
+<table id="hor-zebra" cellspacing="0">
+  <tr border="1">
+    <th>User</th>
+    <th>User first name</th>
+    <th>User last name</th>
+    <th>User status</th>
+    <th>User Type</th>
+    <th>Store count</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%=h user.userid %></td>
+    <td><%=h user.user_first_name %></td>
+    <td><%=h user.user_last_name %></td>
+    <td><%=h user.user_status %></td>
+    <td><%=h user.user_type %></td>
+    <td><%=h user.stores.size %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <%if user.user_status == "A"%>
+	    <td><%= link_to 'Disable', user, :confirm => 'Are you sure?', :method => :delete%></td>
+	  <%else%>
+	    <td><%= link_to 'Enable', user, :confirm => 'Are you sure?', :method => :delete%></td>
+	  <%end%>
+  </tr>
+<% end %>
+</table>
+</fieldset>
+</div>
+<br />
+
+<%= link_to 'Create a new user', new_user_path %>
+</center>

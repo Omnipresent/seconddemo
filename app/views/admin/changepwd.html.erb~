@@ -1,0 +1,56 @@
+		<%= stylesheet_link_tag 'custom'%>
+<br>
+<br>
+<br>
+<br>
+<center>
+<div class="depot-form">
+<br><br><br><br><br>
+  <fieldset style="width: 60%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>Please change your password</b></legend>
+
+    <table border="0" cellspacing="0" cellpadding="0" align="center">
+    	
+    	<tr>
+			<td width="40%"> <%= link_to "#{image_tag("login.png", :width=>350, :class=>"float-left")}", {} %>  </td>
+			<td >&nbsp;&nbsp;&nbsp;</td>
+			<td width="60%">
+				<table border="0" WIDTH="100%" cellspacing="1" cellpadding="0" bgcolor="#e3e3e3" align="center">
+				<% form_for :user do |f| %>
+				<%= f.error_messages %>
+					<tr><td colspan=2>&nbsp;</td></tr>
+					<tr>
+						<td>		
+							<label for="name"><b>&nbsp;User ID:&nbsp;</b></label> 
+						</td>
+						<td>
+								<%= f.text_field :userid %> 
+						</td>
+					</tr>
+					<tr><td colspan=2>&nbsp;</td></tr>
+					<tr>
+						<td>
+							  <label for="password"><b>&nbsp;New Password:&nbsp;</b></label> 
+						</td>
+						<td>
+								<%= f.password_field :password%>
+						</td>
+					</tr>
+					<tr><td colspan=2>&nbsp;</td></tr>
+					<tr>
+						<td colspan=2 align="center">
+									<%= submit_tag 'Change password' %>
+						</td>				
+					</tr>
+				<% end %>
+				</table>			
+			</td>
+    	</tr>
+    	
+    </table>
+   
+
+  </fieldset>
+
+</div>
+</center>

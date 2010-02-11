@@ -1,5 +1,5 @@
 class Store < ActiveRecord::Base
 	has_many :userizations
-	has_many :stores, :through => :userizations 
-
+	has_many :users, :through => :userizations 
+ 
 end

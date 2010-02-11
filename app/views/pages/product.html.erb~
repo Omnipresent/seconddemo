@@ -39,21 +39,44 @@ background-color:#7FB545;
         <table cellpadding="5px" cellspacing="5px">
 	        <%= p.error_messages %>
 				            <tr>
-					            <td><%=p.label 'Product*'%></td>
+					            <td><%=label "category", "Category"%></td>
+					            <td><%=p.select :category_id, options_for_select(@categories.map {|s| [s.name, s.id]})%></td>
+				            </tr>
+	        
+				            <tr>
+					            <td><%=p.label 'Product Name*'%></td>
 					            <td><%=p.text_field :prod_name%></td>
 				            </tr>
 				            <tr>
-					            <td>Product Discount</td>
-                      <td><%=p.text_field :prod_orig_price%></td>  
+					            <td><%=p.label 'Product Type*'%></td>
+					            <td><%=p.select :prod_type,options_for_select([ "Indica", "Sativa", "Hybrid I","Hybrid S", "Hybrid 50/50", "Other" ], "Indica") %></td>
 				            </tr>
-		                <tr>
-		                    <td><%=Product Price%></td>
-		                    <td><%=p.text_field :prod_dis_per%></td>
+
+				            <tr>
+					            <td><%=p.label 'Product Conditions*'%></td>
+					            <td><%=p.select :conditions,options_for_select([ "Indoor", "Outdoor", "Greenhouse","Other" ], "Indoor") %></td>
+				            </tr>
+ 		                <tr>
+		                    <td><%=p.label 'Product Rating'%></td>
+		                    <td><%=p.select :rating, options_for_select([ "A", "B", "C","D" ], "A") %></td>
 		                </tr>
 		                <tr>
-		                    <td><%=p.label 'Product Promo Code'%></td>
-		                    <td><%=p.text_field :prod_promo%></td>
+		                    <td><%=p.label 'Product THC'%></td>
+		                    <td><%=p.select :thc, options_for_select((0..100).step(10).to_a.map {|s| ["#{s}%"]})%></td>
 		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product volume'%></td>
+		                    <td><%=p.select :volume,options_for_select([ "1", "2", "3" ], "1") %></td>
+		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Price'%></td>
+		                    <td><%=p.text_field :prod_orig_price%></td>
+		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Quantity'%></td>
+		                    <td><%=p.text_field :quantity%></td>
+		                </tr>
+		                
 						<tr align="center">
 						<td colspan="4">
 						<%= submit_tag "Add Product" %>
@@ -74,18 +97,28 @@ background-color:#7FB545;
     if @prods != nil%>
 <table border="2" cellspacing="20" cellpadding="" id="customers" align="center">
 	<tr>
-		<th>Product Name</th>
-		<th>Product Price</th>
-		<th>Product Discount</th>
-		<th>Product Promocode</th>
+		<th>Name</th>
+		<th>Category</th>
+		<th>Type</th>
+		<th>Conditions</th>
+		<th>Price</th>
+		<th>Rating</th>
+		<th>THC</th>
+		<th>Quantity</th>
+		<th>Total Price</th>
 		<th>Edit Product</th>
 	</tr>	
 	<% for p in @prods%>
 	<tr>
 		<td><%=p.prod_name%></td>
-		<td><%=p.prod_orig_price%></td>
-		<td><%=p.prod_dis_price%></td>
-		<td><%=p.prod_promo%></td>
+		<td><%=p.category.name%></td>
+		<td><%=p.prod_type%></td>
+		<td><%=p.conditions%></td>
+		<td>$<%=p.prod_orig_price%></td>
+		<td><%=p.rating%></td>
+		<td><%=p.thc%></td>
+		<td><%=p.quantity%></td>
+		<td>$<%=p.quantity*p.prod_orig_price%></td>
 		<td><%=link_to "#{image_tag("edit.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
 	</tr>
 	<%end%>

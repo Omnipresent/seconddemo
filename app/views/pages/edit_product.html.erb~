@@ -34,29 +34,53 @@ background-color:#7FB545;
 		<center>
 
 		<div class="depot-form">
-	<fieldset style="width: 50%"><legend><strong>Product Information</strong></legend>
-			<% form_for :product, @products, :url => { :action => "product" } do |p| %>
+	<fieldset style="width: 50%"><legend><strong>Edit Product Information</strong></legend>
+			<% form_for :product, @products do |p| %>
         <table cellpadding="5px" cellspacing="5px">
 	        <%= p.error_messages %>
 				            <tr>
-					            <td><%=p.label 'Product*'%></td>
+					            <td><%=label "category", "Category"%></td>
+					            <td><%=p.select :category_id, options_for_select(@categories.map {|s| [s.name, s.id]}, 
+					            [p.object.category.id])%></td>
+				            </tr>
+	        
+				            <tr>
+					            <td><%=p.label 'Product Name*'%></td>
 					            <td><%=p.text_field :prod_name%></td>
 				            </tr>
 				            <tr>
-					            <td><%=p.label 'Product Price*'%></td>
-                      <td><%=p.text_field :prod_orig_price%></td>  
+					            <td><%=p.label 'Product Type*'%></td>
+					            <td><%=p.select :prod_type,options_for_select([ "Indica", "Sativa", "Hybrid I","Hybrid S", "Hybrid 50/50", "Other" ], [p.object.prod_type]) %></td>
 				            </tr>
-		                <tr>
-		                    <td><%=p.label 'Product Discount'%></td>
-		                    <td><%=p.text_field :prod_dis_price%></td>
+
+				            <tr>
+					            <td><%=p.label 'Product Conditions*'%></td>
+					            <td><%=p.select :conditions,options_for_select([ "Indoor", "Outdoor", "Greenhouse","Other" ], [p.object.conditions]) %></td>
+				            </tr>
+ 		                <tr>
+		                    <td><%=p.label 'Product Rating'%></td>
+		                    <td><%=p.select :rating, options_for_select([ "A", "B", "C","D" ], [p.object.rating]) %></td>
 		                </tr>
 		                <tr>
-		                    <td><%=p.label 'Product Promo Code'%></td>
-		                    <td><%=p.text_field :prod_promo%></td>
+		                    <td><%=p.label 'Product THC'%></td>
+		                    <td><%=p.select :thc, options_for_select((0..100).step(10).to_a.map {|s| ["#{s}%"]},
+		                         [p.object.thc])%></td>
+		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product volume'%></td>
+		                    <td><%=p.select :volume,options_for_select([ "1", "2", "3" ], "1") %></td>
+		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Price'%></td>
+		                    <td><%=p.text_field :prod_orig_price%></td>
+		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Quantity'%></td>
+		                    <td><%=p.text_field :quantity%></td>
 		                </tr>
 						<tr align="center">
 						<td colspan="4">
-						<%= submit_tag "Edit Product", :action => "product" %>
+						<%= submit_tag "Edit Product"%>
 						</td>
 						</tr>
 				            </table>

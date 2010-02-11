@@ -1,5 +1,7 @@
 		<%= stylesheet_link_tag 'custom'%>
 
+<p style="color: green"><%= flash[:changepwd] %></p>
+
 <div class="mainpage">
 <div class="depot-form">
 <br><br><br><br><br>
@@ -41,7 +43,7 @@
 <%= link_to "#{image_tag("logout.png", :width=>180)}", {:action => 'logout', :controller => 'admin'} %>      
 </td>
        	<td>&nbsp;</td><td></td><td></td>
-     <td><%= link_to "#{image_tag("store_admin.png", :width=>180)}", {:action => 'store', :controller => 'admin'} %>      </td>
+     <td><%= link_to "#{image_tag("store_admin.png", :width=>180)}", {:action => 'admin_main', :controller => 'admin'} if @userType == "S" %>      </td>
        	</tr>
        </table>
 <br>

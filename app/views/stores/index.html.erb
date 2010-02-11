@@ -1,0 +1,39 @@
+		<%= stylesheet_link_tag 'custom'%>
+		<center>
+<div class="depot-form">
+<p style="color: green"><%= flash[:notice] %></p>
+  <fieldset style="width: 70%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>Stores</b></legend>
+<table id="hor-zebra" cellspacing="0">
+  <tr border="1">
+    <th>Store Name</th>
+    <th>Created By</th>
+    <th>Create Date</th>
+    <th>Store POC</th>
+    <th>Users</th>
+  </tr>
+
+<% @stores.each do |store| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%=h store.store_name %></td>
+    <td><%=h store.created_by %></td>
+    <td><%=h store.created_at.strftime("%m/%d/%Y") %></td>
+    <td><%=h store.store_poc %></td>
+    <td><%=h store.users.size %></td>
+    <td><%= link_to 'Show', store %></td>
+    <td><%= link_to 'Edit', edit_store_path(store) %></td>
+    <%if store.store_status == "A"%>
+	    <td><%= link_to 'Disable', store, :confirm => 'Are you sure?', :method => :delete%></td>
+	  <%else%>
+	    <td><%= link_to 'Enable', store, :confirm => 'Are you sure?', :method => :delete%></td>
+	  <%end%>
+  </tr>
+<% end %>
+</table>
+</fieldset>
+<%= link_to 'New Store', new_store_path %>
+</div>
+</center>
+<br />
+
+

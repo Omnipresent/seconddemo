@@ -20,7 +20,7 @@
 						</tr>
 						<tr >
 						<td align="center">
-											<%= select("selected_store", "id", @user.stores.map {|s| [s.store_name,s.store_id]})%>
+											<%= select("selected_store", "id", @user.stores.find(:all, :conditions => ["store_status = ?", "A"]).map {|s| [s.store_name,s.id]})%>
 						</td>
 					</tr>
 					<tr >

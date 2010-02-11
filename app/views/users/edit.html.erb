@@ -1,0 +1,52 @@
+		<%= stylesheet_link_tag 'custom'%>
+		<center>
+<div class="depot-form">
+<p style="color: green"><%= flash[:notice] %></p>
+  <fieldset style="width: 40%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>Edit User</b></legend>
+			<% form_for(@user) do |f| %>
+		  <%= f.error_messages %>
+			<table border="0" cellspacing="0" cellpadding="0" id="custom">
+			<%=f.hidden_field :user_status, :value => "#{@user.user_status}"%>
+				<tr>
+					<td><b><%= f.label :user_id %></b></td>
+					<td><%= f.text_field :userid %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :password %></b></td>
+					<td><%= f.password_field :password %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :user_first_name %></b></td>
+					<td><%= f.text_field :user_first_name %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :user_last_name %></b></td>
+					<td><%= f.text_field :user_last_name %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :user_type %></b></td>
+					<td>
+		<%= f.select :user_type, options_for_select(
+[["Normal", "N"],["Super Admin", "S"]], 
+["#{@user.user_type}"]
+),  %>					
+					</td>
+				</tr>
+				<tr>
+					<td><b>Stores:</b></td>
+					<td>
+<%=	select_tag 'stores[]', options_for_select(
+@stores.map {|s| [s.store_name, s.id]}, 
+@user.stores.map {|j| j.id}
+), :multiple => true, :size => 10%>					
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td><td><%= f.submit 'Update' %></td></tr>
+<% end %>				
+			</table>
+	</fieldset>
+</div>
+</center>
+<%= link_to 'Show', @user %> |
+<%= link_to 'Back', users_path %>

@@ -1,0 +1,9 @@
+class AddToStoreTable < ActiveRecord::Migration
+  def self.up
+  	add_column :stores, :created_by, :string
+  	add_column :stores, :store_poc,  :string
+  end
+
+  def self.down
+  end
+end

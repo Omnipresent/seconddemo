@@ -1,0 +1,43 @@
+<%= javascript_include_tag :defaults %>
+		<%= stylesheet_link_tag 'custom'%>
+		<center>
+<div class="depot-form">
+<p style="color: green"><%= flash[:notice] %></p>
+  <fieldset style="width: 40%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>New User</b></legend>
+<% form_for(@user) do |f| %>
+  <%= f.error_messages %>
+			<table border="0" cellspacing="0" cellpadding="0" id="custom">
+				<tr>
+					<td><b><%= f.label :user_id %></b></td>
+					<td><%= f.text_field :userid %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :password %></b></td>
+					<td><%= f.password_field :password %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :user_first_name %></b></td>
+					<td><%= f.text_field :user_first_name %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :user_last_name %></b></td>
+					<td><%= f.text_field :user_last_name %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :user_type %></b></td>
+					<td><%= f.select( :user_type, { "Normal" => "N", "Super Admin" => "S"}) %></td>
+				</tr>
+  <%=f.hidden_field :user_status, :value => "N"%>			
+				<tr>
+					<td><b>Stores</b></td>
+					<td><%=	select_tag 'stores[]', options_for_select(@stores.map {|s| [s.store_name, s.id]}), :multiple => true, :size => 10%></td>
+				</tr>
+				<tr><td>&nbsp;</td><td><%= f.submit 'Create' %></td></tr>
+<% end %>				
+			</table>
+	</fieldset>
+<%= link_to 'Back', users_path %>
+</div>
+</center>
+

@@ -106,6 +106,7 @@ a.signup_button {
   float: left;
   text-align: right;
   display: block;
+  font: Arial
 }
 
 .depot-form .submit {
@@ -210,5 +211,41 @@ background-color: #6eac2c;
 	color:#CC0000;
 }
 
+custom
+{
+
+}
+
+#custom th{
+	padding: 10px 8px;
+	text-align: left;
+}
+
+#custom td {
+	padding: 10px 8px;
+}
+
+hor-zebra
+{
+	font-family:"Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size:12px;
+	width:480px;
+	text-align:left;
+	border-collapse:collapse;
+	margin:20px;
+}
+#hor-zebra th{
+	font-size:14px;
+	font-weight:bold;
+	color:#039;
+	padding:10px 8px;
+}
+#hor-zebra td{
+	color:#669;
+	padding:8px;
+}
+#hor-zebra .odd{
+	background:#e8edff;
+}
 
 

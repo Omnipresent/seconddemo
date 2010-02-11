@@ -1,0 +1,27 @@
+		<%= stylesheet_link_tag 'custom'%>
+		<center>
+<div class="depot-form">
+<p style="color: green"><%= flash[:notice] %></p>
+  <fieldset style="width: 40%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>Edit Store</b></legend>
+<% form_for(@store) do |f| %>
+  <%= f.error_messages %>
+			<table border="0" cellspacing="0" cellpadding="0" id="custom">
+				<tr>
+					<td><b><%= f.label :store_name %></b></td>
+					<td><%= f.text_field :store_name %></td>
+				</tr>
+				<tr>
+					<td><b><%= f.label :store_poc %></b></td>
+					<td><%= f.text_field :store_poc %></td>
+				</tr>
+				<%=f.hidden_field :store_status, :value => "#{@store.store_status}"%>		
+				<tr><td>&nbsp;</td><td><%= f.submit 'Update' %></td></tr>				
+			</table>
+			<% end %>
+	</fieldset>
+<%= link_to 'Show', @store %> |
+<%= link_to 'Back', store_path %>
+</div>
+</center>
+

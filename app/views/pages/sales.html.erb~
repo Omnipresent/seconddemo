@@ -502,9 +502,8 @@ DLN: <%=@cust.dln%><br>
 			<tr>
 				<td align="right">Date:
 				</td>
-<%t = Time.now
-   t.strftime("%m/%d/%Y")%>				
-				<td><%=t%>
+<%t = Time.now%>				
+				<td><%=t.strftime("%m/%d/%Y")%> <%=t.strftime("at %I:%M%p")%>
 				</td>
 				<td align="right">Order Id:
 				</td>
@@ -552,21 +551,16 @@ DLN: <%=@cust.dln%><br>
 			        			        
 			    </tr>
 			    </thead>
-				<% @subjects.each do |d| %>
-
  <tbody>
 			        <tr>
-			              	<% form_tag  do %>	               
-			                <td><%= d.ptype %></td>
-			                <td><%=  d.quality %></td>
-			                <td><%=  d.quantity%></td>
-			                <td><%=  d.price  %></td>
-			                <td><%=  d.discount %></td>	
-							 <% end %>
+			                <td><%= @subjects..ptype %></td>
+			                <td><%=  @subjects..quality %></td>
+			                <td><%=  @subjects..quantity%></td>
+			                <td><%=  @subjects..price  %></td>
+			                <td><%=  @subjects..discount %></td>	
 							</td>
 			        </tr>
 			    </tbody>
-<% end %>
  
 			    <tbody>
 			        <tr>
@@ -670,10 +664,10 @@ DLN: <%=@cust.dln%><br>
 			<table id="cartTable" class="display" cellspacing="0px">
 			<thead>
 			    <tr bgcolor="#E1E3FE">       
-			        <th align="left">Product Type
-			        </th>
+			        <th align="left">Product</th>
+			        <th align="left">Product Type</th>
 			        
-			        <th align="left">Item Quality</th>
+			        <th align="left">Product Rating</th>
 			        			        
 			        <th align="left">Quantity
 			            </th>
@@ -693,7 +687,8 @@ DLN: <%=@cust.dln%><br>
 			        <tr>
 			              	<% form_tag  do %>	               
 			                <td><%= c.ptype %></td>
-			                <td><%=  c.quality %></td>
+			                <td><%= c.prodtype %></td>
+			                <td><%=  c.rating %></td>
 			                <td><%=  c.quantity%></td>
 			                <td><%=  c.price  %></td>
 			                <td><%=  c.discount %></td>

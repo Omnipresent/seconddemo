@@ -1,0 +1,43 @@
+		<%= stylesheet_link_tag 'custom'%>
+		<center>
+<div class="depot-form">
+<p style="color: green"><%= flash[:notice] %></p>
+  <fieldset style="width: 40%; background-color: #e3e3e3; margin-top: 50px; ">
+    <legend><b>Edit Store</b></legend>
+			<table border="0" cellspacing="0" cellpadding="0" id="custom">
+				<tr>
+					<td><b>Store:</b></td>
+					<td><%=h @store.store_name %></td>
+				</tr>
+				<tr>
+					<td><b>Created By:</b></td>
+					<td><%=h @store.created_by %></td>
+				</tr>
+				<tr>
+					<td><b>Created On:</b></td>
+					<td><%=h @store.created_at.strftime("%m/%d/%Y") %></td>
+				</tr>
+				<tr>
+					<td><b>Store POC:</b></td>
+					<td><%=h @store.store_poc %></td>
+				</tr>
+				<tr>
+					<td><b>Store status:</b></td>
+					<td><%=h @store.store_status %></td>
+				</tr>
+				<tr>
+					<td><b>Users:</b></td>
+					<td>
+<%=	select_tag 'stores[]', options_for_select(
+@store.users.map {|s| ["#{s.user_first_name} #{s.user_last_name} - #{s.userid}", s.userid]}), :multiple => true, :size => 10, :disabled => true%>					
+					</td>
+				</tr>
+			</table>
+	</fieldset>
+<%= link_to 'Edit', edit_store_path(@store) %> |
+<%= link_to 'Back', stores_path %>
+</div>
+</center>
+
+
+

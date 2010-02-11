@@ -1,0 +1,8 @@
+class RenameTypeColumn < ActiveRecord::Migration
+  def self.up
+		rename_column :products, :type, :prod_type
+  end
+
+  def self.down
+  end
+end

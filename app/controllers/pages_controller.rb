@@ -3,8 +3,9 @@ class PagesController < ApplicationController
 	
 	
 	def edit_product			
-#		@products = Product.new
+	  @categories = Category.all
 		@products = Product.find_by_id(params[:id])
+		@prod_cat = @products.category
 		if request.post?
 			if (Product.update(params[:id], params[:product]) != nil)
 		  	redirect_to :controller => 'pages', :action => 'product' 
@@ -13,13 +14,16 @@ class PagesController < ApplicationController
 	end
 	
 	def product
-		@products = Product.new(params[:product])
+	  @categories = Category.all
+		@products = Product.new
 
 			@prods = Product.find(:all)
 			flash[:product] = "Currently there are #{@prods.size} products"
 		if request.post?
+		@products = Product.new(params[:product])
 			if @products.save
 				@prods = Product.find(:all)
+				@products = Product.new
 				flash[:product] = "Product #{params[:pname]} saved successfully"
 			end
 		end
@@ -30,7 +34,8 @@ class PagesController < ApplicationController
 	end
 	
 	def mainpage
-		
+		@user = User.find(session[:user_id])
+		@userType = @user.user_type
 	end
 	
   def about
@@ -216,11 +221,12 @@ def sales
 		  if params[:paymenttype] == "Cash"
 			if (session[:ordersid].nil? or session[:ordersid] == 0)
 				sql.begin_db_transaction
+				puts "session id: " + session[:customerid].to_s
 				@sqladdorders = "INSERT INTO orders (custid,created_at,updated_at) VALUES ('" + session[:customerid] +"',current_date, current_date)"
 				@orderid= sql.insert(@sqladdorders)
 				session[:ordersid] = @orderid
 				sql.commit_db_transaction
-				session[:customerid] = nil
+				#session[:customerid] = nil
 				session[:ordersid] = nil
 			end
 			sql.begin_db_transaction
@@ -233,9 +239,9 @@ def sales
 			flash[:finished] = "Cash: Transaction has been paid. Thanks"
 			@current_tab = 2
 			@prods = Product.find(:all)
-			@subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
-			@subjects = Cartitem.find_by_sql(@subjects1)
-			@cidstr = "cid = " + session[:customerid]
+			puts "session id2: " + session[:customerid].to_s
+			@subjects = Cartitem.all
+			#@cidstr = "cid = " + session[:customerid]
 			Cartitem.delete_all()
 		  else
 		  if (session[:ordersid].nil? or session[:ordersid] == 0)
@@ -303,7 +309,11 @@ if params[:commit] == "delete"
 			@Productprice = Productprice.sum("priceperunit", :conditions => [@condition])
 			@Discountprice = Proddiscount.sum("discount", :conditions => [@condition])
 		@applymemdisc = "select Count(prodid) from orderdetails A, orders B where A.prodid='6' and A.orderid= B.id  and B.custid='"+session[:customerid]+"'"
-		@indprodprice= @Productprice.to_s
+		@indprodprice= @prods.prod_orig_price.to_s
+		@pconditions = @prods.conditions
+		@prodType = @prods.prod_type
+		@prodrating = @prods.rating
+		@prodthc = @prods.thc
 		@inddisc = @Discountprice.to_s
 		@prods = Product.find(:all)
 		sql = ActiveRecord::Base.connection();
@@ -317,7 +327,7 @@ if params[:commit] == "delete"
 		sql.commit_db_transaction
 		end
 		
-		@sqladdcart = "INSERT INTO cartitems (cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('" + session[:customerid]+ "', '"+ params[:ptype]  + "', '"+ @pid + "', '"+ params[:quality] +  "', '"+  params[:quantity]+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
+		@sqladdcart = "INSERT INTO cartitems (thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:ptype]  + "', '"+ @pid + "', '"+ params[:quality] +  "', '"+  params[:quantity]+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
 		
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
