@@ -364,11 +364,11 @@ if params[:commit] == "delete"
 		end
 		#quality is obsolete. it is replaced by rating - bhaarat
 		if params[:quantity] == nil and params[:quantity].to_s.length <=0
-			puts "HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+			puts "HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
 			@quant = 1
 		else
 			@quant = params[:quantity]
-			puts "yoooooooooooooooooooooooooooooooooooooooooooo"
+			puts "yooooooooooooooooooooooooooooooooooo"
 		end
 
 		@sqladdcart = "INSERT INTO cartitems (volume, category_name, thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+params[:volume].to_s+"','"+ @prodCat +"','"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:product][:prod_name] + "', '"+ @pid + "', '"+ '0' +  "', '"+  @quant.to_s+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
@@ -392,7 +392,7 @@ if params[:commit] == "delete"
 		if @query2.to_i > 0
 		if @reult1.to_i  <= 0 and @query2  = 1
 		flash[:finished] = @query2
-		@sqladdcart = "INSERT INTO cartitems (category_name, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ 'Membership Discount'+"' ,  '" + session[:customerid]+ "', '"+ "6"  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  ""+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"
+		@sqladdcart = "INSERT INTO cartitems (category_name, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ 'Membership Discount'+"' ,  '" + session[:customerid]+ "', '"+ "6"  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  "1"+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
 		sql.commit_db_transaction
