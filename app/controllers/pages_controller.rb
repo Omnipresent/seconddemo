@@ -98,7 +98,7 @@ class PagesController < ApplicationController
   #edit
   def editcustomer
 @custid = params[:id]
- if params[:commit] == "Update Customer Information"
+ if params[:commit] == "Update Member Information"
   
   @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dvolume_or_quantlnexp]}
   @cust = Customer.update(@custid, @varinsert)
@@ -156,7 +156,7 @@ end
 
   sql.commit_db_transaction
   end
-    if params[:commit] == "Add Customer Information"
+    if params[:commit] == "Add Member Information"
 		 @sqlstmmt = "INSERT INTO customers (firstname, lastname, dob, dln, sex, referral, reffredby, notes, statemmp, recom, countyid, suffix, dlnstate, dlnexpiry) VALUES ('"+params[:firstname] + 
 		 "', '"+ params[:lastname] + "', '"+params[:dob]+ "', '" + params[:dln] + "', '"  +           params[:sex] + "', '"+ params[:referral] +"', '"+ params[:reffredby] + 
 		 "', '"+ params[:notes] + "', '"+ params[:statemmp] + "', '"+ params[:recom] + "', '"+ params[:countyid]+ "', '"+ params[:suffix]+ "', '"+ params[:dlnstate] + "', '"+ params[:dlnexp]  +"')"
