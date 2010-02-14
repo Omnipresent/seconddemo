@@ -76,6 +76,7 @@ background-color:#7FB545;
 		<th>Phone Number</th>
 		<th>Gender</th>
 		<th>Drivers License</th>	
+		<th>Discount</th>
 		<th>Edit</th>
 	</tr>	
 	<% for customer in @customer%>
@@ -85,7 +86,14 @@ background-color:#7FB545;
 		<td><%=customer.lastname%></td>
 		<td><%=customer.contact.hphone%></td>
 		<td><%=customer.sex%></td>
-		<td><%=customer.dln%></td>				
+		<td><%=customer.dln%></td>
+<%@count = Orderdetail.count(:joins => :order, :conditions => ["prodid = ? and orders.custid = ?", 6, customer.id])%>
+<%if @count >= 1%>
+<td>No</td>
+<%end%>
+<%if @count == 0%>
+<td>Yes</td>
+<%end%>				
 <td><%=link_to "#{image_tag("edit.png", :width=>'60px')}", :controller => "pages", :action => "editcustomer", :id => customer.id%></td>		
 	</tr>
 	<%end%>
