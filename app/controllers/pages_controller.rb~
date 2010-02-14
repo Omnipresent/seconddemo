@@ -35,6 +35,10 @@ class PagesController < ApplicationController
 	end
 	
 	def physician
+		@physician = Physician.new
+		if request.post?
+			@physician = Physician.new(params[:physician])
+		end
 		
 	end
 	
@@ -98,7 +102,7 @@ class PagesController < ApplicationController
   #edit
   def editcustomer
 @custid = params[:id]
- if params[:commit] == "Update Customer Information"
+ if params[:commit] == "Update Member Information"
   
   @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dvolume_or_quantlnexp]}
   @cust = Customer.update(@custid, @varinsert)

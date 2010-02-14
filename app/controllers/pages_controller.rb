@@ -35,6 +35,13 @@ class PagesController < ApplicationController
 	end
 	
 	def physician
+		@physician = Physician.new
+		if request.post?
+			@physician = Physician.new(params[:physician])
+			if @physician.save
+				flash[:physician_save] = "Physician Informaiton saved"
+			end
+		end
 		
 	end
 	
