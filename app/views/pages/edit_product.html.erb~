@@ -30,6 +30,28 @@ color:#000;
 background-color:#7FB545;
 }
 </style>
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+$(document).ready(function() {
+	$("#product_category_id").change(function(){
+		if ($(this).val()== '6' || $(this).val()=='7')
+		{
+			$("#product_prod_type").val('')
+			$("#product_conditions").val('')
+			$("#product_rating").val('')
+			$("#product_volume").val('')
+		}
+	  else
+	  {
+			$("#product_prod_type").val('Indica')
+			$("#product_conditions").val('Indoor')
+			$("#product_rating").val('A')
+			$("#product_volume").val('Volume')
+	  }
+	})
+});
+// ]]>
+</script>
 
 		<center>
 
