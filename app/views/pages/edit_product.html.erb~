@@ -50,16 +50,16 @@ background-color:#7FB545;
 				            </tr>
 				            <tr>
 					            <td><%=p.label 'Product Type*'%></td>
-					            <td><%=p.select :prod_type,options_for_select([ "Indica", "Sativa", "Hybrid I","Hybrid S", "Hybrid 50/50", "Other" ], [p.object.prod_type]) %></td>
+					            <td><%=p.select :prod_type,options_for_select([ "Indica", "Sativa", "Hybrid I","Hybrid S", "Hybrid 50/50", "Other","" ], [p.object.prod_type]) %></td>
 				            </tr>
 
 				            <tr>
 					            <td><%=p.label 'Product Conditions*'%></td>
-					            <td><%=p.select :conditions,options_for_select([ "Indoor", "Outdoor", "Greenhouse","Other" ], [p.object.conditions]) %></td>
+					            <td><%=p.select :conditions,options_for_select([ "Indoor", "Outdoor", "Greenhouse","Other","" ], [p.object.conditions]) %></td>
 				            </tr>
  		                <tr>
 		                    <td><%=p.label 'Product Rating'%></td>
-		                    <td><%=p.select :rating, options_for_select([ "A", "B", "C","D" ], [p.object.rating]) %></td>
+		                    <td><%=p.select :rating, options_for_select([ "A", "B", "C","D","" ], [p.object.rating]) %></td>
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product THC'%></td>
@@ -68,7 +68,7 @@ background-color:#7FB545;
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Quantity'%></td>
-		                    <td><%=p.select :volume,options_for_select(["Volume", "Unit"], [p.object.volume]) %></td>
+		                    <td><%=p.select :volume,options_for_select(["Volume", "Unit",""], [p.object.volume]) %></td>
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Price'%></td>
@@ -78,6 +78,9 @@ background-color:#7FB545;
 		                    <td><%=p.label 'Product Quantity'%></td>
 		                    <td><%=p.text_field :quantity%></td>
 		                </tr>
+										<tr><td></td><td>* = If Product quantity is in Volume, then enter Product price for 1g. 
+										</td></tr>
+		                
 						<tr align="center">
 						<td colspan="4">
 						<%= submit_tag "Edit Product"%>
