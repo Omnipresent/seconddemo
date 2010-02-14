@@ -363,12 +363,12 @@ if params[:commit] == "delete"
 		sql.commit_db_transaction
 		end
 		#quality is obsolete. it is replaced by rating - bhaarat
-		if params[:quantity] == nil and params[:quantity].to_s.length <=0
+		if params[:quantity].to_s.length <=0
 			puts "HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
 			@quant = 1
 		else
 			@quant = params[:quantity]
-			puts "yooooooooooooooooooooooooooooooooooo"
+			puts "yooooooooooooooooooooooooooooooooooo: " + "#{params[:quantity].to_s.length}"
 		end
 
 		@sqladdcart = "INSERT INTO cartitems (volume, category_name, thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+params[:volume].to_s+"','"+ @prodCat +"','"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:product][:prod_name] + "', '"+ @pid + "', '"+ '0' +  "', '"+  @quant.to_s+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
