@@ -248,4 +248,8 @@ hor-zebra
 	background:#e8edff;
 }
 
+.admin {
+margin-left: 15px;
+}
+
 

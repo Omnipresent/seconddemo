@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-	layout "application", :except => [:login, :select_store, :admin_main, :changepwd]
+	layout "application", :except => [:login, :select_store, :changepwd]
 	
 	def admin_main
 				

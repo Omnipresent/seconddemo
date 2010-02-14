@@ -82,27 +82,23 @@
 
 
 			<script type="text/javascript" charset="utf-8">
+			function revealModal(divID)
+			{
+			    window.onscroll = function () { document.getElementById(divID).style.top = document.body.scrollTop; };
+			    document.getElementById(divID).style.display = "block";
+			    document.getElementById(divID).style.top = document.body.scrollTop;
+			    setTimeout("hideModal('" + divID + "')", 1000000);
+				  document.getElementById('ttoal1').focus();
+			}
+
+			function hideModal(divID)
+			{
+			    document.getElementById(divID).style.display = "none";
+			}
 			
-
-
-
-			
-	function revealModal(divID)
-{
-    window.onscroll = function () { document.getElementById(divID).style.top = document.body.scrollTop; };
-    document.getElementById(divID).style.display = "block";
-    document.getElementById(divID).style.top = document.body.scrollTop;
-    setTimeout("hideModal('" + divID + "')", 1000000);
-	document.getElementById('ttoal1').focus();
-}
-
-function hideModal(divID)
-{
-    document.getElementById(divID).style.display = "none";
-}
-function SwipeParserObj(strParse)
-{
-	document.getElementById('modalPage').style.display = "none";
+			function SwipeParserObj(strParse)
+			{
+			document.getElementById('modalPage').style.display = "none";
 	
 	// alert("Parsing function");
 
@@ -384,6 +380,12 @@ revealModal('modalPage');
 				<%@current_tab = 0%>
 	  <%end%>
 $tabs.tabs('select', <%= @current_tab %>); 
+$tabs.tabs('disable', 2)
+$tabs.tabs('disable', 1)
+
+<%if params[:stotal] != nil and params[:stotal].length>2%>
+$tabs.tabs('enable', 1)
+<%end%>
 		
 		//ACCORDIAN
 	
@@ -405,6 +407,28 @@ $tabs.tabs('select', <%= @current_tab %>);
 	
 
 			$(document).ready(function() {
+			
+			$("#product_prod_name").change(function(){
+				$.get("/pages/volume_or_quant", "id="+$(this).val(), function(result) {
+						if (result=="Volume")
+						{
+							$("#volume").removeAttr("disabled"); 
+							$("#quantity").attr("disabled", true)
+						}
+						else if (result=="Unit")
+						{
+							$("#quantity").removeAttr("disabled"); 
+							$("#volume").attr("disabled", true)
+						}
+							
+				})
+			})
+			
+			
+			
+			
+			
+			
 				oTable = $('#cartTable').dataTable( {
 					"bStateSave": true,
 					"bLengthChange": false,
@@ -459,7 +483,7 @@ $tabs.tabs('select', <%= @current_tab %>);
     <% form_tag  do %>
 <!---Tabs Start-->
 
-
+<%= flash[:sale] %>
 <p style="color: green"><%= flash[:finished] %>
 
 <%if @cust != nil%>
@@ -514,9 +538,7 @@ DLN: <%=@cust.dln%><br>
 				<td align="right">Sold to:
 				</td>
 				<td>
-<%if @cust != nil%>
-<%=@cust.lastname%>, <%=@cust.firstname%>
-<%end%>
+			<%= session[:customername] %>
 				</td>
 				<td align="right">Payment Method :
 				</td>
@@ -534,33 +556,35 @@ DLN: <%=@cust.dln%><br>
 			</td>
 			</tr>
 			<thead>
-			    <tr bgcolor="grey">       
-			        <th align="left">OrderProduct Type </font>
-			        </th>
-			        
-			        <th align="left">OrderItem Quality </font></th>
-			        			        
-			        <th align="left">OrderQuantity </font>
-			            </th>
-						 <th align="left">OrderPrice </font>
-			            </th>
-			         <th align="left">OrderDiscount </font>
-			            </th>			            
+			    <tr bgcolor="grey">  
+			    			<th align="left">Category</th>     
+				        <th align="left">Product Name</font></th>
+			        	<th align="left">Product Type </font></th>		        
+   			        <th align="left">Product Rating </font></th>	        
+								<th align="left">Quantity/Volume</th>
+							  <th align="left">Product Price</th>
+			          <th align="left">Product Discount </font></th>			            
 					
 			            
 			        			        
 			    </tr>
 			    </thead>
+				<% @subjects.each do |d| %>
  <tbody>
 			        <tr>
-			                <td><%= @subjects..ptype %></td>
-			                <td><%=  @subjects..quality %></td>
-			                <td><%=  @subjects..quantity%></td>
-			                <td><%=  @subjects..price  %></td>
-			                <td><%=  @subjects..discount %></td>	
+			              	<% form_tag  do %>	 
+											<td><%=d.category_name%></td>
+			                <td><%= d.ptype %></td>
+			                <td><%= d.prodtype%></td>
+			                <td><%=  d.rating %></td>
+			                <td><%=  d.quantity%></td>
+			                <td><%=  d.price%></td>
+			                <td><%=  d.discount %></td>	
+							 <% end %>
 							</td>
 			        </tr>
 			    </tbody>
+<% end %>
  
 			    <tbody>
 			        <tr>
@@ -591,68 +615,57 @@ DLN: <%=@cust.dln%><br>
 										</tr>
 			    </tfoot>
 			    		<tr >
-						<td colspan =3 ></td>
+						<td colspan =5 ></td>
 			        <td align="right" bgcolor="#e3e3e3">Sub Total</td>
-			           <td bgcolor="#e3e3e3"><%= params[:stotal]%></td>
+			           <td bgcolor="#e3e3e3"><%= session[:stotalcost] %></td>
 		                       
 			    </tr>	
 <tr>
-			        <td colspan =4 align="right">Sales Tax</td>
+			        <td colspan =6 align="right">Sales Tax</td>
 			           <td>15%</td>
 		                      
 			    </tr>	
 <tr >
-			        <td colspan =3 ></td>
+			        <td colspan =5 ></td>
 					<td align="right" bgcolor="#e3e3e3"><B>Total</b></td>
-			           <td bgcolor="#e3e3e3"><%= params[:ttoal]%></td>
-		                       
+			           <td bgcolor="#e3e3e3"><%= session[:totalcost] %></td>
 			    </tr>					
 			</table>
 			</div>
-			
 			<input name="b_print" type="button" class="ipt" size="10"   onClick="printdiv('printdiv');" value=" Print Receipt">
 			<%= submit_tag "Complete Transaction" %>
 			</div>
 			<div id="tabs-4">
-			
-
 			<br />
 			<fieldset>
-			
 			<legend><strong>Cart</strong></legend>
 			<form id="CartForm" action="#">
-			
-			
 			<table cellspacing="5px" cellpadding="5px">
 			<tr>
 							
 			
 			
-			<td>Item Type
-					</td>
-					
-			<td >
- <select name="ptype">
-    <%= options_from_collection_for_select @prods, 'id','prod_name',3 %>
-  
-			
-			</select>			
+			<td>Product Name</td>					
+			<td ><%=collection_select(:product, 'prod_name', @prods, :id, :prod_name, {:prompt => 'Select Product'})	%>
 			
 			</td>
 
 			
-			<td>Quality
+			<!--<td>Rating
 			</td>
 			
 			<td>
-			<%= select_tag "quality", options_for_select([ "A", "B", "C"],"A")  %>
-			
-			</td>
+			 <select name="quality">
+			<%= options_from_collection_for_select @prods, 'id','rating',3 %>
+			</select>
+			</td>-->
+			<td>Volume</td>
+	    <td><%=select_tag :volume, options_for_select(["", "1 g", "1/16 oz", "1/8 oz","1/4 oz","1/2 oz", "1 oz", "1/8 lb", "1/4 lb", "Single", "Multi 5" ], "N/A"), :disabled=>true%></td>	
 			
 			<td>Quantity</td>
 
 			<td>
-			<%= select_tag "quantity", options_for_select([ "1", "2", "3", "4"],"1")  %>
+				<%= text_field_tag :quantity, "", :size=>"4", :disabled=>true%>
 			</td>
 			
 			<td>
@@ -663,39 +676,69 @@ DLN: <%=@cust.dln%><br>
 			</table>
 			<table id="cartTable" class="display" cellspacing="0px">
 			<thead>
-			    <tr bgcolor="#E1E3FE">       
-			        <th align="left">Product</th>
+			    <tr bgcolor="#E1E3FE"> 
+			    		<th align="left">Category</th>      
+			        <th align="left">Product Name</th>
 			        <th align="left">Product Type</th>
-			        
 			        <th align="left">Product Rating</th>
-			        			        
-			        <th align="left">Quantity
-			            </th>
-						 <th align="left">Price
-			            </th>
-			         <th align="left">Discount
-			            </th>			            
-						<th align="left">Action
-			            </th>
+			        <th align="left">Quantity/Volume</th>
+							<th align="left">Price</th>
+			        <th align="left">Discount</th>
+						  <th align="left">Action</th>
 			            
 			        			        
 			    </tr>
 			    </thead>
 				<% @subjects.each do |c| %>
-
  <tbody>
+							<%if c.product.volume == "Unit"%>
 			        <tr>
-			              	<% form_tag  do %>	               
+			              	<% form_tag  do %>	  
+			              	<td><%= c.category_name%></td>
 			                <td><%= c.ptype %></td>
 			                <td><%= c.prodtype %></td>
-			                <td><%=  c.rating %></td>
+			                <td><%= c.rating %></td>
 			                <td><%=  c.quantity%></td>
-			                <td><%=  c.price  %></td>
+			                <td><%=   c.price %></td>
 			                <td><%=  c.discount %></td>
-							<td> <%= submit_tag "delete" %>	
-							<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
-							</td>
+											<td> <%= submit_tag "delete" %>	
+											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
+											</td>
 			        </tr>
+			        <%end%>
+			        <%if c.product.volume == "Volume" %>
+			        <tr>
+			              	<% form_tag  do %>	  
+			              	<td><%= c.category_name%></td>
+			                <td><%= c.ptype %></td>
+			                <td><%= c.prodtype %></td>
+			                <td><%= c.rating %></td>
+			                <td><%=  c.volume%></td>
+			                <td><%=  sprintf('%.2f' ,c.price).to_f %></td>
+			                <td><%=  c.discount %></td>
+											<td> <%= submit_tag "delete" %>	
+											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
+											</td>
+			        </tr>
+			        
+			        <%end%>
+			        <%if c.ptype.match(/^Membership/) %>
+			        <tr>
+			              	<% form_tag  do %>	  
+			              	<td><%= c.category_name%></td>
+			                <td><%= c.ptype %></td>
+			                <td><%= c.prodtype %></td>
+			                <td><%= c.rating %></td>
+			                <td><%=  c.volume%></td>
+			                <td><%=  sprintf('%.2f' ,c.price).to_f %></td>
+			                <td><%=  c.discount %></td>
+											<td> <%= submit_tag "delete" %>	
+											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
+											</td>
+			        </tr>
+			        
+			        <%end%>
+			        
 			    </tbody>
 <% end %>
  
@@ -731,7 +774,10 @@ DLN: <%=@cust.dln%><br>
     		                <tr>
     		                    <td>Sub Total
     		                    </td>
-    		                    <td><%= text_field_tag :stotal, params[:stotal] %>
+    		                    <%if params[:stotal] == nil%>
+    		                    	<%params[:stotal] = 0.0%>
+    		                    	<%end%>
+    		                    <td><%= text_field_tag :stotal, sprintf('%.2f' ,params[:stotal]) %>
     		                    </td>    		        
     		                </tr>
     		                  <tr>
@@ -744,7 +790,7 @@ DLN: <%=@cust.dln%><br>
     		                  <tr >
     		                    <td rowspan="2" cellpadding="0" style="font-size:medium;">Total
     		                    </td>
-    		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, params[:ttoal] %>
+    		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, sprintf('%.2f' ,params[:ttoal]).to_f %>
     		                    </td>
     		                </tr>
     		                <tr >
@@ -766,7 +812,7 @@ DLN: <%=@cust.dln%><br>
 <tr>
 											<td class="mainTextBold" width="30%"><font color="white">Total Fees:</font></td>
 											<td align="left" width="70%">
-<%= text_field_tag :firstname, params[:ttoal]%>
+<%= text_field_tag :firstname, sprintf('%.2f' ,params[:ttoal]).to_f%>
 
 </td>
 

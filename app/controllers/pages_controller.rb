@@ -1,6 +1,11 @@
 class PagesController < ApplicationController
 	layout "application", :except => [:index, :mainpage]
 	
+	def volume_or_quant
+		@product = Product.find(params[:id])
+		@product.quantity		
+		render :text => @product.volume
+	end
 	
 	def edit_product			
 	  @categories = Category.all
@@ -52,7 +57,7 @@ class PagesController < ApplicationController
   def search
   	session[:customerid] = nil
 		session[:ordersid] = nil
-		if params[:type] == "Patient"
+		if params[:type] == "Member"
 			if params[:search] != nil and params[:search].length >0
 				@customer = Customer.all(:conditions => ["UPPER(firstname) LIKE ?", "%#{params[:search]}%".upcase], :include => :contact)
 			elsif params[:phone] and params[:phone].length >0
@@ -71,7 +76,7 @@ class PagesController < ApplicationController
 			@customer = Customer.all(:include => :contact)
 		end
 		if params[:type] == nil
-			params[:type] = "Patient"
+			params[:type] = "Member"
 		#	flash[:search] = "Total #{@customer.size} #{params[:type]}" unless @customer == nil
 		else
 			flash[:search] = "Found #{@customer.size} #{params[:type]}" unless @customer == nil
@@ -88,17 +93,14 @@ class PagesController < ApplicationController
   def contactus
   end
   def index
-  	redirect_to :controller => 'admin', :action => 'login' 
+  	redirect_to :controller => 'admin', :action => 'login'
   end
-  
-  
-  
   #edit
   def editcustomer
 @custid = params[:id]
  if params[:commit] == "Update Customer Information"
   
-  @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dlnexp]}
+  @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dvolume_or_quantlnexp]}
   @cust = Customer.update(@custid, @varinsert)
   @varinsert = {:line1=>params[:line1] , :county=>params[:county], :line2=>params[:line2], :city=>params[:city],:state=>params[:state], :zip=>params[:zip]}
   @cust = Address.update(@custid, @varinsert)
@@ -138,7 +140,6 @@ params[:provider] = @customer.first.contact.provider
 end
 end
   
-  
   def customer
   @phys = Physician.find(:all) #gets all physicians
    if request.post?
@@ -170,20 +171,24 @@ end
 		 sql.begin_db_transaction
 		 @id2 = sql.insert(@sqlstmmt1)
 		 sql.commit_db_transaction
-		 @varsms = "no"
-		 @varmail = "no"
-		 @varemail = "no"
-      if params[:sms] == "yes"
 		 @varsms = "yes"
-      end
-     if params[:mail] == "yes"
-         @varmail = "yes"
-     end
-     if params[:email] == "yes"
+		 @varmail = "yes"
 		 @varemail = "yes"
-     end
+		 @varphone = "yes"
+		 if (@varsms.nil? or @varsms == 0)
+		 @varsms = "yes"
+		 end
+		 if ( @varmail.nil? or  @varmail  == 0)
+		 @varmail = "yes"
+		 end
+		 if ( @varemail.nil? or @varemail == 0)
+		  @varemail =  "yes"
+		 end
+		 if (@varphone.nil? or @varphone == 0)
+		 @varphone = "yes"
+		 end
   # sql statement to insert into contact links table
-		@sqlcontact =  "INSERT INTO contacts (id,\"cid\", \"hphone\", mphone, provider, cemail, email, sms , mail) VALUES ('"+@id1+"','" + @id1  + "', '"+ params[:hphone] + "', '"+params[:mphone]+ "', '" + params[:provider] + "', '" + params[:cemail]+ "', '" +      @varemail+ "', '"+@varsms+ "', '"+ @varmail+"')"
+		@sqlcontact =  "INSERT INTO contacts (id,\"cid\", \"hphone\", mphone, provider, cemail, email, sms , mail, phone) VALUES ('"+@id1+"','" + @id1  + "', '"+ params[:hphone] + "', '"+params[:mphone]+ "', '" + params[:provider] + "', '" + params[:cemail]+ "', '" +      @varemail+ "', '"+@varsms+ "', '"+ @varmail+"', '"+@varphone+"')"
 		@sqlstmmt2 = "INSERT INTO contactlinks (\"contactid\", \"addressid\") VALUES ('" + @id1 + "', '"+ @id2+ "')"
 		sql.begin_db_transaction
 		@id3 = sql.insert(@sqlcontact )
@@ -211,13 +216,24 @@ end
   end
 end
    
-   
-   
+   def to_frac(value)
+		numerator, denominator = value.split('/').map(&:to_f)
+    denominator ||= 1
+    numerator/denominator   	
+   end
   
 def sales
+
+	if  params[:commit] == "Complete Transaction"
+	session[:customer_id] = nil
+	session[:ordersid] = nil
+	session[:custId] = nil
+	session[:totalcost] = nil
+	session[:stotalcost] = nil
+	end
    if  params[:commit] == "Submit"
 	sql = ActiveRecord::Base.connection();
-			flash[:finished] = nil 
+			flash[:finished] = nil
 		  if params[:paymenttype] == "Cash"
 			if (session[:ordersid].nil? or session[:ordersid] == 0)
 				sql.begin_db_transaction
@@ -230,19 +246,18 @@ def sales
 				session[:ordersid] = nil
 			end
 			sql.begin_db_transaction
-				@sqladdpayment = "INSERT INTO payments (orderid, ttlprodcost, paytype, paystatus,created_at,updated_at,userid,storeid) VALUES ('" + "1"+ "', '" + "100" + "', '"  + 
-				"1"+ "', '"  + "complete" +"',current_date, current_date, '"+"1"+"','"+
-				session[:store_id]+"')"
-				@paymentid= sql.insert(@sqladdpayment)
-				session[:payid] = @paymentid
+		@sqladdpayment = "INSERT INTO payments (orderid, ttlprodcost, paytype, paystatus,created_at,updated_at,userid,storeid) VALUES ('" + session[:ordersid] + "', '" + session[:totalcost] + "', '"  + "1"+ "', '"  + "complete" +"',current_date, current_date, '"+"1"+"','"+	"1"+"')"
+			@paymentid= sql.insert(@sqladdpayment)
+			session[:payid] = @paymentid
 			sql.commit_db_transaction
-			flash[:finished] = "Cash: Transaction has been paid. Thanks"
+			flash[:finished] = "Transaction has been completed. Thanks"
 			@current_tab = 2
 			@prods = Product.find(:all)
 			puts "session id2: " + session[:customerid].to_s
 			@subjects = Cartitem.all
-			#@cidstr = "cid = " + session[:customerid]
-			Cartitem.delete_all()
+			@cidstr = "cid = " + session[:customerid]
+			Cartitem.delete_all(@cidstr)
+
 		  else
 		  if (session[:ordersid].nil? or session[:ordersid] == 0)
 			sql.begin_db_transaction
@@ -252,22 +267,22 @@ def sales
 			sql.commit_db_transaction
 			end
 			sql.begin_db_transaction
-				@sqladdpayment = "INSERT INTO payments (custid,created_at,updated_at,userid,storeid) VALUES ('" + session[:customerid] +"',current_date, current_date, '"+"1"+"','"+"1"+"')"
+@sqladdpayment = "INSERT INTO payments (custid,created_at,updated_at,userid,storeid) VALUES ('" + session[:customerid] +"',current_date, current_date, '"+"1"+"','"+"1"+"')"
 				@paymentid= sql.insert(@sqladdpayment)
 				session[:payid] = @paymentid
 			sql.commit_db_transaction
-			 flash[:finished] = "Credit :Your card has been charged. Thanks"
-			 			@current_tab = 2
+			flash[:finished] = "Your card has been charged. Thanks"
+			@current_tab = 2
 			@prods = Product.find(:all)
 			@subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
 			@subjects = Cartitem.find_by_sql(@subjects1)
 			@cidstr = "cid = " + session[:customerid]
-			Cartitem.delete_all()
+			Cartitem.delete_all(@cidstr)
 		  end
 			return
 	  end
 if params[:commit] == "delete"
-@cust = Customer.find_by_id(session[:custId])
+		@cust = Customer.find_by_id(session[:custId])
 		 @prods = Product.find(:all)
 		 flash[:finished] = nil
 	     sql = ActiveRecord::Base.connection();
@@ -295,29 +310,50 @@ if params[:commit] == "delete"
 	return
 	end
 	if params[:commit] == "Add to Cart"
-			
+			@salecondition = "id = " + params[:product][:prod_name]
+		 @Quantity = Product.sum("quantity", :conditions => [@salecondition])
+		 @qnty = @Quantity.to_i - params[:quantity].to_i
+		 if @qnty < 0
+			flash[:sale] = "Not enough Quantity"
+		    @subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
+			@subjects = Cartitem.find_by_sql(@subjects1)
+			@prods = Product.find(:all)
+		 return
+		 end
+		 puts @qnty 
 		 @cust = Customer.find_by_id(session[:custId])
-		 
-		 
 		if (session[:customerid].nil? or session[:customerid] == 0)
 		flash[:search] = "Please select a customer in order to process payment"
 		  redirect_to :controller => 'pages', :action => 'search' 
 		end
-			@prods = Product.find_by_id(params[:ptype])
-			@condition = "prodid = '" +params[:ptype]+"'"
-			@pid = @prods.prod_name
-			@Productprice = Productprice.sum("priceperunit", :conditions => [@condition])
-			@Discountprice = Proddiscount.sum("discount", :conditions => [@condition])
+	    @prods = Product.find_by_id(params[:product][:prod_name])
+		@condition = "id = '" +params[:product][:prod_name]+"' and volume= '"+params[:quantity].to_s+"'"
+		@condition1 = "prodid = '" +params[:product][:prod_name]+"'"
+		@pid = @prods.prod_name
+		@Productprice = Product.sum("prod_orig_price", :conditions => [@condition])
+		@Discountprice = Proddiscount.sum("discount", :conditions => [@condition1])
 		@applymemdisc = "select Count(prodid) from orderdetails A, orders B where A.prodid='6' and A.orderid= B.id  and B.custid='"+session[:customerid]+"'"
 		@indprodprice= @prods.prod_orig_price.to_s
+		
+		if params[:volume].to_s.length > 0
+			puts "came here"
+			first, *rest = params[:volume].to_s.split(/ /)
+			if rest.first=="oz"
+				@indprodprice = @prods.prod_orig_price.to_i*to_frac(first)*28.3495
+			else 
+				@indprodprice = @prods.prod_orig_price.to_i*to_frac(first)*453.59237
+			end		
+		end
+		@indprodprice = @indprodprice.to_s
 		@pconditions = @prods.conditions
 		@prodType = @prods.prod_type
 		@prodrating = @prods.rating
 		@prodthc = @prods.thc
+		@prodCat = @prods.category.name
 		@inddisc = @Discountprice.to_s
 		@prods = Product.find(:all)
 		sql = ActiveRecord::Base.connection();
-		@pid2 =  "SELECT * FROM products where prod_name='"+params[:ptype]+"'"
+		@pid2 =  "SELECT * FROM products where prod_name='"+params[:product][:prod_name]+"'"
         @pid1 =   Product.find_by_sql(@pid2)
 		@sqladdorders = "INSERT INTO orders (custid) VALUES ('" + session[:customerid] +"')" 
 		if (session[:ordersid].nil? or session[:ordersid] == 0)
@@ -326,20 +362,28 @@ if params[:commit] == "delete"
 			session[:ordersid] = @orderid
 		sql.commit_db_transaction
 		end
-		
-		@sqladdcart = "INSERT INTO cartitems (thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:ptype]  + "', '"+ @pid + "', '"+ params[:quality] +  "', '"+  params[:quantity]+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
-		
+		#quality is obsolete. it is replaced by rating - bhaarat
+		if params[:quantity] == nil and params[:quantity].to_s.length <=0
+			puts "HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+			@quant = 1
+		else
+			@quant = params[:quantity]
+			puts "yoooooooooooooooooooooooooooooooooooooooooooo"
+		end
+
+		@sqladdcart = "INSERT INTO cartitems (volume, category_name, thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+params[:volume].to_s+"','"+ @prodCat +"','"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:product][:prod_name] + "', '"+ @pid + "', '"+ '0' +  "', '"+  @quant.to_s+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
 		sql.commit_db_transaction
-		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ params[:ptype]  + "', '"+ @indprodprice + "', '"+ params[:quantity] +"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
+
+		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ params[:product][:prod_name]  + "', '"+ @indprodprice + "', '"+ '0'+"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
 		sql.begin_db_transaction
 			@orderdetailsid= sql.insert(@sqladdorderdetails)
 		sql.commit_db_transaction
 		@cidstr = "cid = " + session[:customerid]
 		@subtotal = Cartitem.sum("(price*(1-discount*.01))", :conditions => [@cidstr])
 		@totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)", :conditions => [@cidstr])
-	if @totalprice.to_i >=25
+	if @totalprice.to_i >25
 		flash[:finished] = @query2
 		@query1="select Count(*) from orderdetails A, orders B where A.prodid='5' and A.orderid= B.id and B.custid='"+session[:customerid]+"'"
 		@query2 = Orderdetail.count_by_sql(@query1)
@@ -348,7 +392,7 @@ if params[:commit] == "delete"
 		if @query2.to_i > 0
 		if @reult1.to_i  <= 0 and @query2  = 1
 		flash[:finished] = @query2
-		@sqladdcart = "INSERT INTO cartitems (cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('" + session[:customerid]+ "', '"+ "6"  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  "1"+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"
+		@sqladdcart = "INSERT INTO cartitems (category_name, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ 'Membership Discount'+"' ,  '" + session[:customerid]+ "', '"+ "6"  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  ""+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
 		sql.commit_db_transaction
@@ -359,18 +403,18 @@ if params[:commit] == "delete"
 		end
 	end
 	end
-		@subtotal = Cartitem.sum("(price*(1-discount*.01))", :conditions => [@cidstr])
-		@totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)", :conditions => [@cidstr])
+		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))", :conditions => [@cidstr])
+		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))+price*to_number(quantity,'99G999D9S')*.15", :conditions => [@cidstr])
 		params[:stotal] = @subtotal 
 		params[:ttoal] = @totalprice
-	
+		session[:totalcost] = @totalprice
+		session[:stotalcost] = @subtotal
         @prods = Product.find(:all)
 		@subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
         @subjects = Cartitem.find_by_sql(@subjects1)
 		return
 else 
 	 @cust = Customer.find_by_id(params[:custId])
-	 session[:custId] = @cust.id
 	 @paramtemp = Product.find_by_id(:conditions => ["UPPER(prod_name) LIKE ?", "Flower".upcase])
 	 @subtotal = Cartitem.sum("price")
 	 @totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)")
@@ -378,13 +422,15 @@ else
 	 @tempcustid = session[:customerid]
 	   if (@tempcustid.nil? or @tempcustid == 0)
 		  flash[:search] = "Please select a customer in order to process payment"
-		  redirect_to :controller => 'pages', :action => 'search' 
+		  redirect_to :controller => 'pages', :action => 'search'
 		  return
 		end
+	session[:custId] = @cust.id
+	session[:customername] = @cust.lastname + ", "+@cust.firstname
 	 @cidstr = "cid = " + session[:customerid]
-	 @subtotal = Cartitem.sum("(price*(1-discount*.01))", :conditions => [@cidstr])
-	 @totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)", :conditions => [@cidstr])
-	 params[:stotal] = @subtotal 
+	 @subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))", :conditions => [@cidstr])
+	 @totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))+price*to_number(quantity,'99G999D9S')*.15", :conditions => [@cidstr])
+	 params[:stotal] = @subtotal
 	 params[:ttoal] = @totalprice
      @subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
 	 @subjects = Cartitem.find_by_sql(@subjects1)

@@ -24,7 +24,7 @@ class AdminController < ApplicationController
         session[:user_id] = @user.id
         if @user.user_status == "N"
         	redirect_to(:controller => "admin", :action => "changepwd")
-				elsif @user.stores.find(:all, :conditons => ["store_status = ?", "A"]).length > 0
+				elsif @user.stores.find(:all, :conditions => ["store_status = ?", "A"]).length > 0
 	        redirect_to(:controller => "admin", :action => "select_store")
 	      else
 	      	redirect_to(:controller => "pages", :action => "mainpage")

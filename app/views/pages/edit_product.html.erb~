@@ -63,12 +63,12 @@ background-color:#7FB545;
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product THC'%></td>
-		                    <td><%=p.select :thc, options_for_select((0..100).step(10).to_a.map {|s| ["#{s}%"]},
+		                    <td><%=p.select :thc, options_for_select((0..100).step(5).to_a.map {|s| ["#{s}%"]},
 		                         [p.object.thc])%></td>
 		                </tr>
 		                <tr>
-		                    <td><%=p.label 'Product volume'%></td>
-		                    <td><%=p.select :volume,options_for_select([ "1", "2", "3" ], "1") %></td>
+		                    <td><%=p.label 'Product Quantity'%></td>
+		                    <td><%=p.select :volume,options_for_select(["Volume", "Unit"], [p.object.volume]) %></td>
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Price'%></td>

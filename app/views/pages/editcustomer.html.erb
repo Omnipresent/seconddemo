@@ -173,7 +173,7 @@ function hideModal(divID)
 							<script type="text/javascript"> 
 		            var dob = new LiveValidation('dob');
 		            dob.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					dob.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+					dob.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
 		          </script>
                             </div>
 				            <td align="right">Gender:</td>
@@ -235,7 +235,7 @@ function hideModal(divID)
 										<script type="text/javascript"> 
 		            var dlnexp = new LiveValidation('dlnexp');
 		            dlnexp.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					dlnexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+					dlnexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
 		          </script>
 				            <td>&nbsp;</td>
                                  
@@ -263,17 +263,18 @@ function hideModal(divID)
 		            var line1 = new LiveValidation('line1');
 		            line1.add(Validate.Presence, 4e3,{failureMessage: "*"});
 		          </script>
-    				                          <td align="right">County:</td>
+				    <td align="right">Line&nbsp;2:</td>
+				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>
+    				                         
+    				                    </tr>
+				                        <tr>
+				                          
+											 <td align="right">County:</td>
     				                        <td align="left"><%= text_field_tag :county, params[:county] %></td>
 											<script type="text/javascript"> 
 		            var county = new LiveValidation('county');
 		            county.add(Validate.Presence, 4e3,{failureMessage: "*"});
 		          </script>
-    				                    </tr>
-				                        <tr>
-				                            <td align="right">Line&nbsp;2:</td>
-				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>
-											
 											<td align="right">City:</td>
     				                         <td align="left"><%= text_field_tag :city, params[:city] %></td>
 				                             <script type="text/javascript"> 
@@ -347,9 +348,10 @@ function hideModal(divID)
     				                    <tr>
     				                            <td align="right">Notification:</td>
     				                                <td colspan="5" align="left">
-													 <%=check_box_tag 'email', 'yes' 'no'%> E-mail
+													<%=check_box_tag 'email', 'yes' 'no'%> E-mail
 													<%=check_box_tag 'sms', 'yes'  'no'%> SMS
-													 <%=check_box_tag 'mail', 'yes'  'no'%> Mail
+													<%=check_box_tag 'mail', 'yes'  'no'%> Mail
+													<%=check_box_tag 'phone', 'yes'  'no'%> Phone
                          </td>
                                         </tr>
     				                        

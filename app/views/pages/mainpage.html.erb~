@@ -29,7 +29,7 @@
        	<tr>
        	<td><%= link_to "#{image_tag("sales.png", :width=>180)}", {:action => 'sales', :controller => 'pages'} %>   </td>
        	<td>&nbsp</td>
-				<td><%= link_to "#{image_tag("add_customer.png", :width=>180)}", {:action => 'customer', :controller => 'pages'} %>       	</td>
+				<td><%= link_to "#{image_tag("Member-01.png", :width=>180)}", {:action => 'customer', :controller => 'pages'} %>       	</td>
        	<td>  &nbsp;</td>      	
        	<td>  
 <%= link_to "#{image_tag("Reports_menu.png", :width=>180)}", {:action => 'reports', :controller => 'pages'} %>      
@@ -43,7 +43,7 @@
 <%= link_to "#{image_tag("logout.png", :width=>180)}", {:action => 'logout', :controller => 'admin'} %>      
 </td>
        	<td>&nbsp;</td><td></td><td></td>
-     <td><%= link_to "#{image_tag("store_admin.png", :width=>180)}", {:action => 'admin_main', :controller => 'admin'} if @userType == "S"%>      </td>
+     <td><%= link_to "#{image_tag("store_admin.png", :width=>180)}", {:action => 'admin_main', :controller => 'admin'} if @userType == "S" %>      </td>
        	</tr>
        </table>
 <br>

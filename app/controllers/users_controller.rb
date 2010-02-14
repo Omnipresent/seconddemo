@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	layout "application", :except => [:index, :show, :edit, :new]
+	layout "application"
 	
   def register
   end

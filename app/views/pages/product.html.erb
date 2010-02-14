@@ -65,17 +65,20 @@ background-color:#7FB545;
 		                    <td><%=p.select :thc, options_for_select((0..100).step(5).to_a.map {|s| ["#{s}%"]})%></td>
 		                </tr>
 		                <tr>
-		                    <td><%=p.label 'Product volume'%></td>
-		                    <td><%=p.select :volume,options_for_select([ "1", "2", "3" ], "1") %></td>
+		                    <td><%=p.label 'Product Quantity'%></td>
+		                    <td><%=p.select :volume,options_for_select([ "Unit", "Volume"], "1") %></td>
 		                </tr>
 		                <tr>
-		                    <td><%=p.label 'Product Price'%></td>
+		                    <td><%=p.label 'Product Price (Price for 1g)*' %></td>
 		                    <td><%=p.text_field :prod_orig_price%></td>
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Quantity'%></td>
 		                    <td><%=p.text_field :quantity%></td>
 		                </tr>
+										<tr><td></td><td>* = If Product quantity is in Volume, then enter Product price for 1g. 
+										</td></tr>
+												                
 		                
 						<tr align="center">
 						<td colspan="4">

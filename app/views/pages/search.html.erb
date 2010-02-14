@@ -41,7 +41,7 @@ background-color:#7FB545;
 <div class="form_row">
  
     <% form_tag  do %>
-    <% [ 'Physician', 'Patient'].each do |type| %>
+    <% [ 'Physician', 'Member'].each do |type| %>
       <%= radio_button_tag 'type', type, @type == type %>  <%= type.humanize %>
     <% end %>
 </div>

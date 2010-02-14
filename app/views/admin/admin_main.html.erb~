@@ -6,16 +6,16 @@
 			  <fieldset style="width: 70%">
 			    <legend><b>Please select admin options</b></legend>
 			    <br>
-	       <table border="0" cellspacing="0" cellpadding="0" align="center" width="70%">
+	       <table border="0" cellspacing="0" cellpadding="0" align="center" width="100%">
 	       	<tr>
-		       	<td>  
-							<%= link_to "#{image_tag("add_product.png", :width=>180)}", {:action => 'product', :controller => 'pages'} %>       	
+		       	<td align="right">  
+							<%= link_to "#{image_tag("Member-01.png", :width=>180)}", {:action => 'index', :controller => 'users'} %>       	
 		       	</td>
 		       	<td>&nbsp;</td>
 		       	<td>&nbsp;</td>
-		       	<td>&nbsp;</td>
+		       			       	<td>&nbsp;</td>
 		       	<td>  
-							<%= link_to "#{image_tag("Search_menu.png", :width=>180)}", {:action => 'search', :controller => 'pages'} %>       	
+							<%= link_to "#{image_tag("Store-01.png", :width=>180)}", {:action => 'index', :controller => 'stores'} %>       	
 						</td>
 	       	</tr>
        </table>

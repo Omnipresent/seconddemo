@@ -36,21 +36,12 @@
 <%= link_to "#{image_tag("Rx-01.png", :border=>0)}<span></span>", {:action => 'customer', :controller => 'pages'}%></a>
 <%= link_to "#{image_tag("Sales-01.png", :border=>0)}<span></span>", {:action => 'sales', :controller => 'pages'}%></a>
 <%= link_to "#{image_tag("reports.png", :border=>0)}<span></span>", {:action => 'reports', :controller => 'pages'}%></a>
+<%= link_to "#{image_tag("Product2-01-01.png", :border=>0)}<span></span>", {:action => 'product', :controller => 'pages'}%></a>
 <div style="float: right"><%= link_to "#{image_tag("Exit-01.png", :height=>100)}", {:action => 'mainpage', :controller => 'pages'} %>  </div>
 
 
 		</div>
-	<!--		<div class="dock" id="dock">
-			  <div class="dock-container">
-<%= link_to "#{image_tag("test/Search.png", :border=>0)}<span>Search</span>", {:action => 'search', :controller => 'pages'}, :class => 'dock-item' %></a>
-<%= link_to "#{image_tag("Customer.png", :border=>0)}<span>Customer</span>", {:action => 'customer', :controller => 'pages'}, :class => 'dock-item'%></a>
-<%= link_to "#{image_tag("Doctor.png", :border=>0)}<span>Physician</span>", {:action => 'physician', :controller => 'pages'}, :class => 'dock-item'%></a>
-<%= link_to "#{image_tag("Prescription.png", :border=>0)}<span>Prescription</span>", {:action => 'customer', :controller => 'pages'}, :class => 'dock-item'%></a>
-<%= link_to "#{image_tag("POS.png", :border=>0)}<span>Sales</span>", {:action => 'sales', :controller => 'pages'}, :class => 'dock-item'%></a>
-<%= link_to "#{image_tag("Reports.png", :border=>0)}<span>Reports</span>", {:action => 'reports', :controller => 'pages'}, :class => 'dock-item'%></a>
-				</div>
-			</div> -->
-			<br><br>
+
 	  <div id="content" class="round">
 	    <%= yield %>
 	  </div>

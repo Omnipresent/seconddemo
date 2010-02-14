@@ -163,7 +163,7 @@ function hideModal(divID)
 							</script> 
 							<td align="right">Suffix:</td>
 				             <td align="left">
-							<%= select_tag "suffix", options_for_select([ "Jr", "I", "II", "III", "IV"],"Jr")  %>
+							<%= select_tag "suffix", options_for_select([ "-", "Jr", "I", "II", "III", "IV"],"-")  %>
 						</td> 
 				            		<div id="tabs-2">
 				            <td align="right">DOB:</td>
@@ -172,7 +172,7 @@ function hideModal(divID)
 							<script type="text/javascript"> 
 		            var dob = new LiveValidation('dob');
 		            dob.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					dob.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+					dob.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
 		          </script>
                             </div>
 				            <td align="right">Gender:</td>
@@ -238,7 +238,7 @@ function hideModal(divID)
 										<script type="text/javascript"> 
 		            var dlnexp = new LiveValidation('dlnexp');
 		            dlnexp.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					dlnexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+					dlnexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
 		          </script>
 				            <td>&nbsp;</td>
                                  
@@ -266,19 +266,16 @@ function hideModal(divID)
 		            var line1 = new LiveValidation('line1');
 		            line1.add(Validate.Presence, 4e3,{failureMessage: "*"});
 		          </script>
-    				                          <td align="right">County:</td>
+				                   <td align="right">Line&nbsp;2:</td>
+				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>                
+    				                    </tr>
+				                        <tr>
+				           
+				   <td align="right">County:</td>
     				                        <td align="left"><%= text_field_tag :county, params[:county] %></td>
 											<script type="text/javascript"> 
 		            var county = new LiveValidation('county');
 		            county.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
-    				                    </tr>
-				                        <tr>
-				                            <td align="right">Line&nbsp;2:</td>
-				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>
-											<script type="text/javascript"> 
-		            var line2 = new LiveValidation('line2');
-		            line2.add(Validate.Presence, 4e3,{failureMessage: "*"});
 		          </script>
 											<td align="right">City:</td>
     				                         <td align="left"><%= text_field_tag :city, params[:city] %></td>
@@ -349,7 +346,7 @@ function hideModal(divID)
 												 </script>
 				                                <td align="right">Provider:</td>
 				                                <td  align="left">
-						<%= select_tag "provider", options_for_select([ "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],"Alltel")  %>
+						<%= select_tag "provider", options_for_select([ "-", "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],"-")  %>
                                                 </td>
 
 			                            </tr>
@@ -360,9 +357,10 @@ function hideModal(divID)
     				                    <tr>
     				                            <td align="right">Notification:</td>
     				                                <td colspan="5" align="left">
-													 <%=check_box_tag 'email', 'yes' 'no'%> E-mail
+													<%=check_box_tag 'email', 'yes' 'no'%> E-mail
 													<%=check_box_tag 'sms', 'yes'  'no'%> SMS
-													 <%=check_box_tag 'mail', 'yes'  'no'%> Mail
+													<%=check_box_tag 'mail', 'yes'  'no'%> Mail
+													<%=check_box_tag 'phone', 'yes'  'no'%> Phone
                          </td>
                                         </tr>
     				                        
@@ -372,7 +370,7 @@ function hideModal(divID)
 	            </tr>
 				<tr>
 				<td colspan="9">
-				</div>>
+
 <div class="depot-form">
             			<fieldset style="width:100%">
     <legend><strong>State/County&nbsp;Registration&nbsp;Information</strong></legend>
@@ -430,7 +428,32 @@ function hideModal(divID)
     
 
 				            <table cellpadding="3px" cellspacing="3px">
-							  <tr>
+							 
+				            <tr>
+				            <td align="right">Recommendation&nbsp;Date:
+				            </td>
+				            <td align="left"><%= text_field_tag :recver, params[:recver] %></td>
+							<script type="text/javascript"> 
+		            var recver = new LiveValidation('recver');
+		            recver.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					recver.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
+		          </script>
+				            <td align="right">Reco.&nbsp;Expiration&nbsp;Date</td>
+				            <td align="left"><%= text_field_tag :recexp, params[:recexp] %></td>
+							<script type="text/javascript"> 
+		            var recexp = new LiveValidation('recexp');
+		            recexp.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					recexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
+		          </script>
+				            <td align="right">Reco.&nbsp; Verification&nbsp;Date</td>
+				            <td align="left"><%= text_field_tag :physver, params[:physver] %></td>
+							<script type="text/javascript"> 
+		            var physver = new LiveValidation('physver');
+		            physver.add(Validate.Presence, 4e3,{failureMessage: "*"});
+					physver.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
+		          </script>
+							</tr>
+							 <tr>
 				            <td align="right">
 				            Doctor's Name: 
 				            </td>
@@ -445,30 +468,6 @@ function hideModal(divID)
                              <td></td> 
                              <td></td>
 				            </tr>
-				            <tr>
-				            <td align="right">Recommendation&nbsp;Date:
-				            </td>
-				            <td align="left"><%= text_field_tag :recver, params[:recver] %></td>
-							<script type="text/javascript"> 
-		            var recver = new LiveValidation('recver');
-		            recver.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					recver.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
-		          </script>
-				            <td align="right">Reco.&nbsp;Expiration&nbsp;Date</td>
-				            <td align="left"><%= text_field_tag :recexp, params[:recexp] %></td>
-							<script type="text/javascript"> 
-		            var recexp = new LiveValidation('recexp');
-		            recexp.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					recexp.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
-		          </script>
-				            <td align="right">Reco.&nbsp; Verification&nbsp;Date</td>
-				            <td align="left"><%= text_field_tag :physver, params[:physver] %></td>
-							<script type="text/javascript"> 
-		            var physver = new LiveValidation('physver');
-		            physver.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					physver.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
-		          </script>
-							</tr>
 							<tr>
 						<td colspan="6" align="center">	<br> <%= submit_tag "Add Customer Information" %>
 							</td>
@@ -505,7 +504,7 @@ function hideModal(divID)
 	<table cellpadding="5px" cellspacing="5px">				            
 	<tr>				          
 	<td>				            
-	Doctor's Name: 				            
+	Doctors Name:				            
 	</td>				            
 	<td> 						
 	<!--	<%= select_tag "recipro", options_for_select([ "Received", "Sent", "Go"],"Go")  %> -->                                 
@@ -528,7 +527,7 @@ function hideModal(divID)
 	<script type="text/javascript"> 
 		            var licexpdate1 = new LiveValidation('dob');
 		            licexpdate1.add(Validate.Presence, 4e3,{failureMessage: "*"});
-					licexpdate1.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YY" } );
+					licexpdate1.add( Validate.Format, {pattern: /(0[1-9]|1[012])[ /.](0[1-9]|[12][0-9]|3[01])[/.](19|20)\d\d/i, failureMessage: "MM/DD/YYYY" } );
 		          </script>
 	</tr>		
 	<tr>						
