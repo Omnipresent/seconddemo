@@ -714,7 +714,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%= c.prodtype %></td>
 			                <td><%= c.rating %></td>
 			                <td><%=  c.volume%></td>
-			                <td><%=  sprintf('%.2f' ,c.price).to_f %></td>
+			                <td><%=  sprintf('%.2f' ,c.price) %></td>
 			                <td><%=  c.discount %></td>
 											<td> <%= submit_tag "delete" %>	
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
@@ -790,6 +790,10 @@ DLN: <%=@cust.dln%><br>
     		                  <tr >
     		                    <td rowspan="2" cellpadding="0" style="font-size:medium;">Total
     		                    </td>
+    		                    <%if params[:ttoal] == nil%>
+    		                    	<%params[:ttoal] = 0.0%>
+    		                    	<%end%>
+    		                    
     		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, sprintf('%.2f' ,params[:ttoal]).to_f %>
     		                    </td>
     		                </tr>

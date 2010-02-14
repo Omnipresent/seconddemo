@@ -385,14 +385,17 @@ if params[:commit] == "delete"
 		@totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)", :conditions => [@cidstr])
 	if @totalprice.to_i >25
 		flash[:finished] = @query2
-		@query1="select Count(*) from orderdetails A, orders B where A.prodid='5' and A.orderid= B.id and B.custid='"+session[:customerid]+"'"
+		@membership = Product.find_by_prod_name("Membership")
+		@memberdiscount = Product.find_by_prod_name("Membership Discount")
+		@query1="select Count(*) from orderdetails A, orders B where A.prodid='"+@membership.id.to_s+"' and A.orderid= B.id and B.custid='"+session[:customerid]+"'"
 		@query2 = Orderdetail.count_by_sql(@query1)
-		@result="select Count(*) from orderdetails A, orders B where A.prodid='6' and A.orderid= B.id and B.custid='"+session[:customerid]+"'"
+		@result="select Count(*) from orderdetails A, orders B where A.prodid='"+@memberdiscount.id.to_s+"' and A.orderid= B.id and B.custid='"+session[:customerid]+"'"
 		@reult1 = Orderdetail.count_by_sql(@result)
 		if @query2.to_i > 0
 		if @reult1.to_i  <= 0 and @query2  = 1
 		flash[:finished] = @query2
-		@sqladdcart = "INSERT INTO cartitems (category_name, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ 'Membership Discount'+"' ,  '" + session[:customerid]+ "', '"+ "6"  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  "1"+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"
+		
+		@sqladdcart = "INSERT INTO cartitems (category_name, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ 'Membership Discount'+"' ,  '" + session[:customerid]+ "', '"+ @memberdiscount.id.to_s  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  "1"+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
 		sql.commit_db_transaction

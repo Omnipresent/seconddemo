@@ -49,16 +49,16 @@ background-color:#7FB545;
 				            </tr>
 				            <tr>
 					            <td><%=p.label 'Product Type*'%></td>
-					            <td><%=p.select :prod_type,options_for_select([ "Indica", "Sativa", "Hybrid I","Hybrid S", "Hybrid 50/50", "Other" ], "Indica") %></td>
+					            <td><%=p.select :prod_type,options_for_select([ "Indica", "Sativa", "Hybrid I","Hybrid S", "Hybrid 50/50", "Other","" ], "Indica") %></td>
 				            </tr>
 
 				            <tr>
 					            <td><%=p.label 'Product Conditions*'%></td>
-					            <td><%=p.select :conditions,options_for_select([ "Indoor", "Outdoor", "Greenhouse","Other" ], "Indoor") %></td>
+					            <td><%=p.select :conditions,options_for_select([ "Indoor", "Outdoor", "Greenhouse","Other","" ], "Indoor") %></td>
 				            </tr>
  		                <tr>
 		                    <td><%=p.label 'Product Rating'%></td>
-		                    <td><%=p.select :rating, options_for_select([ "A", "B", "C","D" ], "A") %></td>
+		                    <td><%=p.select :rating, options_for_select([ "A", "B", "C","D","" ], "A") %></td>
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product THC'%></td>
@@ -66,7 +66,7 @@ background-color:#7FB545;
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Quantity'%></td>
-		                    <td><%=p.select :volume,options_for_select([ "Unit", "Volume"], "1") %></td>
+		                    <td><%=p.select :volume,options_for_select([ "Unit", "Volume",""], "1") %></td>
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Price (Price for 1g)*' %></td>
@@ -76,7 +76,7 @@ background-color:#7FB545;
 		                    <td><%=p.label 'Product Quantity'%></td>
 		                    <td><%=p.text_field :quantity%></td>
 		                </tr>
-										<tr><td>* = If Product quantity is in Volume, then enter Product price for 1g. 
+										<tr><td></td><td>* = If Product quantity is in Volume, then enter Product price for 1g. 
 										</td></tr>
 												                
 		                
@@ -117,11 +117,11 @@ background-color:#7FB545;
 		<td><%=p.category.name%></td>
 		<td><%=p.prod_type%></td>
 		<td><%=p.conditions%></td>
-		<td>$<%=p.prod_orig_price%></td>
+		<td>$<%=  sprintf('%.2f' ,p.prod_orig_price).to_f %></td>
 		<td><%=p.rating%></td>
 		<td><%=p.thc%></td>
 		<td><%=p.quantity%></td>
-		<td>$<%=p.quantity*p.prod_orig_price%></td>
+		<td>$<%=  sprintf('%.2f' ,(p.quantity*p.prod_orig_price)).to_f %></td>
 		<td><%=link_to "#{image_tag("edit.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
 	</tr>
 	<%end%>
