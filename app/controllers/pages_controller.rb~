@@ -337,8 +337,8 @@ def sales
 		  flash[:result] = @sqladelcart
 		  sql.commit_db_transaction
 		  @cidstr = "cid = " + session[:customerid]
-		  @subtotal = Cartitem.sum("(price*(1-discount*.01))", :conditions => [@cidstr])
-		  @totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)", :conditions => [@cidstr])
+		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S'))-(discount*to_number(quantity, '99G999D9S'))", :conditions => [@cidstr])
+		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')-(discount*to_number(quantity, '99G999D9S'))+price*to_number(quantity,'99G999D9S')*.15)", :conditions => [@cidstr])
 		  params[:stotal] = @subtotal 
 		  params[:ttoal] =  @totalprice
 		  flash[:notice] = @sqladelcart
@@ -418,9 +418,9 @@ def sales
 			@orderdetailsid= sql.insert(@sqladdorderdetails)
 			sql.commit_db_transaction
 			@cidstr = "cid = " + session[:customerid]
-			@subtotal = Cartitem.sum("(price*(1-discount*.01))", :conditions => [@cidstr])
-			@totalprice = Cartitem.sum("(price-(price*(discount*.01))+price*.15)", :conditions => [@cidstr])
-			if @totalprice.to_i >25
+		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S'))-(discount*to_number(quantity, '99G999D9S'))", :conditions => [@cidstr])
+		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')-(discount*to_number(quantity, '99G999D9S'))+price*to_number(quantity,'99G999D9S')*.15)", :conditions => [@cidstr])
+			if @subtotal.to_i >25
 		#flash[:finished] = @query2
 		@membership = Product.find_by_prod_name("Membership")
 		@memberdiscount = Product.find_by_prod_name("Membership Discount")
