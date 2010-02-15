@@ -89,7 +89,7 @@ class PagesController < ApplicationController
 			params[:type] = "Member"
 		#	flash[:search] = "Total #{@customer.size} #{params[:type]}" unless @customer == nil
 		else
-			flash[:search] = "Found #{@customer.size} #{params[:type]}" unless @customer == nil
+			flash[:search] = "Found #{@customer.size} #{params[:type]}s" unless @customer == nil
 		end
 		
 		@type = params[:type]
