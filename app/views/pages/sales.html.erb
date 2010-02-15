@@ -578,7 +578,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%= d.prodtype%></td>
 			                <td><%=  d.rating %></td>
 			                <td><%=  d.quantity%></td>
-			                <td><%=  d.price%></td>
+			                <td><%= sprintf('%.2f', d.price) %></td>
 			                <td><%=  d.discount %></td>	
 							 <% end %>
 							</td>
@@ -617,7 +617,7 @@ DLN: <%=@cust.dln%><br>
 			    		<tr >
 						<td colspan =5 ></td>
 			        <td align="right" bgcolor="#e3e3e3">Sub Total</td>
-			           <td bgcolor="#e3e3e3"><%= session[:stotalcost] %></td>
+			           <td bgcolor="#e3e3e3"><%= sprintf('%.2f', session[:stotalcost]) %></td>
 		                       
 			    </tr>	
 <tr>
