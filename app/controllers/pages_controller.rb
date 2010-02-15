@@ -446,7 +446,8 @@ puts "query2: " + @query2.to_s
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
 		sql.commit_db_transaction
-		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ "6"  + "', '"+ "-25" + "', '"+ "1" +"',current_date, current_date, 'p','"+@id3+"','"+"1"+"','"+"1"+"')"
+		
+		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ @memberdiscount.id.to_s  + "', '"+ "-25" + "', '"+ "1" +"',current_date, current_date, 'p','"+@id3+"','"+"1"+"','"+"1"+"')"
 		sql.begin_db_transaction
 		@orderdetailsid= sql.insert(@sqladdorderdetails)
 		sql.commit_db_transaction

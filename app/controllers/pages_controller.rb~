@@ -436,6 +436,9 @@ def sales
 puts "o: " + @o.to_s
 puts "c: " + @c.size.to_s
 puts "c1" + @c1.size.to_s
+puts "result1: " + @result1.to_s
+puts "query2: " + @query2.to_s
+
 		if (@reult1.to_i  <= 0 and @query2  = 1 and @o == 0 and @c.size == 0 and @c1.size == 1)
 		#flash[:finished] = @query2
 		puts "Entered here!!!!!!!!!!!!!!"
@@ -443,7 +446,8 @@ puts "c1" + @c1.size.to_s
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
 		sql.commit_db_transaction
-		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ "6"  + "', '"+ "-25" + "', '"+ "1" +"',current_date, current_date, 'p','"+@id3+"','"+"1"+"','"+"1"+"')"
+		
+		@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ @memberdiscount.id.to_s  + "', '"+ "-25" + "', '"+ "1" +"',current_date, current_date, 'p','"+@id3+"','"+"1"+"','"+"1"+"')"
 		sql.begin_db_transaction
 		@orderdetailsid= sql.insert(@sqladdorderdetails)
 		sql.commit_db_transaction
