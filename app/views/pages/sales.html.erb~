@@ -380,8 +380,8 @@ revealModal('modalPage');
 				<%@current_tab = 0%>
 	  <%end%>
 $tabs.tabs('select', <%= @current_tab %>); 
-//$tabs.tabs('disable', 2)
-//$tabs.tabs('disable', 1)
+$tabs.tabs('disable', 2)
+$tabs.tabs('disable', 1)
 
 <%if params[:stotal] != nil and params[:stotal].length>2%>
 $tabs.tabs('enable', 1)

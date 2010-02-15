@@ -1,0 +1,9 @@
+class ChangeDiscountType < ActiveRecord::Migration
+  def self.up
+  	remove_column :proddiscounts, :discount
+  	add_column :proddiscounts, :discount, :number
+  end
+
+  def self.down
+  end
+end

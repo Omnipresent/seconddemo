@@ -100,6 +100,11 @@ $(document).ready(function() {
 		                    <td><%=p.label 'Product Quantity'%></td>
 		                    <td><%=p.text_field :quantity%></td>
 		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Discount'%></td>
+		                    <td><%=text_field_tag 'discount', p.proddiscount.discount%></td>
+		                </tr>
+		                
 										<tr><td></td><td>* = If Product quantity is in Volume, then enter Product price for 1g. 
 										</td></tr>
 		                

@@ -13,6 +13,9 @@ class PagesController < ApplicationController
 		@prod_cat = @products.category
 		if request.post?
 			if (Product.update(params[:id], params[:product]) != nil)
+			@proddiscount = Proddiscount.find_by_prodid(params[:id])
+			@proddiscount.update_attribute(:discount, params[:discount])
+#			Proddiscount.update({:prodid => params[:id]}, {:discount=>params[:discount]})
 		  	redirect_to :controller => 'pages', :action => 'product' 
 		  end
 		end
@@ -25,9 +28,9 @@ class PagesController < ApplicationController
 			@prods = Product.find(:all)
 			flash[:product] = "Currently there are #{@prods.size} products"
 		if request.post?
-		@products = Product.new(params[:product])
-			if @products.save
+			if (@products = Product.create(params[:product]))
 				@prods = Product.find(:all)
+				Proddiscount.create(:prodid=>@products.id, :discount=>params[:discount])
 				@products = Product.new
 				flash[:product] = "Product #{params[:pname]} saved successfully"
 			end
@@ -411,8 +414,8 @@ def sales
 		end
 	end
 	end
-		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))", :conditions => [@cidstr])
-		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))+price*to_number(quantity,'99G999D9S')*.15", :conditions => [@cidstr])
+		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S'))-(discount*to_number(quantity, '99G999D9S'))", :conditions => [@cidstr])
+		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')-(discount*to_number(quantity, '99G999D9S'))+price*to_number(quantity,'99G999D9S')*.15)", :conditions => [@cidstr])
 		params[:stotal] = @subtotal 
 		params[:ttoal] = @totalprice
 		session[:totalcost] = @totalprice
@@ -436,8 +439,8 @@ else
 	session[:custId] = @cust.id
 	session[:customername] = @cust.lastname + ", "+@cust.firstname
 	 @cidstr = "cid = " + session[:customerid]
-	 @subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))", :conditions => [@cidstr])
-	 @totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')*(1-discount*.01))+price*to_number(quantity,'99G999D9S')*.15", :conditions => [@cidstr])
+	 @subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S'))-(discount*to_number(quantity, '99G999D9S'))", :conditions => [@cidstr])
+	 @totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')-(discount*to_number(quantity, '99G999D9S'))+price*to_number(quantity,'99G999D9S')*.15)", :conditions => [@cidstr])
 	 params[:stotal] = @subtotal
 	 params[:ttoal] = @totalprice
      @subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"

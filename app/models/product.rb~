@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
 	belongs_to :category	
 	has_one 	:cartitem, :foreign_key => "id"
+	has_one   :proddiscount, :foreign_key => "prodid"
 	
 	#validates_presence_of :prod_name, :prod_orig_price, :prod_dis_price, :prod_promo
 	#validates_numericality_of :prod_orig_price, :allow_nil => true

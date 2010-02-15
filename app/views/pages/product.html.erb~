@@ -42,8 +42,14 @@ $(document).ready(function() {
 			$("#product_conditions").val('')
 			$("#product_rating").val('')
 			$("#product_volume").val('')
-
 		}
+	  else
+	  {
+			$("#product_prod_type").val('Indica')
+			$("#product_conditions").val('Indoor')
+			$("#product_rating").val('A')
+			$("#product_volume").val('Volume')
+	  }
 	})
 });
 // ]]>
@@ -93,6 +99,11 @@ $(document).ready(function() {
 		                    <td><%=p.label 'Product Quantity'%></td>
 		                    <td><%=p.text_field :quantity%></td>
 		                </tr>
+		                <tr>
+		                    <td><%=p.label 'Product Discount'%></td>
+		                    <td><%=text_field_tag 'discount'%></td>
+		                </tr>
+		                
 										<tr><td></td><td>* = If Product quantity is in Volume, then enter Product price for 1g. 
 										</td></tr>
 												                
@@ -122,6 +133,7 @@ $(document).ready(function() {
 		<th>Type</th>
 		<th>Conditions</th>
 		<th>Price</th>
+		<th>Discount</th>
 		<th>Rating</th>
 		<th>THC</th>
 		<th>Quantity</th>
@@ -135,6 +147,7 @@ $(document).ready(function() {
 		<td><%=p.prod_type%></td>
 		<td><%=p.conditions%></td>
 		<td>$<%=  sprintf('%.2f' ,p.prod_orig_price) %></td>
+		<td>$<%=  sprintf('%.2f' ,p.proddiscount.discount) %></td>
 		<td><%=p.rating%></td>
 		<td><%=p.thc%></td>
 		<td><%=p.quantity%></td>
