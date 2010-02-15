@@ -76,7 +76,7 @@ background-color:#7FB545;
 		<th>Phone Number</th>
 		<th>Gender</th>
 		<th>Drivers License</th>	
-		<th>Discount</th>
+		<th>Discount*</th>
 		<th>Edit</th>
 	</tr>	
 	<% for customer in @customer%>
@@ -96,8 +96,16 @@ background-color:#7FB545;
 <td>Yes</td>
 <%end%>				
 <td><%=link_to "#{image_tag("edit.png", :width=>'60px')}", :controller => "pages", :action => "editcustomer", :id => customer.id%></td>		
-	</tr>
+	</tr>	
 	<%end%>
 </table>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+*No = Membership Discount already availed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+*Yes = Membership Discount not availed
 <%end%>
   </center>
