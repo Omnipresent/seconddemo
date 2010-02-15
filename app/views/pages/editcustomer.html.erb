@@ -164,7 +164,7 @@ function hideModal(divID)
 							</script> 
 							<td align="right">Suffix:</td>
 				             <td align="left">
-							<%= select_tag "suffix", options_for_select([ "Jr", "I", "II", "III", "IV"],"Jr")  %>
+							<%= select_tag "suffix", options_for_select([ "-", "Jr", "I", "II", "III", "IV"],params[:suffix])  %>
 						</td> 
 				            		<div id="tabs-2">
 				            <td align="right">DOB:</td>
@@ -178,7 +178,7 @@ function hideModal(divID)
                             </div>
 				            <td align="right">Gender:</td>
 				             <td align="left">
-							<%= select_tag "sex", options_for_select([ "Male", "Female"],"Male")  %>
+							<%= select_tag "sex", options_for_select([ "Male", "Female"],params[:sex])  %>
 						</td> 
                             
 				            
@@ -187,7 +187,7 @@ function hideModal(divID)
 				            <td align="right">Referral&nbsp;Source:</td>
 				            
 				            <td style="width:123px" align="left">
-							<%= select_tag "referral", options_for_select([ "Walk-In", "Friend", "Newspaper", "Magazine", "Newspaper", "Web", "Other", "WeedTracker.com", "Twitter", "RADIO", "DOCTOR'S OFFICE", "Google"],"Google")  %>
+							<%= select_tag "referral", options_for_select([ "Walk-In", "Friend", "Newspaper", "Magazine", "Newspaper", "Web", "Other", "WeedTracker.com", "Twitter", "RADIO", "DOCTOR'S OFFICE", "Google"],params[:referral])  %>
                                  </td>
                                  
                                  
@@ -265,7 +265,10 @@ function hideModal(divID)
 		          </script>
 				    <td align="right">Line&nbsp;2:</td>
 				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>
-    				                         
+    				                         <script type="text/javascript"> 
+		            var line2 = new LiveValidation('line2');
+		            line2.add(Validate.Presence, 4e3,{failureMessage: "*"});
+		          </script>
     				                    </tr>
 				                        <tr>
 				                          
@@ -337,7 +340,8 @@ function hideModal(divID)
 												 </script>
 				                                <td align="right">Provider:</td>
 				                                <td  align="left">
-						<%= select_tag "provider", options_for_select([ "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],"Alltel")  %>
+						<%= select_tag "provider", options_for_select([ "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],params[:provider])  %>
+						
                                                 </td>
 
 			                            </tr>
@@ -347,11 +351,27 @@ function hideModal(divID)
     				                    
     				                    <tr>
     				                            <td align="right">Notification:</td>
-    				                                <td colspan="5" align="left">
-													<%=check_box_tag 'email', 'yes' 'no'%> E-mail
+    				                                <td colspan="5" align="left"> 
+													<%if params[:email] == "yes"%>
+													<%=check_box_tag 'email', 'yes' 'no', true%> E-mail
+											<%else%>
+												<%=check_box_tag 'email', 'yes' 'no'%> E-mail
+			        			        <%end%>
+											<%if params[:sms] == "yes"%>
+													<%=check_box_tag 'sms', 'yes'  'no', true%> SMS
+											<%else%>
 													<%=check_box_tag 'sms', 'yes'  'no'%> SMS
+			        			        <%end%>
+											<%if params[:mail] == "yes"%>
+													<%=check_box_tag 'mail', 'yes'  'no', true%> Mail
+											<%else%>
 													<%=check_box_tag 'mail', 'yes'  'no'%> Mail
+			        			        <%end%>
+											<%if params[:phone] == "yes"%>
+													<%=check_box_tag 'phone', 'yes'  'no', true%> Phone
+											<%else%>
 													<%=check_box_tag 'phone', 'yes'  'no'%> Phone
+			        			        <%end%>
                          </td>
                                         </tr>
     				                        
@@ -412,7 +432,7 @@ function hideModal(divID)
 <br />
 <center>
 
- <%= submit_tag "Update Customer Information" %>
+ <%= submit_tag "Update Member Information" %>
 			
 				            
 				            
