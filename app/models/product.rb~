@@ -17,6 +17,9 @@ class Product < ActiveRecord::Base
 		HUMANIZED_ATTRIBUTES[attr.to_sym] || super
 	end
 
+def category_product_name
+  "#{self.category.name} - #{self.prod_name}"
+end
 
 
 end

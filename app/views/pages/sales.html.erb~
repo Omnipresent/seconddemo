@@ -380,8 +380,8 @@ revealModal('modalPage');
 				<%@current_tab = 0%>
 	  <%end%>
 $tabs.tabs('select', <%= @current_tab %>); 
-$tabs.tabs('disable', 2)
-$tabs.tabs('disable', 1)
+//$tabs.tabs('disable', 2)
+//$tabs.tabs('disable', 1)
 
 <%if params[:stotal] != nil and params[:stotal].length>2%>
 $tabs.tabs('enable', 1)
@@ -646,7 +646,7 @@ DLN: <%=@cust.dln%><br>
 			
 			
 			<td>Product Name</td>					
-			<td ><%=collection_select(:product, 'prod_name', @prods, :id, :prod_name, {:prompt => 'Select Product'})	%>
+			<td ><%=collection_select(:product, 'prod_name', @prods, :id, :category_product_name, {:prompt => 'Select Product'})	%>
 			
 			</td>
 
@@ -730,7 +730,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%= c.prodtype %></td>
 			                <td><%= c.rating %></td>
 			                <td><%=  c.volume%></td>
-			                <td><%=  sprintf('%.2f' ,c.price).to_f %></td>
+			                <td><%=  sprintf('%.2f' ,c.price) %></td>
 			                <td><%=  c.discount %></td>
 											<td> <%= submit_tag "delete" %>	
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
@@ -794,7 +794,7 @@ DLN: <%=@cust.dln%><br>
     		                    	<%params[:ttoal] = 0.0%>
     		                    	<%end%>
     		                    
-    		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, sprintf('%.2f' ,params[:ttoal]).to_f %>
+    		                    <td rowspan="2" cellpadding="0"><%= text_field_tag :ttoal, sprintf('%.2f' ,params[:ttoal]) %>
     		                    </td>
     		                </tr>
     		                <tr >
@@ -816,7 +816,7 @@ DLN: <%=@cust.dln%><br>
 <tr>
 											<td class="mainTextBold" width="30%"><font color="white">Total Fees:</font></td>
 											<td align="left" width="70%">
-<%= text_field_tag :firstname, sprintf('%.2f' ,params[:ttoal]).to_f%>
+<%= text_field_tag :firstname, sprintf('%.2f' ,params[:ttoal])%>
 
 </td>
 

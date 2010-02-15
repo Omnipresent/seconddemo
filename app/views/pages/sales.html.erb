@@ -646,7 +646,7 @@ DLN: <%=@cust.dln%><br>
 			
 			
 			<td>Product Name</td>					
-			<td ><%=collection_select(:product, 'prod_name', @prods, :id, :prod_name, {:prompt => 'Select Product'})	%>
+			<td ><%=collection_select(:product, 'prod_name', @prods, :id, :category_product_name, {:prompt => 'Select Product'})	%>
 			
 			</td>
 
