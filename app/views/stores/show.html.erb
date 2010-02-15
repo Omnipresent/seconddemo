@@ -28,8 +28,7 @@
 				<tr>
 					<td><b>Users:</b></td>
 					<td>
-<%=	select_tag 'stores[]', options_for_select(
-@store.users.map {|s| ["#{s.user_first_name} #{s.user_last_name} - #{s.userid}", s.userid]}), :multiple => true, :size => 10, :disabled => true%>					
+<%=	select_tag 'stores[]', options_for_select(@store.users.map {|s| ["#{s.user_first_name} #{s.user_last_name} - #{s.userid}",s.userid]}), :multiple => true, :size => 10, :disabled => true%>					
 					</td>
 				</tr>
 			</table>

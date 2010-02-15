@@ -27,19 +27,13 @@
 				<tr>
 					<td><b><%= f.label :user_type %></b></td>
 					<td>
-		<%= f.select :user_type, options_for_select(
-[["Normal", "N"],["Super Admin", "S"]], 
-["#{@user.user_type}"]
-),  %>					
+		<%= f.select :user_type, options_for_select([["Normal", "N"],["Super Admin", "S"]], ["#{@user.user_type}"])%>					
 					</td>
 				</tr>
 				<tr>
 					<td><b>Stores:</b></td>
 					<td>
-<%=	select_tag 'stores[]', options_for_select(
-@stores.map {|s| [s.store_name, s.id]}, 
-@user.stores.map {|j| j.id}
-), :multiple => true, :size => 10%>					
+<%=	select_tag 'stores[]', options_for_select(@stores.map {|s| [s.store_name, s.id]}, @user.stores.map {|j| j.id}), :multiple => true, :size => 10%>					
 					</td>
 				</tr>
 				<tr><td>&nbsp;</td><td><%= f.submit 'Update' %></td></tr>

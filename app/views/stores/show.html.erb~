@@ -3,7 +3,7 @@
 <div class="depot-form">
 <p style="color: green"><%= flash[:notice] %></p>
   <fieldset style="width: 40%; background-color: #e3e3e3; margin-top: 50px; ">
-    <legend><b>Edit Store</b></legend>
+    <legend><b>Show Store</b></legend>
 			<table border="0" cellspacing="0" cellpadding="0" id="custom">
 				<tr>
 					<td><b>Store:</b></td>

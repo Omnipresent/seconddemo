@@ -36,8 +36,8 @@
 				<tr><td>&nbsp;</td><td><%= f.submit 'Create' %></td></tr>
 <% end %>				
 			</table>
-<%= link_to 'Back', users_path %>
 	</fieldset>
+<%= link_to 'Back', users_path %>
 </div>
 </center>
 
