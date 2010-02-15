@@ -105,6 +105,7 @@ class PagesController < ApplicationController
   def index
   	redirect_to :controller => 'admin', :action => 'login'
   end
+
   #edit
 def editcustomer
 @custid = params[:id]
@@ -141,7 +142,7 @@ if (params[:mail].nil? or params[:mail] == 0)
 	 end	
   @varinsert = {:hphone=>params[:hphone] , :mphone=>params[:mphone], :cemail=>params[:cemail], :provider=>params[:provider], :mail=>@varmail, :email=>@varemail, :sms=>@varsms, :phone=>@varphone}
   @cust = Contact.update(@custid, @varinsert)
-  flash[:edit_customer]= "Customer Information Updated"
+  flash[:edit_customer]= "Member Information Updated"
   redirect_to :controller => 'pages', :action => 'search'
   return
 else 
@@ -178,7 +179,17 @@ params[:sms] =  @customer.first.contact.sms
 params[:phone] =  @customer.first.contact.phone
 end
 end  
-  def customer
+
+
+ 
+
+
+#end edit customer
+
+
+#start customer
+
+ def customer
   @phys = Physician.find(:all) #gets all physicians
    if request.post?
 
@@ -209,22 +220,26 @@ end
 		 sql.begin_db_transaction
 		 @id2 = sql.insert(@sqlstmmt1)
 		 sql.commit_db_transaction
-		 @varsms = "yes"
-		 @varmail = "yes"
-		 @varemail = "yes"
-		 @varphone = "yes"
-		 if (@varsms.nil? or @varsms == 0)
-		 @varsms = "yes"
-		 end
-		 if ( @varmail.nil? or  @varmail  == 0)
-		 @varmail = "yes"
-		 end
-		 if ( @varemail.nil? or @varemail == 0)
-		  @varemail =  "yes"
-		 end
-		 if (@varphone.nil? or @varphone == 0)
-		 @varphone = "yes"
-		 end
+	if (params[:sms].nil? or params[:sms] == 0)
+	 @varsms = "no"
+	else
+	@varsms = "yes"
+	 end
+if (params[:mail].nil? or params[:mail] == 0)
+	    @varmail = "no"
+	else
+	@varmail = "yes"
+	 end
+ if (params[:email].nil? or params[:email] == 0)
+	    @varemail = "no"
+	else
+	@varemail = "yes"
+	 end
+	if (params[:phone].nil? or params[:phone] == 0)
+	    @varphone = "no"
+	else
+	@varphone = "yes"
+	 end	
   # sql statement to insert into contact links table
 		@sqlcontact =  "INSERT INTO contacts (id,\"cid\", \"hphone\", mphone, provider, cemail, email, sms , mail, phone) VALUES ('"+@id1+"','" + @id1  + "', '"+ params[:hphone] + "', '"+params[:mphone]+ "', '" + params[:provider] + "', '" + params[:cemail]+ "', '" +      @varemail+ "', '"+@varsms+ "', '"+ @varmail+"', '"+@varphone+"')"
 		@sqlstmmt2 = "INSERT INTO contactlinks (\"contactid\", \"addressid\") VALUES ('" + @id1 + "', '"+ @id2+ "')"
@@ -248,11 +263,16 @@ end
 # Make Session to Nil after transactions
 		session[:customer_id] = nil
 		session[:physid] = nil
-		flash[:customerpage] = "Customer has been successfully added."
+		flash[:edit_customer] = "Member has been successfully added."
+		redirect_to :controller => 'pages', :action => 'search'
 
 	end
   end
 end
+
+#end customer
+
+
    
    def to_frac(value)
 		numerator, denominator = value.split('/').map(&:to_f)
