@@ -617,7 +617,7 @@ DLN: <%=@cust.dln%><br>
 			    		<tr >
 						<td colspan =5 ></td>
 			        <td align="right" bgcolor="#e3e3e3">Sub Total</td>
-			           <td bgcolor="#e3e3e3"><%= sprintf('%.2f', session[:stotalcost]) %></td>
+			           <td bgcolor="#e3e3e3"><%= session[:stotalcost] %></td>
 		                       
 			    </tr>	
 <tr>
@@ -628,7 +628,7 @@ DLN: <%=@cust.dln%><br>
 <tr >
 			        <td colspan =5 ></td>
 					<td align="right" bgcolor="#e3e3e3"><B>Total</b></td>
-			           <td bgcolor="#e3e3e3"><%= sprintf('%.2f', session[:totalcost]) %></td>
+			           <td bgcolor="#e3e3e3"><%= session[:totalcost] %></td>
 			    </tr>					
 			</table>
 			</div>

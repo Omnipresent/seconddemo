@@ -64,7 +64,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         @user.stores.each {|u| @iz = Userization.find_by_user_id_and_store_id(@user.id, u.id); @iz.destroy}
-        params[:stores].each{|s| Userization.create(:user_id => @user.id, :id => s)}
+ params[:stores].each{|s| puts "This is storeId: " + s}        
+       # params[:stores].each{|s| Userization.create(:user_id => @user.id, :id => s)}
         flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to(@user) }
         format.xml  { head :ok }
