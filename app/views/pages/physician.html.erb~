@@ -18,7 +18,7 @@
 		                <tr>
 		                    <td><%=p.label "Physician License"%></td>
 		                    <td><%=p.text_field :plicnum%></td>
-		                    <td><%=p.label "Physician License"%></td>
+		                    <td><%=p.label "Physician License Exp Date"%></td>
 		                    <td><%=p.text_field :licexpdate%></td>
 		                </tr>
 										<tr>

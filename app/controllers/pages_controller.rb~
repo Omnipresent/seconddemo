@@ -428,11 +428,17 @@ def sales
 		@query2 = Orderdetail.count_by_sql(@query1)
 		@result="select Count(*) from orderdetails A, orders B where A.prodid='"+@memberdiscount.id.to_s+"' and A.orderid= B.id and B.custid='"+session[:customerid]+"'"
 		@reult1 = Orderdetail.count_by_sql(@result)
-		@c = Cartitem.all(:conditions => ["cid = ? and ptype = ?", session[:customerid], "Membership Discount1"])
+		@o = Orderdetail.count(:joins => :order, :conditions => ["prodid = ? and orders.custid = ?", @memberdiscount.id, session[:customerid]])
+		@c = Cartitem.all(:conditions => ["cid = ? and ptype = ?", session[:customerid], "Membership Discount"])
+		@c1 = Cartitem.all(:conditions => ["cid = ? and ptype = ?", session[:customerid], "Membership"])
 		if @query2.to_i > 0
-		if @reult1.to_i  <= 0 and @query2  = 1
+#		@reult1.to_i  <= 0 and @query2  = 1
+puts "o: " + @o.to_s
+puts "c: " + @c.size.to_s
+puts "c1" + @c1.size.to_s
+		if (@reult1.to_i  <= 0 and @query2  = 1 and @o == 0 and @c.size == 0 and @c1.size == 1)
 		#flash[:finished] = @query2
-		
+		puts "Entered here!!!!!!!!!!!!!!"
 		@sqladdcart = "INSERT INTO cartitems (category_name, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ 'Membership Discount'+"' ,  '" + session[:customerid]+ "', '"+ @memberdiscount.id.to_s  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  "1"+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"
 		sql.begin_db_transaction
 		@id3= sql.insert(@sqladdcart)
