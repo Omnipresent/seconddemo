@@ -380,8 +380,8 @@ revealModal('modalPage');
 				<%@current_tab = 0%>
 	  <%end%>
 $tabs.tabs('select', <%= @current_tab %>); 
-$tabs.tabs('disable', 2)
-$tabs.tabs('disable', 1)
+//$tabs.tabs('disable', 2)
+//$tabs.tabs('disable', 1)
 
 <%if params[:stotal] != nil and params[:stotal].length>2%>
 $tabs.tabs('enable', 1)
@@ -617,8 +617,13 @@ DLN: <%=@cust.dln%><br>
 			    		<tr >
 						<td colspan =5 ></td>
 			        <td align="right" bgcolor="#e3e3e3">Sub Total</td>
-			           <td bgcolor="#e3e3e3"><%= session[:stotalcost] %></td>
-		                       
+			        <% if session[:stotalcost] == nil %>
+							<td bgcolor="#e3e3e3"><%=session[:stotalcost]%></td>
+							<%else%>
+							<td bgcolor="#e3e3e3"><%=sprintf('%.2f' ,session[:stotalcost])%></td>
+			        <%end%>
+			           
+		            
 			    </tr>	
 <tr>
 			        <td colspan =6 align="right">Sales Tax</td>
@@ -628,7 +633,11 @@ DLN: <%=@cust.dln%><br>
 <tr >
 			        <td colspan =5 ></td>
 					<td align="right" bgcolor="#e3e3e3"><B>Total</b></td>
-			           <td bgcolor="#e3e3e3"><%= sprintf('%.2f', session[:totalcost]) %></td>
+					<%if session[:totalcost] == nil%>
+			           <td bgcolor="#e3e3e3"><%=session[:totalcost]%></td>
+			     <%else%>
+			     	<td bgcolor="#e3e3e3"><%=sprintf('%.2f' ,session[:totalcost])%></td>
+			     	<%end%>
 			    </tr>					
 			</table>
 			</div>

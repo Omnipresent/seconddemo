@@ -13,7 +13,9 @@ class PagesController < ApplicationController
 		@prod_cat = @products.category
 		if request.post?
 			if (Product.update(params[:id], params[:product]) != nil)
-			Proddiscount.update({:prodid => params[:id]}, {:discount=>params[:discount]})
+			@proddiscount = Proddiscount.find_by_prodid(params[:id])
+			@proddiscount.update_attribute(:discount, params[:discount])
+#			Proddiscount.update({:prodid => params[:id]}, {:discount=>params[:discount]})
 		  	redirect_to :controller => 'pages', :action => 'product' 
 		  end
 		end
@@ -104,18 +106,43 @@ class PagesController < ApplicationController
   	redirect_to :controller => 'admin', :action => 'login'
   end
   #edit
-  def editcustomer
+def editcustomer
 @custid = params[:id]
  if params[:commit] == "Update Member Information"
-  
-  @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dvolume_or_quantlnexp]}
+  if (params[:line2].nil? or params[:line2] == "")
+	  @varline2 = " "
+	else
+	@varline2 = params[:line2]
+	 end
+  @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dlnexp]}
   @cust = Customer.update(@custid, @varinsert)
-  @varinsert = {:line1=>params[:line1] , :county=>params[:county], :line2=>params[:line2], :city=>params[:city],:state=>params[:state], :zip=>params[:zip]}
+  @varinsert = {:line1=>params[:line1] , :county=>params[:county], :line2=>@varline2, :city=>params[:city],:state=>params[:state], :zip=>params[:zip]}
   @cust = Address.update(@custid, @varinsert)
-  @varinsert = {:hphone=>params[:hphone] , :mphone=>params[:mphone], :cemail=>params[:cemail]}
+  
+if (params[:sms].nil? or params[:sms] == 0)
+	    @varsms = "no"
+	else
+	@varsms = "yes"
+	 end
+if (params[:mail].nil? or params[:mail] == 0)
+	    @varmail = "no"
+	else
+	@varmail = "yes"
+	 end
+ if (params[:email].nil? or params[:email] == 0)
+	    @varemail = "no"
+	else
+	@varemail = "yes"
+	 end
+	if (params[:phone].nil? or params[:phone] == 0)
+	    @varphone = "no"
+	else
+	@varphone = "yes"
+	 end	
+  @varinsert = {:hphone=>params[:hphone] , :mphone=>params[:mphone], :cemail=>params[:cemail], :provider=>params[:provider], :mail=>@varmail, :email=>@varemail, :sms=>@varsms, :phone=>@varphone}
   @cust = Contact.update(@custid, @varinsert)
   flash[:edit_customer]= "Customer Information Updated"
-  redirect_to :controller => 'pages', :action => 'search' 
+  redirect_to :controller => 'pages', :action => 'search'
   return
 else 
  flash[:notice]= params[:commit]
@@ -145,9 +172,12 @@ params[:hphone] = @customer.first.contact.hphone
 params[:mphone] = @customer.first.contact.mphone
 params[:cemail] = @customer.first.contact.cemail
 params[:provider] = @customer.first.contact.provider
+params[:email] =  @customer.first.contact.email
+params[:mail] =  @customer.first.contact.mail
+params[:sms] =  @customer.first.contact.sms
+params[:phone] =  @customer.first.contact.phone
 end
-end
-  
+end  
   def customer
   @phys = Physician.find(:all) #gets all physicians
    if request.post?
@@ -231,6 +261,7 @@ end
    end
   
 def sales
+
 	if  params[:commit] == "Complete Transaction"
 		session[:customer_id] = nil
 		session[:ordersid] = nil
@@ -397,6 +428,7 @@ def sales
 		@query2 = Orderdetail.count_by_sql(@query1)
 		@result="select Count(*) from orderdetails A, orders B where A.prodid='"+@memberdiscount.id.to_s+"' and A.orderid= B.id and B.custid='"+session[:customerid]+"'"
 		@reult1 = Orderdetail.count_by_sql(@result)
+		@c = Cartitem.all(:conditions => ["cid = ? and ptype = ?", session[:customerid], "Membership Discount1"])
 		if @query2.to_i > 0
 		if @reult1.to_i  <= 0 and @query2  = 1
 		#flash[:finished] = @query2
