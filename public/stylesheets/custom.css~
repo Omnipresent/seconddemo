@@ -252,4 +252,82 @@ hor-zebra
 margin-left: 15px;
 }
 
+#modalPage
+{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px; left: 0px;
+}
+.modalBackground
+{
+    filter: Alpha(Opacity=40); -moz-opacity:0.4; opacity: 0.4;
+    width: 100%; height: 100%; background-color: #999999;
+    position: absolute;
+    z-index: 500;
+    top: 0px; left: 0px;
+}
+.modalContainer
+{
+    position: absolute;
+    width: 760px;
+    left: 40%;
+    top: 40%;
+    z-index: 750;
+}
+.modal
+{
+
+    background-color: #ffffff;
+    border: solid 2px #0d457f; position: relative;
+    top: -50px;
+    left: -50px;
+    z-index: 1000;
+    width: 500px;
+    height: 250px;
+    *height: 250px;
+    padding: 0px;
+}
+.modalTop
+{
+    width: 500px; 
+    !width: 500px !important;
+    background-color: #6eac2c;
+    padding: 2px;
+    color: #4E6CA3;
+	padding-top:20px;
+    text-align: middle;
+}
+.modalTop a, .modalTop a:visited
+{
+    color: #ccc;
+}
+.modalBody
+{
+    padding: 10px;
+    height: 350px;
+}
+
+
+
+.subHeader {
+	font-weight:bold;
+	font-family:verdana;
+	font-size:12px;
+	color:#710101;
+}
+
+.details {
+	font-weight:normal;
+	font-family:verdana;
+	font-size:12px;
+	color:#710101;
+}
+
+.image-button {
+	height: 60px;
+	width: 100px;
+}
+
 
