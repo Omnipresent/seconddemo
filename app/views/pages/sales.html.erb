@@ -578,8 +578,8 @@ DLN: <%=@cust.dln%><br>
 			                <td><%= d.prodtype%></td>
 			                <td><%=  d.rating %></td>
 			                <td><%=  d.quantity%></td>
-			                <td><%= sprintf('%.2f', d.price) %></td>
-			                <td><%=  d.discount %></td>	
+			                <td>$<%= sprintf('%.2f', d.price) %></td>
+			                <td>$<%= sprintf('%.2f', d.discount) %></td>	
 							 <% end %>
 							</td>
 			        </tr>
@@ -616,7 +616,7 @@ DLN: <%=@cust.dln%><br>
 			    </tfoot>
 			    		<tr >
 						<td colspan =5 ></td>
-			        <td align="right" bgcolor="#e3e3e3">Sub Total</td>
+			        <td align="right" bgcolor="#e3e3e3">Sub Total: $</td>
 			        <% if session[:stotalcost] == nil %>
 							<td bgcolor="#e3e3e3"><%=session[:stotalcost]%></td>
 							<%else%>
@@ -632,7 +632,7 @@ DLN: <%=@cust.dln%><br>
 			    </tr>	
 <tr >
 			        <td colspan =5 ></td>
-					<td align="right" bgcolor="#e3e3e3"><B>Total</b></td>
+					<td align="right" bgcolor="#e3e3e3"><B>Total: $</b></td>
 					<%if session[:totalcost] == nil%>
 			           <td bgcolor="#e3e3e3"><%=session[:totalcost]%></td>
 			     <%else%>
@@ -708,8 +708,8 @@ DLN: <%=@cust.dln%><br>
 			                <td><%= c.prodtype %></td>
 			                <td><%= c.rating %></td>
 			                <td><%=  c.quantity%></td>
-			                <td><%=   c.price %></td>
-			                <td><%=  c.discount %></td>
+			                <td>$<%= sprintf('%.2f', c.price) %></td>
+			                <td>$<%= sprintf('%.2f', c.discount) %></td>
 											<td> <%= submit_tag "delete" %>	
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
@@ -723,8 +723,8 @@ DLN: <%=@cust.dln%><br>
 			                <td><%= c.prodtype %></td>
 			                <td><%= c.rating %></td>
 			                <td><%=  c.volume%></td>
-			                <td><%=  sprintf('%.2f' ,c.price) %></td>
-			                <td><%=  c.discount %></td>
+			                <td>$<%=  sprintf('%.2f' ,c.price) %></td>
+			                <td>$<%=  sprintf('%.2f' ,c.discount) %></td>
 											<td> <%= submit_tag "delete" %>	
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
@@ -740,7 +740,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%= c.rating %></td>
 			                <td><%=  c.volume%></td>
 			                <td><%=  sprintf('%.2f' ,c.price) %></td>
-			                <td><%=  c.discount %></td>
+			                <td><%=  sprintf('%.2f' ,c.discount) %></td>
 											<td> <%= submit_tag "delete" %>	
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
@@ -781,7 +781,7 @@ DLN: <%=@cust.dln%><br>
 			<div class="Billing">
 			                <table  width=""100%" cellpadding="3x" cellspacing="0px">
     		                <tr>
-    		                    <td>Sub Total
+    		                    <td>Sub Total: $
     		                    </td>
     		                    <%if params[:stotal] == nil%>
     		                    	<%params[:stotal] = 0.0%>
@@ -797,7 +797,7 @@ DLN: <%=@cust.dln%><br>
     		                </tr>
     		                
     		                  <tr >
-    		                    <td rowspan="2" cellpadding="0" style="font-size:medium;">Total
+    		                    <td rowspan="2" cellpadding="0" style="font-size:medium;">Total: $
     		                    </td>
     		                    <%if params[:ttoal] == nil%>
     		                    	<%params[:ttoal] = 0.0%>
