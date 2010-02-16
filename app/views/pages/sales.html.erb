@@ -741,7 +741,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.volume%></td>
 			                <td><%=  sprintf('%.2f' ,c.price) %></td>
 			                <td><%=  sprintf('%.2f' ,c.discount) %></td>
-<%= image_submit_tag 'butons/Delete-02.png',  {:class => 'image-button-link',:value => "delete", :name => "commit"}%>
+<td><%= image_submit_tag 'butons/Delete-02.png',  {:class => 'image-button-link',:value => "delete", :name => "commit"}%>
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
 			        </tr>
