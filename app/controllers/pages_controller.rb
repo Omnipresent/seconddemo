@@ -396,9 +396,11 @@ def sales
 				puts "came here"
 				first, *rest = params[:volume].to_s.split(/ /)
 				if rest.first=="oz"
-					@indprodprice = @prods.prod_orig_price.to_i*to_frac(first)*28.3495
-				else 
-					@indprodprice = @prods.prod_orig_price.to_i*to_frac(first)*453.59237
+					@indprodprice = @prods.prod_orig_price.to_f*to_frac(first)*28.3495
+				elsif rest.first=="lb" 
+					@indprodprice = @prods.prod_orig_price.to_f*to_frac(first)*453.59237
+			  elsif rest.first=="g"
+			  	@indprodprice = @prods.prod_orig_price.to_f*to_frac(first)
 				end		
 			end
 		  @indprodprice = @indprodprice.to_s
