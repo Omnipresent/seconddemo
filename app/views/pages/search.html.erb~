@@ -55,7 +55,7 @@ background-color:#7FB545;
 </table>
  
 									<td colspan="4">
-		    <%= submit_tag "Search"%>
+		    <%= image_submit_tag 'butons/Submit-11.png',  :class => 'image-button-submit' %>
 						</td>
 	
     <% end %>    
@@ -95,7 +95,7 @@ background-color:#7FB545;
 <%if @count == 0%>
 <td>Yes</td>
 <%end%>				
-<td><%=link_to "#{image_tag("edit.png", :width=>'60px')}", :controller => "pages", :action => "editcustomer", :id => customer.id%></td>		
+<td><%=link_to "#{image_tag("buttons/Edit-06.png", :width=>'60px')}", :controller => "pages", :action => "editcustomer", :id => customer.id%></td>		
 	</tr>	
 	<%end%>
 </table>
@@ -103,6 +103,9 @@ background-color:#7FB545;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 *No = Membership Discount already availed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 *Yes = Membership Discount not availed
 <%end%>
   </center>

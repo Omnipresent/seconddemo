@@ -16,7 +16,7 @@
 					<td><%= f.text_field :store_poc %></td>
 				</tr>
 				<%=f.hidden_field :store_status, :value => "#{@store.store_status}"%>		
-				<tr><td>&nbsp;</td><td><%= f.submit 'Update' %></td></tr>				
+				<tr><td>&nbsp;</td><td><%= image_submit_tag 'butons/Update-09.png',  :class => 'image-button-submit' %></td></tr>				
 			</table>
 			<% end %>
 	</fieldset>

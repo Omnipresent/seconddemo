@@ -101,7 +101,7 @@ $(document).ready(function() {
 		                </tr>
 		                <tr>
 		                    <td><%=p.label 'Product Discount'%></td>
-		                    <td><%=text_field_tag 'discount'%></td>
+		                    <td><%=text_field_tag 'discount','0'%></td>
 		                </tr>
 		                
 										<tr><td></td><td>* = If Product quantity is in Volume, then enter Product price for 1g. 

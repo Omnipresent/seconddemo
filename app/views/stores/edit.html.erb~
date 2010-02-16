@@ -3,7 +3,7 @@
 <div class="depot-form">
 <p style="color: green"><%= flash[:notice] %></p>
   <fieldset style="width: 40%; background-color: #e3e3e3; margin-top: 50px; ">
-    <legend><b>Edit User</b></legend>
+    <legend><b>Edit Store</b></legend>
 <% form_for(@store) do |f| %>
   <%= f.error_messages %>
 			<table border="0" cellspacing="0" cellpadding="0" id="custom">
@@ -16,7 +16,7 @@
 					<td><%= f.text_field :store_poc %></td>
 				</tr>
 				<%=f.hidden_field :store_status, :value => "#{@store.store_status}"%>		
-				<tr><td>&nbsp;</td><td><%= f.submit 'Update' %></td></tr>				
+				<tr><td>&nbsp;</td><td><%= image_submit_tag 'butons/Update-09.png',  :class => 'image-button-submit' %></td></tr>				
 			</table>
 			<% end %>
 	</fieldset>

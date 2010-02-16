@@ -20,12 +20,12 @@
 						</tr>
 						<tr >
 						<td align="center">
-											<%= select("selected_store", "id", @user.stores.find(:all, :conditons => ["store_status = ?", "A"]).map {|s| [s.store_name,s.id]})%>
+											<%= select("selected_store", "id", @user.stores.find(:all, :conditions => ["store_status = ?", "A"]).map {|s| [s.store_name,s.id]})%>
 						</td>
 					</tr>
 					<tr >
 					<td align="center">
-								        <%= image_submit_tag 'submit_small.png' %></td>
+								        <%= image_submit_tag 'butons/Submit-11.png',  :class => 'image-button' %></td>
 								        </tr>
 	    	<%end%>
 

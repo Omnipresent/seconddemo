@@ -36,7 +36,7 @@
 <%=	select_tag 'stores[]', options_for_select(@stores.map {|s| [s.store_name, s.id]}, @user.stores.map {|j| j.id}), :multiple => true, :size => 10%>					
 					</td>
 				</tr>
-				<tr><td>&nbsp;</td><td><%= f.submit 'Update' %></td></tr>
+				<tr><td>&nbsp;</td><td><%= image_submit_tag 'butons/Update-09.png',  :class => 'image-button-submit' %></td></tr>
 <% end %>				
 			</table>
 

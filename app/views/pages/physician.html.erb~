@@ -6,7 +6,7 @@
 		<p style="color: green"><%= flash[:physician_save] %></p>
 	<fieldset style="width: 70%"><legend><strong>Physician Information</strong></legend>
         <table cellpadding="5px" cellspacing="5px">
-        <% form_for :product, @physician do |p| %>
+        <% form_for :physician, @physician do |p| %>
         <%= p.error_messages %>
 				            <tr>											<td><%=p.label 'Physician Name'%></td>
 					            <td><%=p.text_field :pname%></td>

@@ -20,8 +20,9 @@
 				<tr><td>&nbsp;</td><td><%= f.submit 'Create' %></td></tr>
 			</table>
 	</fieldset>
+<%= link_to 'Back', stores_path %>
 </div>
 </center>
 <% end %>
 
-<%= link_to 'Back', stores_path %>
+

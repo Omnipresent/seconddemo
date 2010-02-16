@@ -325,7 +325,15 @@ margin-left: 15px;
 	color:#710101;
 }
 
-.image-button {
+.image-button-submit {
+height: 40px;
+width: 100px;
+	
+}
+
+.image-button-link {
+height: 30px;
+width: 70px;
 }
 
 

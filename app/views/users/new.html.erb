@@ -33,7 +33,7 @@
 					<td><b>Stores</b></td>
 					<td><%=	select_tag 'stores[]', options_for_select(@stores.map {|s| [s.store_name, s.id]}), :multiple => true, :size =>10%></td>
 				</tr>
-				<tr><td>&nbsp;</td><td><%= f.submit 'Create' %></td></tr>
+				<tr><td>&nbsp;</td><td><%= image_submit_tag 'butons/Add-08.png',  :class => 'image-button-submit' %></td></tr>
 <% end %>				
 			</table>
 	</fieldset>

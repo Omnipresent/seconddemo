@@ -24,7 +24,7 @@
 							<label for="name"><b>&nbsp;User ID:&nbsp;</b></label> 
 						</td>
 						<td>
-								<%= f.text_field :userid %> 
+								<%= f.text_field :userid, :disabled => 'disabled' %> 
 						</td>
 					</tr>
 					<tr><td colspan=2>&nbsp;</td></tr>
@@ -39,7 +39,7 @@
 					<tr><td colspan=2>&nbsp;</td></tr>
 					<tr>
 						<td colspan=2 align="center">
-									<%= submit_tag 'Change password' %>
+									<%= image_submit_tag 'butons/Submit-11.png',  :class => 'image-button' %>
 						</td>				
 					</tr>
 				<% end %>

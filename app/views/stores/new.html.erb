@@ -17,7 +17,7 @@
 				</tr>
   <%=f.hidden_field :created_by, :value => @user_full_name %>			
   <%=f.hidden_field :store_status, :value => "A" %>
-				<tr><td>&nbsp;</td><td><%= f.submit 'Create' %></td></tr>
+				<tr><td>&nbsp;</td><td><%= image_submit_tag 'butons/Add-08.png',  :class => 'image-button-submit' %></td></tr>
 			</table>
 	</fieldset>
 <%= link_to 'Back', stores_path %>
