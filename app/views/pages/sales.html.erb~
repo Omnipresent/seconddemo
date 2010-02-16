@@ -642,7 +642,7 @@ DLN: <%=@cust.dln%><br>
 			</table>
 			</div>
 			<input name="b_print" type="button" class="ipt" size="10"   onClick="printdiv('printdiv');" value=" Print Receipt">
-			<%= image_submit_tag 'butons/Complete-14.png',  :class => 'image-button-submit' %>
+			<%= image_submit_tag 'butons/Exit-12.png',  {:class => 'image-button-submit', :value => "Complete Transaction"} %>
 			</div>
 			<div id="tabs-4">
 			<br />
@@ -679,7 +679,7 @@ DLN: <%=@cust.dln%><br>
 			
 			<td>
 			
-			<%= image_submit_tag 'butons/Add-08.png',  :class => 'image-button-submit' %>
+			<%= image_submit_tag 'butons/Add-08.png',  {:class => 'image-button-submit', :value => "Add to Cart", :name => "commit"} %>
 			</td>
 			</tr>
 			</table>
@@ -710,7 +710,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.quantity%></td>
 			                <td>$<%= sprintf('%.2f', c.price) %></td>
 			                <td>$<%= sprintf('%.2f', c.discount) %></td>
-											<td> <%= image_submit_tag 'butons/Delete-02.png',  :class => 'image-button-link' %>
+<td> <%= image_submit_tag 'butons/Delete-02.png',  {:class => 'image-button-link',:value => "delete", :name => "commit"}%>
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
 			        </tr>
@@ -725,7 +725,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.volume%></td>
 			                <td>$<%=  sprintf('%.2f' ,c.price) %></td>
 			                <td>$<%=  sprintf('%.2f' ,c.discount) %></td>
-											<td> <%= image_submit_tag 'butons/Delete-02.png',  :class => 'image-button-link' %>
+<td> <%= image_submit_tag 'butons/Delete-02.png',  {:class => 'image-button-link',:value => "delete", :name => "commit"}%>
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
 			        </tr>
@@ -741,7 +741,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.volume%></td>
 			                <td><%=  sprintf('%.2f' ,c.price) %></td>
 			                <td><%=  sprintf('%.2f' ,c.discount) %></td>
-											<%= image_submit_tag 'butons/Delete-02.png',  :class => 'image-button-link' %>
+<%= image_submit_tag 'butons/Delete-02.png',  {:class => 'image-button-link',:value => "delete", :name => "commit"}%>
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
 			        </tr>
@@ -883,7 +883,7 @@ DLN: <%=@cust.dln%><br>
 
 			</div>
 
-			 <br><br><div align="center">	<%= image_submit_tag 'butons/Complete-14.png',  {:confirm => 'This will complete the sale. Are you sure?', :class => 'image-button-submit'} %> </div></div>
+			 <br><br><div align="center">	<%= image_submit_tag 'butons/Complete-14.png',  {:confirm => 'This will complete the sale. Are you sure?', :class => 'image-button-submit', :value=> "Submit", :name => "commit"} %> </div></div>
 		    						
 			<div id="modalPage">   
 <div class="modalBackground">
@@ -902,7 +902,6 @@ DLN: <%=@cust.dln%><br>
  	<textarea id="ttoal1" rows="2" cols="50" style="color: white;" ></textarea><br><br>
 	CVV: <input type="text" id="cvvnum" name="cvvnum" /><br><br><br>
 	<center>
-	<%= image_submit_tag 'butons/Submit-11.png',  :class => 'image-button-submit' %>
 	<input type="button" value="Submit" onClick="SwipeParserObj(document.getElementById('ttoal1').value)" /></center>
 	</p>            
 	</div>         

@@ -36,7 +36,7 @@
 <%= link_to "#{image_tag("Rx-01.png", :border=>0)}<span></span>", {:action => 'customer', :controller => 'pages'}%></a>
 <%= link_to "#{image_tag("Sales-01.png", :border=>0)}<span></span>", {:action => 'sales', :controller => 'pages'}%></a>
 <%= link_to "#{image_tag("reports.png", :border=>0)}<span></span>", {:action => 'reports', :controller => 'pages'}%></a>
-<%= link_to "#{image_tag("Product2-01-01.png", :border=>0)}<span></span>", {:action => 'product', :controller => 'pages'}%></a>
+<%= link_to "#{image_tag("Product2-01-01.png", {:border=>0,:height=>100,:width=>100})}<span></span>", {:action => 'product', :controller => 'pages'}%></a>
 <div style="float: right"><%= link_to "#{image_tag("Exit-01.png", :height=>100)}", {:action => 'mainpage', :controller => 'pages'} %>  </div>
 
 

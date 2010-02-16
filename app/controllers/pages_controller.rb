@@ -435,7 +435,7 @@ def sales
 			@id3= sql.insert(@sqladdcart)
 			sql.commit_db_transaction
 
-			@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ params[:product][:prod_name]  + "', '"+ @indprodprice + "', '"+ '0'+"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
+			@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+params[:product][:prod_name]  + "', '"+ @indprodprice + "', '" +params[:quantity]+"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
 			sql.begin_db_transaction
 			@orderdetailsid= sql.insert(@sqladdorderdetails)
 			sql.commit_db_transaction

@@ -315,6 +315,7 @@ def sales
 				puts "session id2: " + session[:customerid].to_s
 				@subjects = Cartitem.find_all_by_cid(session[:customerid])
 				Cartitem.delete_all("cid = " + session[:customerid])
+				@order = Order.find_by_custid(session[:customerid])
 		  else #else for cash
 			  puts "came here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 			  if (session[:ordersid].nil? or session[:ordersid] == 0)
@@ -435,7 +436,7 @@ def sales
 			@id3= sql.insert(@sqladdcart)
 			sql.commit_db_transaction
 
-			@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+ params[:product][:prod_name]  + "', '"+ @indprodprice + "', '"+ '0'+"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
+			@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+params[:product][:prod_name]  + "', '"+ @indprodprice + "', '" +params[:quantity].to_s+"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
 			sql.begin_db_transaction
 			@orderdetailsid= sql.insert(@sqladdorderdetails)
 			sql.commit_db_transaction
