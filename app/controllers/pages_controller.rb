@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 	
 	def volume_or_quant
 		@product = Product.find(params[:id])
-		@product.quantity		
+		@product.quantity		;
 		render :text => @product.volume
 	end
 	
