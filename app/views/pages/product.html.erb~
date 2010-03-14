@@ -150,7 +150,7 @@ $(document).ready(function() {
 			<td>$<%=  sprintf('%.2f' ,p.prod_orig_price) %></td>
 		<%else %>
 			<td>--</td>
-		<%%>
+		<%end%>
 		<%if (p.proddiscount.discount != nil) %>
 			<td>$<%=  sprintf('%.2f' ,p.proddiscount.discount) %></td>
 		<%
@@ -160,7 +160,10 @@ $(document).ready(function() {
 		<td><%=p.rating%></td>
 		<td><%=p.thc%></td>
 		<td><%=p.quantity%></td>
-		<td>$<%=  sprintf('%.2f' ,(p.quantity*p.prod_orig_price)) %></td>
+		<%if (p.quantity!=nil and p.prod_orig_price!=nil)%>
+			<td>$<%=  sprintf('%.2f' ,(p.quantity*p.prod_orig_price)) %></td>
+		<%else%>
+			<td>--</td>
 		<td><%=link_to "#{image_tag("butons/Edit-06.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
 	</tr>
 	<%end%>
