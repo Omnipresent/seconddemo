@@ -110,10 +110,10 @@ ActiveRecord::Schema.define(:version => 20100215085639) do
     t.integer  "productpriceid"
     t.integer  "proddiscountid"
     t.integer  "quantity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "status"
     t.string   "cartid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "userid"
     t.integer  "storeid"
     t.decimal  "prodsaleprice"
@@ -144,9 +144,9 @@ ActiveRecord::Schema.define(:version => 20100215085639) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "paystatus"
-    t.integer  "custid"
     t.integer  "userid"
     t.integer  "storeid"
+    t.integer  "custid"
     t.string   "ttlprodcost"
   end
 
@@ -210,6 +210,11 @@ ActiveRecord::Schema.define(:version => 20100215085639) do
     t.string   "store_poc"
     t.string   "created_by"
     t.string   "store_status"
+  end
+
+  create_table "stores_users", :id => false, :force => true do |t|
+    t.integer "store_id"
+    t.integer "user_id"
   end
 
   create_table "userizations", :force => true do |t|
