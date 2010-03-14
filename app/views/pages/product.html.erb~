@@ -146,18 +146,17 @@ $(document).ready(function() {
 		<td><%=p.category.name%></td>
 		<td><%=p.prod_type%></td>
 		<td><%=p.conditions%></td>
-		<%if (p.prod_orig_price != nil) {%>
+		<%if (p.prod_orig_price != nil) %>
 			<td>$<%=  sprintf('%.2f' ,p.prod_orig_price) %></td>
-		<%}
-		else {%>
+		<%else %>
 			<td>--</td>
-		<%}%>
-		<%if (p.proddiscount.discount != nil) {%>
+		<%%>
+		<%if (p.proddiscount.discount != nil) %>
 			<td>$<%=  sprintf('%.2f' ,p.proddiscount.discount) %></td>
-		<%}
-		else {%>
+		<%
+		else %>
 			<td>--</td>
-		<%}%>
+		<%end%>
 		<td><%=p.rating%></td>
 		<td><%=p.thc%></td>
 		<td><%=p.quantity%></td>
