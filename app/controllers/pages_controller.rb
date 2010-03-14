@@ -466,7 +466,7 @@ puts "c1" + @c1.size.to_s
 puts "result1: " + @result1.to_s
 puts "query2: " + @query2.to_s
 
-		if (@reult1.to_i  <= 0 and @query2  = 1 and @o == 0 and @c.size == 0 and @c1.size == 1)
+		if (@reult1.to_i  <= 0 and @query2  == 1 and @o == 0 and @c.size == 0 and @c1.size == 1)
 		#flash[:finished] = @query2
 		puts "Entered here!!!!!!!!!!!!!!"
 		@sqladdcart = "INSERT INTO cartitems (category_name, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+ 'Membership Discount'+"' ,  '" + session[:customerid]+ "', '"+ @memberdiscount.id.to_s  + "', '"+ "Membership Discount" + "', '"+ "1" +  "', '"+  "1"+  "', '"+     "-25" + "', '"+ "0" +"',current_date, current_date)"

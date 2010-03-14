@@ -432,7 +432,7 @@ function hideModal(divID)
 <br />
 <center>
 
- <%= submit_tag "Update Member Information" %>
+ <%= image_submit_tag 'butons/Update-09.png'{:name => "commit", :value => "Update Member Information",:class => 'image-button-submit' }%>
 			
 				            
 				            
