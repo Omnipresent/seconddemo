@@ -13,7 +13,7 @@
 				</tr>
 				<tr>
 					<td><b><%= f.label :store_poc %></b></td>
-					<td><%= f.password_field :store_poc %></td>
+					<td><%= f.text_field :store_poc %></td>
 				</tr>
   <%=f.hidden_field :created_by, :value => @user_full_name %>			
   <%=f.hidden_field :store_status, :value => "A" %>
