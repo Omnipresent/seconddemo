@@ -146,13 +146,23 @@ $(document).ready(function() {
 		<td><%=p.category.name%></td>
 		<td><%=p.prod_type%></td>
 		<td><%=p.conditions%></td>
-		<td>$<%=  sprintf('%.2f' ,p.prod_orig_price) %></td>
-		<td>$<%=  sprintf('%.2f' ,p.proddiscount.discount) %></td>
+		<%if (p.prod_orig_price != nil) {%>
+			<td>$<%=  sprintf('%.2f' ,p.prod_orig_price) %></td>
+		<%}
+		else {%>
+			<td>--</td>
+		<%}%>
+		<%if (p.proddiscount.discount != nil) {%>
+			<td>$<%=  sprintf('%.2f' ,p.proddiscount.discount) %></td>
+		<%}
+		else {%>
+			<td>--</td>
+		<%}%>
 		<td><%=p.rating%></td>
 		<td><%=p.thc%></td>
 		<td><%=p.quantity%></td>
 		<td>$<%=  sprintf('%.2f' ,(p.quantity*p.prod_orig_price)) %></td>
-		<td><%=link_to "#{image_tag("Edit-06.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
+		<td><%=link_to "#{image_tag("butons/Edit-06.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
 	</tr>
 	<%end%>
 </table>
