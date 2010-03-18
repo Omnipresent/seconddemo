@@ -7,7 +7,7 @@
 	<fieldset style="width: 70%"><legend><strong>Physician Information</strong></legend>
         <table cellpadding="5px" cellspacing="5px">
         <% form_for :physician, @physician do |p| %>
-        <%= p.error_messages %>
+        <font color="red"><%= p.error_messages %></font>
 				            <tr>											<td><%=p.label 'Physician Name'%></td>
 					            <td><%=p.text_field :pname%></td>
 					            <td><%=p.label "Physician Degree"%></td>
@@ -25,7 +25,7 @@
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>
 												<td>&nbsp;</td>												
-												<td><%= submit_tag "Add Physical Information" %></td>
+												<td><%= image_submit_tag 'butons/Add-08.png',  :class => 'image-button-submit' %></td>
 												
 										</tr>
 									<%end%>

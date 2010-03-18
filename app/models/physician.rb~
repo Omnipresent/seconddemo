@@ -5,7 +5,7 @@ validates_presence_of :pname, :degree, :pgroup, :plicnum, :licexpdate
 		:pname => "Physician Name",
 		:degree => "Physician Degree",
 		:pgroup => "Physician Group",
-		:plicnum => "Physician License ",
+		:plicnum => "Physician License "
 		:licexpdate => "Physician license exp date"
 	}
 
