@@ -1,0 +1,500 @@
+   79  rake db:migrate
+   80  clear
+   81  script/generate migration change_column_orderdetails
+   82  rake db:migrate
+   83  cd /home/bhaarat/rails/second_demo/420soft/
+   84  clear
+   85  ls -al
+   86  clear
+   87  script/generate migration add_phone_to_contacts
+   88  rake db:migrate
+   89  clear
+   90  script/generate migration add_category_to_cart_item
+   91  clear
+   92  rake db:migrate
+   93  clear
+   94  script/generate migration add_volume_to_cartitem
+   95  rake db:migrate
+   96  ckear
+   97  clear
+   98  script/generate migration add_column_to_cart_item
+   99  clear
+  100  rake db:migrate
+  101  clear
+  102  script/generate migration add_columns_to_orderdetails
+  103  clear
+  104  script/console
+  105  clear
+  106  script/console
+  107  clear
+  108  script/console
+  109  exit
+  110  ear
+  111  clear
+  112  cd /home/bhaarat/rails/second_demo/420soft/
+  113  clear
+  114  script/console
+  115  clear
+  116  script/console
+  117  clear
+  118  rake stas
+  119  clear
+  120  rake stats
+  121  clear
+  122  git add .
+  123  git commit -am "product page changes"
+  124  clear
+  125  git status
+  126  git push origin master
+  127  git push heroku master
+  128  heroku db:rest
+  129  clear
+  130  history
+  131  heroku db:reset
+  132  heroku app
+  133  heroku open
+  134  git push heroku master
+  135  heroku db:reset --app smooth-planet-84
+  136  heroku rake db:migrate
+  137  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  138  heroku open
+  139  clear
+  140  git add .
+  141  git status
+  142  git commit -am "changing images"
+  143  git push origin master
+  144  git push heroku master
+  145  git add .
+  146  git push origin master
+  147  git add .
+  148  git commit -am "redeploy"
+  149  git push origin master
+  150  git push heroku master
+  151  heroku db:reset -app smooth-planet084
+  152  heroku db:reset -app smooth-planet-84
+  153  heroku db:reset --app smooth-planet-84
+  154  heroku rake db:migrate
+  155  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  156  clear
+  157  exit
+  158  cd /home/bhaarat/rails/second_demo/420soft/
+  159  clear
+  160  script/server
+  161  clear
+  162  script/server
+  163  clear
+  164  script/server
+  165  clear
+  166  script/server
+  167  clear
+  168  heroku logs
+  169  clear
+  170  script/server
+  171  clear
+  172  script/server
+  173  cd /home/bhaarat/rails/second_demo/420soft/
+  174  clear
+  175  script/console
+  176  clear
+  177  script/console
+  178  clear
+  179  script/console
+  180  clear
+  181  script/console
+  182  clear
+  183  script/console
+  184  clear
+  185  script/console
+  186  clear
+  187  git add .
+  188  git commit -am "membership discount"
+  189  git push origin master
+  190  clear
+  191  git push heroku master
+  192  heroku db:reset --app smooth-planet-84
+  193  heroku rake db:migrate
+  194  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  195  clear
+  196  git add .
+  197  git commit -am "change nill"
+  198  git push origin master
+  199  git push heroku master
+  200  heroku db:reset --app smooth-planet-84
+  201  heroku rake db:migrate
+  202  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  203  git add .
+  204  git commit -am "top nav stores"
+  205  git push origin master
+  206  git push heroku master
+  207  clear
+  208  git add .
+  209  git commit -am "redeploy"
+  210  git push origin master
+  211  git push heroku master
+  212  heroku db:reset --app smooth-planet-84
+  213  heroku rake db:migrate
+  214  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  215  clear
+  216  script/console
+  217  clear
+  218  git add .
+  219  git commit -am "fixes"
+  220  git push origin master
+  221  git push heroku master
+  222  heroku db:reset --app smooth-planet-84
+  223  heroku rake db:migrate
+  224  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  225  clear
+  226  git add .
+  227  git commit -am "changing tag"
+  228  git push origin master
+  229  git push heroku master
+  230  clear
+  231  heroku db:reset --app smooth-planet-84
+  232  heroku rake db:migrate
+  233  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  234  clear
+  235  git add .
+  236  git commit -am "optioins in edit product"
+  237  git push origin master
+  238  git push heroku master
+  239  git add .
+  240  git commit -am "jquery edit product"
+  241  git push origin master
+  242  clear
+  243  git add .
+  244  git commit "add physician info"
+  245  git commit -am "add physician info"
+  246  git git push origin master
+  247  git push origin master
+  248  git push heroku master
+  249  heroku db:reset --app smooth-planet-84
+  250  heroku rake db:migrate
+  251  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  252  heroku db:reset --app smooth-planet-84
+  253  heroku rake db:migrate
+  254  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  255  clear
+  256  heroku rake db:schema:load
+  257  heroku restart
+  258  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  259  clear
+  260  script/console --sandbox
+  261  clear
+  262  script/console --sandbox
+  263  clear
+  264  git add .
+  265  git commit -am "fixing cart"
+  266  git push origin master
+  267  git push heroku master
+  268  heroku db:reset --app smooth-planet-84
+  269  heroku rake db:migrate
+  270  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  271  heroku restart
+  272  clear
+  273  heroku db:reset --app smooth-planet-84
+  274  heroku rake db:migrate
+  275  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  276  heroku db:reset --app smooth-planet-84
+  277  heroku rake db:migrate
+  278  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  279  heroku db:restart
+  280  heroku restart
+  281  clear
+  282  gem install railroad
+  283  clear
+  284  railroad -o models.dot -M
+  285  railroad
+  286  rake railroad
+  287  clear
+  288  gem install railroad
+  289  sudo gem install railroad
+  290  railroad
+  291  clear
+  292  railroad -o models.dot -M
+  293  clear
+  294  railroad -a -i -o full_models.dot -M
+  295  clear
+  296  script/console --sandbox
+  297  clear
+  298  script/console --sandbox
+  299  clear
+  300  script/generate migration change_discount_type
+  301  rake db:migrate
+  302  clear
+  303  script/generate migration
+  304  script/generate migration change_discount_cartitem
+  305  rake db:migrate
+  306  clear
+  307  git add .
+  308  clear
+  309  git add .
+  310  git commit -am "discount + subtotal and discount"
+  311  git push origin master
+  312  git push heroku master
+  313  clear
+  314  heroku db:reset --app smooth-planet-84
+  315  heroku rake db:migrate
+  316  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  317  git add .
+  318  git commit -am "change sprintf in sales"
+  319  git push origin master
+  320  git push heroku master
+  321  heroku restart
+  322  clear
+  323  git add .
+  324  git commit -am "changed sprintf"
+  325  git push origin master
+  326  git push heroku master
+  327  clear
+  328  script/console --sandbox
+  329  clear
+  330  git add .
+  331  pgadmin3&
+  332  cd /home/bhaarat/rails/second_demo/420soft/
+  333  clear
+  334  heroku logs
+  335  clear
+  336  heroku logs
+  337  clear
+  338  heroku logs
+  339  clear
+  340  heroku db:pull postgres://bhaarat:deepak@localhost/420railsdb
+  341  clear
+  342  heroku db:pull postgres://bhaarat:deepak@localhost/420railsdb
+  343  clear
+  344  heroku db:pull postgres://bhaarat:deepak@localhost/420railsdb
+  345  clear
+  346  git add .
+  347  git status
+  348  git commit -am "sales page"
+  349  git push origin master
+  350  git push heroku master
+  351  git add .
+  352  git status
+  353  git commit -am "width for pics"
+  354  git push origin master
+  355  git push heroku master
+  356  clear
+  357  git add .
+  358  git status
+  359  git commit -am "image buttons"
+  360  git push origin master
+  361  git push heroku master
+  362  git add .
+  363  git status
+  364  git commit -am "adding images"
+  365  git push origin master
+  366  git push heroku master
+  367  clear
+  368  git add .
+  369  git status
+  370  git commit -am "buttons changes"
+  371  git push origin master
+  372  git push heroku master
+  373  clear
+  374  heroku logs
+  375  clear
+  376  heroku logs
+  377  clear
+  378  git add .
+  379  git status
+  380  git commit -am "fixing quantity"
+  381  git push origin master
+  382  git push heroku master
+  383  heroku restart
+  384  git add .
+  385  git commit -am "broken tag"
+  386  git push origin master
+  387  git push heroku master
+  388  cd /home/bhaarat/rails/second_demo/420soft/
+  389  clear
+  390  script/server
+  391  clear
+  392  script/server
+  393  clear
+  394  script/server
+  395  clear
+  396  script/server
+  397  clear
+  398  git add .
+  399  git commit -am "changes"
+  400  git push origin master
+  401  git push heroku master
+  402  script/server
+  403  clear
+  404  git add .
+  405  git status
+  406  git commit -am "added s"
+  407  git push origin master
+  408  git push heroku master
+  409  clear
+  410  git add .
+  411  git commit -am "avinash changes"
+  412  git push origin master
+  413  git push heroku master
+  414  script/server
+  415  clear
+  416  git add .
+  417  git status
+  418  git commit -am "product price calc"
+  419  git push origin master
+  420  git push heroku master
+  421  clear
+  422  script/server
+  423  cd /home/bhaarat/rails/second_demo/420soft/
+  424  clear
+  425  heroku db:reset --app smooth-planet-84
+  426  heroku rake db:migrate
+  427  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  428  heroku restart
+  429  clear
+  430  git add .
+  431  git push origin master
+  432  git add "all changes"
+  433  git commit -am "all changes"
+  434  git push origin master
+  435  git push heroku master
+  436  clear
+  437  heroku db:reset --app smooth-planet-84
+  438  heroku rake db:migrate
+  439  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  440  clear
+  441  git add .
+  442  git status
+  443  git push origin master
+  444  git commit -am "editcustomer avinash"
+  445  git push origin master
+  446  git push heroku master
+  447  heroku db:reset --app smooth-planet-84
+  448  heroku rake db:migrate
+  449  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  450  heroku restart
+  451  git add .
+  452  git status
+  453  git add .
+  454  git status
+  455  git commit -am "end of line changes"
+  456  git push origin master
+  457  git push heroku master
+  458  heroku restart
+  459  clear
+  460  git add .
+  461  git commit -am "pushing out"
+  462  git push origin master
+  463  clear
+  464  git add .
+  465  git commit -am "changes to physician and sales"
+  466  git push origin master
+  467  git push heroku master
+  468  heroku db:reset --app smooth-planet-84
+  469  heroku rake db:migrate
+  470  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  471  clear
+  472  heroku db:reset --app smooth-planet-84
+  473  git add .
+  474  git commit -am "membership 25 logic"
+  475  git push origin master
+  476  git push heroku master
+  477  heroku db:reset --app smooth-planet-84
+  478  heroku rake db:migrate
+  479  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  480  heroku db:reset --app smooth-planet-84
+  481  heroku rake db:migrate
+  482  heroku db:push postgres://bhaarat:deepak@localhost/420railsdb
+  483  heroku restart
+  484  git add .
+  485  git commit -am "images"
+  486  git push origin master
+  487  git push heroku master
+  488  heroku logs
+  489  cd /home/bhaarat/rails/second_demo/420soft/
+  490  clear
+  491  heroku logs
+  492  sudo vpnc myconf.conf
+  493  sudo vpnc-disconnect
+  494  sudo vpnc myconf.conf
+  495  eagP%731
+  496  rdesktop -f 10.21.43.25
+  497  rdesktop -f 10.210.43.25
+  498  sudo vpnc-disconnect
+  499  sudo vpnc myconf.conf
+  500  sudo vpnc-disconnect
+  501  cd /home/bhaarat/rails/
+  502  ls
+  503  cd cd /home/bhaarat
+  504  ls
+  505  cd /home/bhaarat/
+  506  ls
+  507  cd /home/bhaarat/rails/
+  508  ls
+  509  clear
+  510  ls
+  511  cd cd second_demo/
+  512  ls
+  513  cd second_demo/
+  514  ls
+  515  clear
+  516  cd 420soft/
+  517  ls
+  518  clear
+  519  ls
+  520  heroku logs
+  521  clear
+  522  heroku logs
+  523  heroku open
+  524  heroku logs
+  525  clear
+  526  heroku logs
+  527  clear
+  528  git -am "product page change"
+  529  clear
+  530  git branch
+  531  git commit =am "product change"
+  532  git commit -am "product change"
+  533  git status
+  534  git push origin master
+  535  clear
+  536  git push origin master
+  537  git status
+  538  git push
+  539  git pull
+  540  git pull master
+  541  pwd
+  542  git pull seconddemo
+  543  clear
+  544  ls
+  545  git pull
+  546  git pull seconddemo master
+  547  clear
+  548  git pull
+  549  clear
+  550  git pull
+  551  git status
+  552  git push origin master
+  553  git push heroku master
+  554  clear
+  555  heroku logs
+  556  clear
+  557  rake script/server
+  558  generate script/server
+  559  script/server
+  560  clear
+  561  git status
+  562  git commit -am "changes to product"
+  563  git status
+  564  git push origin master 
+  565  git push heroku master
+  566  clear
+  567  heroku logs
+  568  clear
+  569  git commit -am "nil changes for product"
+  570  git push origin master
+  571  git push heroku master
+  572  clear
+  573  heroku logs
+  574  clear
+  575  heroku logs
+  576  clear
+  577  history 
+  578  history > history.txt

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100215085639) do
+ActiveRecord::Schema.define(:version => 20100318014207) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -23,6 +23,23 @@ ActiveRecord::Schema.define(:version => 20100215085639) do
     t.integer  "userid"
     t.integer  "storeid"
   end
+
+  create_table "audits", :force => true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "changes"
+    t.integer  "version",        :default => 0
+    t.string   "comment"
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
+  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
+  add_index "audits", ["user_id", "user_type"], :name => "user_index"
 
   create_table "cartitems", :force => true do |t|
     t.string   "pid"
@@ -110,10 +127,10 @@ ActiveRecord::Schema.define(:version => 20100215085639) do
     t.integer  "productpriceid"
     t.integer  "proddiscountid"
     t.integer  "quantity"
-    t.string   "status"
-    t.string   "cartid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.string   "cartid"
     t.integer  "userid"
     t.integer  "storeid"
     t.decimal  "prodsaleprice"
@@ -144,9 +161,9 @@ ActiveRecord::Schema.define(:version => 20100215085639) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "paystatus"
+    t.integer  "custid"
     t.integer  "userid"
     t.integer  "storeid"
-    t.integer  "custid"
     t.string   "ttlprodcost"
   end
 
@@ -210,11 +227,6 @@ ActiveRecord::Schema.define(:version => 20100215085639) do
     t.string   "store_poc"
     t.string   "created_by"
     t.string   "store_status"
-  end
-
-  create_table "stores_users", :id => false, :force => true do |t|
-    t.integer "store_id"
-    t.integer "user_id"
   end
 
   create_table "userizations", :force => true do |t|

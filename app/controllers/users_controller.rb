@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	layout "application"
 	
+	
   def register
   end
 
