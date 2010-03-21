@@ -379,22 +379,10 @@ function hideModal(divID)
 				            <tr>
 							<td align="right">County&nbsp;Number:</td>
 				            <td align="left"><%= text_field_tag :countyid, params[:countyid] %></td>
-							<script type="text/javascript"> 
-		            var countyid = new LiveValidation('countyid');
-		            countyid.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
 				            <td align="right">State&nbsp;MMP:</td>
 				            <td align="left"><%= text_field_tag :statemmp, params[:statemmp] %></td>
-							<script type="text/javascript"> 
-		            var statemmp = new LiveValidation('statemmp');
-		            statemmp.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
 				            <td align="right">Recommendation:</td>
 				            <td align="left"><%= text_field_tag :recom, params[:recom] %></td>
-							<script type="text/javascript"> 
-		            var recom = new LiveValidation('recom');
-		            recom.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
 				            
 				            </tr>
 				            </table>
