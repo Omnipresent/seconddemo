@@ -164,6 +164,7 @@ $(document).ready(function() {
 			<td>$<%=  sprintf('%.2f' ,(p.quantity*p.prod_orig_price)) %></td>
 		<%else%>
 			<td>--</td>
+		<%end%>
 		<td><%=link_to "#{image_tag("butons/Edit-06.png", :width=>'60px')}", :controller => "pages", :action => "edit_product", :id => p.id%></td>
 	</tr>
 	<%end%>

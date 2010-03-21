@@ -60,7 +60,7 @@ $(document).ready(function() {
 	<fieldset style="width: 50%"><legend><strong>Product Information</strong></legend>
 			<% form_for :product, @products do |p| %>
         <table cellpadding="5px" cellspacing="5px">
-	        <%= p.error_messages %>
+	        <font color="red"><%= p.error_messages %></font>
 				            <tr>
 					            <td><%=label "category", "Category"%></td>
 					            <td><%=p.select :category_id, options_for_select(@categories.map {|s| [s.name, s.id]})%></td>

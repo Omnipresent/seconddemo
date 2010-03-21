@@ -28,7 +28,8 @@ class PagesController < ApplicationController
 			@prods = Product.find(:all)
 			flash[:product] = "Currently there are #{@prods.size} products"
 		if request.post?
-			if (@products = Product.create(params[:product]))
+		@products = Product.new(params[:product])
+			if (@products.save)
 				@prods = Product.find(:all)
 				Proddiscount.create(:prodid=>@products.id, :discount=>params[:discount])
 				@products = Product.new
