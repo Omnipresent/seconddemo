@@ -1,5 +1,5 @@
 class Physician < ActiveRecord::Base
-validates_presence_of :pname, :degree, :pgroup, :plicnum, :licexpdate
+validates_presence_of :pname, :plicnum
 
 	HUMANIZED_ATTRIBUTES = {
 		:pname => "Physician Name",

@@ -195,18 +195,10 @@ function hideModal(divID)
                                  
                                  <td align="left" style="width:123px"><%= text_field_tag :reffredby, params[:reffredby] %>
                                  </td>
-                                 	<script type="text/javascript"> 
-		            var reffredby = new LiveValidation('reffredby');
-		            reffredby.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
                                  <td align="right">Notes:
                                  </td>
                                  
                                  <td colspan="1" align="left"><%= text_field_tag :notes, params[:notes] %></td>
-	<script type="text/javascript"> 
-		            var notes = new LiveValidation('notes');
-		            notes.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
 				            <td align="right">DLN:</td>
 				            
 				            <td  align="left"><%= text_field_tag :dln, params[:dln] %></td>
@@ -319,31 +311,18 @@ function hideModal(divID)
 				                </fieldset>
 				            </td>
 			            <td colspan="5">
-		              <fieldset><legend><strong>Contact</strong></legend> 
+		              <fieldset><legend><strong>Contact (optional)</strong></legend> 
     				                <table cellpadding="1px" cellspacing="1px" border="0">
     				                    <tr>
     				                            <td align="right">Home&nbsp;Phone:</td>
     				                            <td align="left"><%= text_field_tag :hphone, params[:hphone] %></td>
-												<script type="text/javascript"> 
-		            var hphone = new LiveValidation('hphone');
-		            hphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
     				                            <td align="right">Mobile:</td>
 				                                <td align="left"><%= text_field_tag :mphone, params[:mphone] %></td>
-												<script type="text/javascript"> 
-		            var mphone = new LiveValidation('mphone');
-		            mphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
                                         </tr>
                                         
     				                    <tr>
     				                            <td align="right">Email:</td>
     				                            <td align="left"><%= text_field_tag :cemail, params[:cemail] %></td>
-												 <script type="text/javascript"> 
-												var cemail = new LiveValidation('cemail');
-												 cemail.add(Validate.Presence, 4e3,{failureMessage: "*"});
-												cemail.add(Validate.Email);
-												 </script>
 				                                <td align="right">Provider:</td>
 				                                <td  align="left">
 						<%= select_tag "provider", options_for_select([ "-", "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],"-")  %>
@@ -373,7 +352,7 @@ function hideModal(divID)
 
 <div class="depot-form">
             			<fieldset style="width:100%">
-    <legend><strong>State/County&nbsp;Registration&nbsp;Information</strong></legend>
+    <legend><strong>State/County&nbsp;Registration&nbsp;Information (optional)</strong></legend>
         
              <table>
 				            <tr>
@@ -411,7 +390,7 @@ function hideModal(divID)
 <br />
 <center>
 						<div class="depot-form">
-<fieldset style="width: 70%"><legend><strong>Prescription&nbsp;Information</strong></legend> 
+<fieldset style="width: 70%"><legend><strong>Recommendation&nbsp;Information</strong></legend> 
 
     
 
@@ -495,8 +474,7 @@ function hideModal(divID)
 	<td>				            
 	Doctors Name:				            
 	</td>				            
-	<td> 						
-	<!--	<%= select_tag "recipro", options_for_select([ "Received", "Sent", "Go"],"Go")  %> -->                                 
+	<td> 						                                 
 	<%= text_field_tag :pname1, params[:pname1] %>			            
 	</td>
 	<script type="text/javascript"> 
@@ -523,16 +501,23 @@ function hideModal(divID)
 	<td>						
 	Practice&nbsp;Group:					
 	</td>		
+	<td >
+	<%= text_field_tag :pgroup1, params[:pgroup1] %></td>					
+	<td>						
+	Doctor/Group's Address:					
+	</td>		
 	<td colspan="3">
-	<%= text_field_tag :pgroup1, params[:pgroup1] %></td>
-	<tr><tr>						
+	<%= text_field_tag :address, params[:address] %></td>
+	<tr>			
+	<tr>
+
+<tr>						
 	<td colspan="4">						
 	<%= submit_tag "save" %> 					
 	</td>					
-	<tr>
-		<td colspan="4">
-			
-		</td>
+	</tr>
+
+
 	</tr>	
 	</tr>				            
 	</table> 

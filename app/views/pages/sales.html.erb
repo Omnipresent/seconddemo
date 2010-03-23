@@ -459,7 +459,7 @@ $tabs.tabs('enable', 1)
 						alert(temp1)
 						temp2 = temp1 * temp
 					SubTotal = (SubTotal*1+temp*1 - temp2*1)*1
-					Totalamt = SubTotal*1 + (SubTotal*.15)
+					Totalamt = SubTotal*1 + (SubTotal*.0875)
 						$('#POS_SubTotal').val(SubTotal);
 	                    $('#POS_Total').val(Totalamt);
                             }
@@ -488,7 +488,8 @@ $tabs.tabs('enable', 1)
 
 <%if @cust != nil%>
 <input type="hidden" name="MyHiddenField" value=@cust.id />
-Customer: <%=@cust.lastname%>, <%=@cust.firstname%><br>
+Member ID: <%=@cust.id%><br>
+Member: <%=@cust.lastname%>, <%=@cust.firstname%><br>
 DOB: <%=@cust.dob%><br>
 DLN: <%=@cust.dln%><br>
 <%end%>
@@ -538,7 +539,7 @@ DLN: <%=@cust.dln%><br>
 				<td align="right">Sold to:
 				</td>
 				<td>
-			<%= session[:customername] %>
+			<%= session[:customername] %> (<%=session[:custid]%>)
 				</td>
 				<td align="right">Payment Method :
 				</td>
@@ -627,7 +628,7 @@ DLN: <%=@cust.dln%><br>
 			    </tr>	
 <tr>
 			        <td colspan =6 align="right">Sales Tax</td>
-			           <td>15%</td>
+			           <td>8.75%</td>
 		                      
 			    </tr>	
 <tr >
@@ -792,7 +793,7 @@ DLN: <%=@cust.dln%><br>
     		                  <tr>
     		                    <td>Tax
     		                    </td>
-    		                    <td><label id="POS_Tax" >15%</label>
+    		                    <td><label id="POS_Tax" >8.75%</label>
     		                    </td>
     		                </tr>
     		                

@@ -20,6 +20,9 @@
 		                    <td><%=p.text_field :plicnum%></td>
 		                    <td><%=p.label "Physician License Exp Date"%></td>
 		                    <td><%=p.text_field :licexpdate%></td>
+		                    <td><%=p.label "Doctor/Group's Address'"%></td>
+		                    <td><%=p.text_field :address%></td>
+
 		                </tr>
 										<tr>
 												<td>&nbsp;</td>

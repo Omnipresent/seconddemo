@@ -71,6 +71,7 @@ background-color:#7FB545;
 <%if @customer.size > 0%>
 <table border="2" cellspacing="20" cellpadding="" id="customers" align="center">
 	<tr>
+		<th>Member Id</th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Phone Number</th>
@@ -81,6 +82,7 @@ background-color:#7FB545;
 	</tr>	
 	<% for customer in @customer%>
 	<tr>
+		<td><%=customer.id%></td>
 		<td><%= link_to customer.firstname, "/pages/sales?custId=#{customer.id}" %>
 		<%=%></td>
 		<td><%=customer.lastname%></td>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100318014207) do
+ActiveRecord::Schema.define(:version => 20100323021747) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(:version => 20100318014207) do
     t.integer  "userid"
     t.integer  "storeid"
     t.string   "licexpdate"
+    t.string   "address"
   end
 
   create_table "prescriptions", :force => true do |t|

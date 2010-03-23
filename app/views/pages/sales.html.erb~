@@ -488,7 +488,8 @@ $tabs.tabs('enable', 1)
 
 <%if @cust != nil%>
 <input type="hidden" name="MyHiddenField" value=@cust.id />
-Customer: <%=@cust.lastname%>, <%=@cust.firstname%><br>
+Member ID: <%=@cust.id%><br>
+Member: <%=@cust.lastname%>, <%=@cust.firstname%><br>
 DOB: <%=@cust.dob%><br>
 DLN: <%=@cust.dln%><br>
 <%end%>
@@ -538,7 +539,7 @@ DLN: <%=@cust.dln%><br>
 				<td align="right">Sold to:
 				</td>
 				<td>
-			<%= session[:customername] %>
+			<%= session[:customername] %> (<%=session[:custid]%>)
 				</td>
 				<td align="right">Payment Method :
 				</td>
@@ -627,7 +628,7 @@ DLN: <%=@cust.dln%><br>
 			    </tr>	
 <tr>
 			        <td colspan =6 align="right">Sales Tax</td>
-			           <td>15%</td>
+			           <td>8.75%</td>
 		                      
 			    </tr>	
 <tr >
@@ -741,7 +742,7 @@ DLN: <%=@cust.dln%><br>
 			                <td><%=  c.volume%></td>
 			                <td><%=  sprintf('%.2f' ,c.price) %></td>
 			                <td><%=  sprintf('%.2f' ,c.discount) %></td>
-<td><%= image_submit_tag 'butons/Delete-02.png',  {:class => 'image-button-link',:value => "delete", :name => "commit"}%></td>
+<td><%= image_submit_tag 'butons/Delete-02.png',  {:class => 'image-button-link',:value => "delete", :name => "commit"}%>
 											<input type="hidden" name="deleteId" value="<%=c.id%>" </input> <% end %>
 											</td>
 			        </tr>

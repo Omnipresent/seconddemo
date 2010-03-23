@@ -71,6 +71,7 @@ background-color:#7FB545;
 <%if @customer.size > 0%>
 <table border="2" cellspacing="20" cellpadding="" id="customers" align="center">
 	<tr>
+		<th>Member Id</th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Phone Number</th>
@@ -95,7 +96,7 @@ background-color:#7FB545;
 <%if @count == 0%>
 <td>Yes</td>
 <%end%>				
-<td><%=link_to "#{image_tag("buttons/Edit-06.png", :width=>'60px')}", :controller => "pages", :action => "editcustomer", :id => customer.id%></td>		
+<td><%=link_to "#{image_tag("butons/Edit-06.png", :width=>'60px')}", :controller => "pages", :action => "editcustomer", :id => customer.id%></td>		
 	</tr>	
 	<%end%>
 </table>
