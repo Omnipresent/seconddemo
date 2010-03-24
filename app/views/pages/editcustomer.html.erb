@@ -313,31 +313,18 @@ function hideModal(divID)
 				                </fieldset>
 				            </td>
 			            <td colspan="5">
-		              <fieldset><legend><strong>Contact</strong></legend> 
+		              <fieldset><legend><strong>Contact (optional)</strong></legend> 
     				                <table cellpadding="1px" cellspacing="1px" border="0">
     				                    <tr>
     				                            <td align="right">Home&nbsp;Phone:</td>
     				                            <td align="left"><%= text_field_tag :hphone, params[:hphone] %></td>
-												<script type="text/javascript"> 
-		            var hphone = new LiveValidation('hphone');
-		            hphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
     				                            <td align="right">Mobile:</td>
 				                                <td align="left"><%= text_field_tag :mphone, params[:mphone] %></td>
-												<script type="text/javascript"> 
-		            var mphone = new LiveValidation('mphone');
-		            mphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
                                         </tr>
                                         
     				                    <tr>
     				                            <td align="right">Email:</td>
     				                            <td align="left"><%= text_field_tag :cemail, params[:cemail] %></td>
-												 <script type="text/javascript"> 
-												var cemail = new LiveValidation('cemail');
-												 cemail.add(Validate.Presence, 4e3,{failureMessage: "*"});
-												cemail.add(Validate.Email);
-												 </script>
 				                                <td align="right">Provider:</td>
 				                                <td  align="left">
 						<%= select_tag "provider", options_for_select([ "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],params[:provider])  %>
@@ -383,29 +370,16 @@ function hideModal(divID)
 				<td colspan="9">
 
             			<fieldset>
-    <legend><strong>State/County&nbsp;Registration&nbsp;Information</strong></legend>
+    <legend><strong>State/County&nbsp;Registration&nbsp;Information (optional)</strong></legend>
         
              <table>
 				            <tr>
 							<td align="right">County&nbsp;Number:</td>
 				            <td align="left"><%= text_field_tag :countyid, params[:countyid] %></td>
-							<script type="text/javascript"> 
-		            var countyid = new LiveValidation('countyid');
-		            countyid.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
 				            <td align="right">State&nbsp;MMP:</td>
 				            <td align="left"><%= text_field_tag :statemmp, params[:statemmp] %></td>
-							<script type="text/javascript"> 
-		            var statemmp = new LiveValidation('statemmp');
-		            statemmp.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
 				            <td align="right">Recommendation:</td>
-				            <td align="left"><%= text_field_tag :recom, params[:recom] %></td>
-							<script type="text/javascript"> 
-		            var recom = new LiveValidation('recom');
-		            recom.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
-				            
+				            <td align="left"><%= text_field_tag :recom, params[:recom] %></td>				            
 				            </tr>
 				            </table>
 		

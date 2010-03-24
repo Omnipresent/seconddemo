@@ -313,31 +313,18 @@ function hideModal(divID)
 				                </fieldset>
 				            </td>
 			            <td colspan="5">
-		              <fieldset><legend><strong>Contact</strong></legend> 
+		              <fieldset><legend><strong>Contact (optional)</strong></legend> 
     				                <table cellpadding="1px" cellspacing="1px" border="0">
     				                    <tr>
     				                            <td align="right">Home&nbsp;Phone:</td>
     				                            <td align="left"><%= text_field_tag :hphone, params[:hphone] %></td>
-												<script type="text/javascript"> 
-		            var hphone = new LiveValidation('hphone');
-		            hphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
     				                            <td align="right">Mobile:</td>
 				                                <td align="left"><%= text_field_tag :mphone, params[:mphone] %></td>
-												<script type="text/javascript"> 
-		            var mphone = new LiveValidation('mphone');
-		            mphone.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
                                         </tr>
                                         
     				                    <tr>
     				                            <td align="right">Email:</td>
     				                            <td align="left"><%= text_field_tag :cemail, params[:cemail] %></td>
-												 <script type="text/javascript"> 
-												var cemail = new LiveValidation('cemail');
-												 cemail.add(Validate.Presence, 4e3,{failureMessage: "*"});
-												cemail.add(Validate.Email);
-												 </script>
 				                                <td align="right">Provider:</td>
 				                                <td  align="left">
 						<%= select_tag "provider", options_for_select([ "Alltel", "AT&T", "Nextel", "Sprint", "TMobile", "Verizon", "Metro PCS", "Boost Mobile", "Virgin Mobile"],params[:provider])  %>
@@ -432,7 +419,7 @@ function hideModal(divID)
 <br />
 <center>
 
- <%= image_submit_tag 'butons/Update-09.png'{:name => "commit", :value => "Update Member Information",:class => 'image-button-submit' }%>
+ <%= image_submit_tag 'butons/Update-09.png',{:name => "commit", :value => "Update Member Information",:class => 'image-button-submit' }%>
 			
 				            
 				            
