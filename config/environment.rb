@@ -7,12 +7,14 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 
+
 class Date
      def marshal_load(*args)
       self
     end
 end
 Rails::Initializer.run do |config|
+config.gem 'hoptoad_notifier'
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
