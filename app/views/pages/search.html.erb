@@ -90,7 +90,10 @@ background-color:#7FB545;
 		<td><%=customer.sex%></td>
 		<td><%=customer.dln%></td>
 <%@memberdiscount = Product.find_by_prod_name("Membership")%>
-<%@count = Orderdetail.count(:joins => :order, :conditions => ["prodid = ? and orders.custid = ?", @memberdiscount.id, customer.id])%>
+<%@count = 1%>
+<%if @memberdiscount%>
+<%@count = Orderdetail.count(:joins => :order, :conditions => ["prodid = ? and orders.custid = ?", @memberdiscount.id, customer.id])  %>
+<%end%>
 <%if @count >= 1%>
 <td>No</td>
 <%end%>

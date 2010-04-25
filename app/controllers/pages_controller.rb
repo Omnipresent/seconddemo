@@ -191,83 +191,73 @@ end
 #start customer
 
  def customer
-  @phys = Physician.find(:all) #gets all physicians
-   if request.post?
+    @phys = Physician.find(:all) #gets all physicians
+    if request.post?
+      
+      if params[:commit] == "save" #save from physician modal page
+        @phys = Physician.new(:address => params[:address], :pname => params[:pname1], :degree => params[:pdegree], :pgroup => params[:pgroup1], :plicnum => params[:plicnum1], :licexpdate => params[:licexpdate1])
+        @phys.save
+        @physid = @phys.id
+        session[:physid]  = @physid
+    	  flash[:customerpage] = "Added Physician" 
+  	    @phys = Physician.find(:all) 
+      end
+      
+      if params[:commit] == "Add Member Information" #Add member information
+@cust = Customer.new(:firstname => params[:firstname], :lastname => params[:lastname], :dob => params[:dob], :dln => params[:dln], :sex => params[:sex], :referral => params[:referral], :reffredby => params[:reffredby], :notes => params[:notes], :statemmp => params[:statemmp], :recom => params[:recom], :countyid => params[:countyid], :suffix => params[:suffix], :dlnstate => params[:dlnstate], :dlnexpiry => params[:dlnexp])
+@cust.save		 
 
-  if params[:commit] == "save"
-  sql = ActiveRecord::Base.connection();
-  @sqlstmmt3 = "INSERT INTO physicians (address,pname,degree,pgroup,plicnum,licexpdate) VALUES ('" + params[:address] + "', '" + params[:pname1] + "', '"+ params[:pdegree1] + "', '"+ params[:pgroup1] + "', '"+ params[:plicnum1] + "', '"+ params[:licexpdate1] +"')"
-  sql.begin_db_transaction
-  @@sides =  params[:firstName]
-  @physid= sql.insert(@sqlstmmt3)
-    session[:physid]  = @physid
-	 flash[:customerpage] = "Added Physician" 
-	   @phys = Physician.find(:all) #gets all physicians
-
-  sql.commit_db_transaction
-  end
-    if params[:commit] == "Add Member Information"
-		 @sqlstmmt = "INSERT INTO customers (firstname, lastname, dob, dln, sex, referral, reffredby, notes, statemmp, recom, countyid, suffix, dlnstate, dlnexpiry) VALUES ('"+params[:firstname] + 
-		 "', '"+ params[:lastname] + "', '"+params[:dob]+ "', '" + params[:dln] + "', '"  +           params[:sex] + "', '"+ params[:referral] +"', '"+ params[:reffredby] + 
-		 "', '"+ params[:notes] + "', '"+ params[:statemmp] + "', '"+ params[:recom] + "', '"+ params[:countyid]+ "', '"+ params[:suffix]+ "', '"+ params[:dlnstate] + "', '"+ params[:dlnexp]  +"')"
-		 #sql staement to insert into address table
-		 @sqlstmmt1 = "INSERT INTO addresses (\"line1\", \"line2\", city, state, zip, county) VALUES ('" + params[:line1] + "', '"+ params[:line2] + "', '"+params[:city]+ "', '" + params[:state] + "', '" + params[:zip]+ "', '" + params[:county]+"')"
-		 sql = ActiveRecord::Base.connection();
-		 sql.begin_db_transaction
+  		 @addy = Address.new(:line1 => params[:line1], :line2 => params[:line2], :city => params[:city], :state => params[:state], :zip => params[:zip], :county => params[:county])
+       @addy.save
 		 @@sides =  params[:firstName]
-		 @id1 = sql.insert(@sqlstmmt)
+		 @id1 = @cust.id
 		 session[:customer_id] = @id1
-		 sql.commit_db_transaction
-		 sql.begin_db_transaction
-		 @id2 = sql.insert(@sqlstmmt1)
-		 sql.commit_db_transaction
-	if (params[:sms].nil? or params[:sms] == 0)
-	 @varsms = "no"
-	else
-	@varsms = "yes"
-	 end
-if (params[:mail].nil? or params[:mail] == 0)
-	    @varmail = "no"
-	else
-	@varmail = "yes"
-	 end
- if (params[:email].nil? or params[:email] == 0)
-	    @varemail = "no"
-	else
-	@varemail = "yes"
-	 end
-	if (params[:phone].nil? or params[:phone] == 0)
-	    @varphone = "no"
-	else
-	@varphone = "yes"
-	 end	
-  # sql statement to insert into contact links table
-		@sqlcontact =  "INSERT INTO contacts (id,\"cid\", \"hphone\", mphone, provider, cemail, email, sms , mail, phone) VALUES ('"+@id1+"','" + @id1  + "', '"+ params[:hphone] + "', '"+params[:mphone]+ "', '" + params[:provider] + "', '" + params[:cemail]+ "', '" +      @varemail+ "', '"+@varsms+ "', '"+ @varmail+"', '"+@varphone+"')"
-		@sqlstmmt2 = "INSERT INTO contactlinks (\"contactid\", \"addressid\") VALUES ('" + @id1 + "', '"+ @id2+ "')"
-		sql.begin_db_transaction
-		@id3 = sql.insert(@sqlcontact )
-		sql.commit_db_transaction
-		sql.begin_db_transaction
-		@id3 = sql.insert(@sqlstmmt2 )
-		sql.commit_db_transaction
-		sql = ActiveRecord::Base.connection();
-	    #sql staement to insert into prescription table
-	    @sqlstmmt4 = "INSERT INTO prescriptions (\"physver\",recver,recexp) VALUES ('" + params[:physver] + "', '"+ params[:recver] + "', '"+ params[:recexp] +"')"
-		#sql staement to insert into prescription table
-		sql.begin_db_transaction
-		@id4 = sql.insert(@sqlstmmt4)
-		sql.commit_db_transaction
-		@sqlstmmt5 = "INSERT INTO custphyslinks (\"customid\", \"physid\", prescid) VALUES ('" + session[:customer_id] + "', '"+ params[:pname]+ "', '"+@id4+"')"
-		sql.begin_db_transaction
-		@id6 = sql.insert(@sqlstmmt5)
-		sql.commit_db_transaction
+		 @id2 = @addy.id
+
+    	if (params[:sms].nil? or params[:sms] == 0)
+    	 @varsms = "no"
+    	else
+      	@varsms = "yes"
+    	end
+      if (params[:mail].nil? or params[:mail] == 0)
+  	    @varmail = "no"
+    	else
+      	@varmail = "yes"
+    	end
+      if (params[:email].nil? or params[:email] == 0)
+  	    @varemail = "no"
+    	else
+      	@varemail = "yes"
+    	end
+      if (params[:phone].nil? or params[:phone] == 0)
+  	    @varphone = "no"
+    	else
+      	@varphone = "yes"
+    	end	
+
+      @cont = Contact.new(:id => @id1, :cid => @id1, :hphone => params[:hphone], :mphone => params[:mphone], :provider => params[:provider], :cemail => params[:cemail], :email => @varemail, :sms => @varsms, :mail => @varmail, :phone => @varphone)
+      @cont.save
+
+      @contlink = Contactlink.new(:contactid => @id1, :addressid => @id2)
+      @contlink.save
+
+  		@id3 = @cont.id
+  		@id3 = @contlink.id
+      @pres = Prescription.new(:physver => params[:physver], :recver => params[:recver], :recexp => params[:recexp])
+      @pres.save	    
+  		@id4 = @pres.id
+
+      @custphylink = Custphyslink.new(:customid => session[:customer_id], :physid => params[:pname], :prescid => @id4)    	
+      @custphylink.save
+
+		@id6 = @custphylink.id
+
 # Make Session to Nil after transactions
 		session[:customer_id] = nil
 		session[:physid] = nil
 		flash[:edit_customer] = "Member has been successfully added."
 		redirect_to :controller => 'pages', :action => 'search'
-
-	end
+	end # end Add member information
   end
 end
 
