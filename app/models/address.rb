@@ -3,5 +3,5 @@ class Address < ActiveRecord::Base
 		
 validates_presence_of :line1,:line2,:city
 validates_numericality_of :zip
-	acts_as_audited
+#	acts_as_audited
 end
