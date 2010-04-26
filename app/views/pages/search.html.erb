@@ -86,7 +86,7 @@ background-color:#7FB545;
 		<td><%= link_to customer.firstname, "/pages/sales?custId=#{customer.id}" %>
 		<%=%></td>
 		<td><%=customer.lastname%></td>
-		<td></td>
+		<td><%=customer.contact.hphone%></td>
 		<td><%=customer.sex%></td>
 		<td><%=customer.dln%></td>
 <%@memberdiscount = Product.find_by_prod_name("Membership")%>

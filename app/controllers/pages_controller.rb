@@ -142,7 +142,7 @@ if (params[:mail].nil? or params[:mail] == 0)
 	@varphone = "yes"
 	 end	
   @varinsert = {:hphone=>params[:hphone] , :mphone=>params[:mphone], :cemail=>params[:cemail], :provider=>params[:provider], :mail=>@varmail, :email=>@varemail, :sms=>@varsms, :phone=>@varphone}
-  @cust = Contact.update(@custid, @varinsert)
+  @cust = Contact.update_all(@varinsert, "cid = " + @custid)
   flash[:edit_customer]= "Member Information Updated"
   redirect_to :controller => 'pages', :action => 'search'
   return
