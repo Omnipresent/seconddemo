@@ -235,7 +235,7 @@ end
       	@varphone = "yes"
     	end	
 
-      @cont = Contact.new(:cid => @id1, :hphone => params[:hphone], :mphone => params[:mphone], :provider => params[:provider], :cemail => params[:cemail], :email => @varemail, :sms => @varsms, :mail => @varmail, :phone => @varphone)
+      @cont = Contact.new(:id => @id1, :cid => @id1, :hphone => params[:hphone], :mphone => params[:mphone], :provider => params[:provider], :cemail => params[:cemail], :email => @varemail, :sms => @varsms, :mail => @varmail, :phone => @varphone)
       @cont.save
 
       @contlink = Contactlink.new(:contactid => @id1, :addressid => @id2)
