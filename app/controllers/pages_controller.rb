@@ -272,8 +272,7 @@ end
    end
   
 def sales
-
-	if  params[:commit] == "Complete Transaction"
+	if  params[:commit] == "Complete Transaction" #complete transaction
 		session[:customer_id] = nil
 		session[:ordersid] = nil
 		session[:custId] = nil
@@ -281,54 +280,52 @@ def sales
 		session[:stotalcost] = nil
 	end
   if  params[:commit] == "Submit"
-	sql = ActiveRecord::Base.connection();
-			flash[:finished] = nil
-		  if params[:paymenttype] == "Cash"
-				if (session[:ordersid].nil? or session[:ordersid] == 0)
-					sql.begin_db_transaction
-					puts "session id: " + session[:customerid].to_s
-					@orderid = Order.find_by_custid(session[:customerid])
-					session[:ordersid] = @orderid.id.to_s
-					sql.commit_db_transaction
-					#session[:customerid] = nil
-					#session[:ordersid] = nil
-				end
+  	sql = ActiveRecord::Base.connection();
+		flash[:finished] = nil
+	  if params[:paymenttype] == "Cash"
+			if (session[:ordersid].nil? or session[:ordersid] == 0)
 				sql.begin_db_transaction
-				puts "orderid: " + session[:ordersid].to_s
-				puts "ttlprodcost: " + session[:totalcost].to_s
-				@sqladdpayment = "INSERT INTO payments (orderid, ttlprodcost, paytype, paystatus,created_at,updated_at,userid,storeid) VALUES ('" + session[:ordersid] + "', '" + session[:totalcost] + "', '"  + "1"+ "', '"  + "complete" +"',current_date, current_date, '"+"1"+"','"+	"1"+"')"
-				@paymentid= sql.insert(@sqladdpayment)
-				session[:payid] = @paymentid
+				puts "session id: " + session[:customerid].to_s
+				@orderid = Order.find_by_custid(session[:customerid])
+				session[:ordersid] = @orderid.id.to_s
 				sql.commit_db_transaction
-				flash[:finished] = "Transaction has been completed. Thanks"
-				@current_tab = 2
-				@prods = Product.find(:all)
-				puts "session id2: " + session[:customerid].to_s
-				@subjects = Cartitem.find_all_by_cid(session[:customerid])
-				Cartitem.delete_all("cid = " + session[:customerid])
-		  else #else for cash
-			  puts "came here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-			  if (session[:ordersid].nil? or session[:ordersid] == 0)
-						sql.begin_db_transaction
-						@sqladdorders = "INSERT INTO orders (custid) VALUES ('" + session[:customerid] +"')" 
-						@orderid= sql.insert(@sqladdorders)
-						session[:ordersid] = @orderid
-						sql.commit_db_transaction
-				end
+			end
+			#sql.begin_db_transaction
+			puts "orderid: " + session[:ordersid].to_s
+			puts "ttlprodcost: " + session[:totalcost].to_s
+			@payment = Payments.new(:orderid => session[:ordersid], :ttlprodcost => session[:totalcost], :paytype => '1', :paystatus => 'complete')
+			@paymentid= @payment.id
+puts "came here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+			session[:payid] = @paymentid
+			#sql.commit_db_transaction
+			flash[:finished] = "Transaction has been completed. Thanks"
+			@current_tab = 2
+			@prods = Product.find(:all)
+			puts "session id2: " + session[:customerid].to_s
+			@subjects = Cartitem.find_all_by_cid(session[:customerid])
+			Cartitem.delete_all("cid = " + session[:customerid])
+	  else #else for cash
+		  if (session[:ordersid].nil? or session[:ordersid] == 0)
 				sql.begin_db_transaction
-				@sqladdpayment = "INSERT INTO payments (custid,created_at,updated_at,userid,storeid) VALUES ('" + session[:customerid] +"',current_date, current_date, '"+"1"+"','"+"1"+"')"
-				@paymentid= sql.insert(@sqladdpayment)
-				session[:payid] = @paymentid
+				@sqladdorders = "INSERT INTO orders (custid) VALUES ('" + session[:customerid] +"')" 
+				@orderid= sql.insert(@sqladdorders)
+				session[:ordersid] = @orderid
 				sql.commit_db_transaction
-				flash[:finished] = "Your card has been charged. Thanks"
-				@current_tab = 2
-				@prods = Product.find(:all)
-				@subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
-				@subjects = Cartitem.find_by_sql(@subjects1)
-				@cidstr = "cid = " + session[:customerid]
-				Cartitem.delete_all(@cidstr)
-		  end #end else
-			return
+			end
+			sql.begin_db_transaction
+			@sqladdpayment = "INSERT INTO payments (custid,created_at,updated_at,userid,storeid) VALUES ('" + session[:customerid] +"',current_date, current_date, '"+"1"+"','"+"1"+"')"
+			@paymentid= sql.insert(@sqladdpayment)
+			session[:payid] = @paymentid
+			sql.commit_db_transaction
+			flash[:finished] = "Your card has been charged. Thanks"
+			@current_tab = 2
+			@prods = Product.find(:all)
+			@subjects1 = "SELECT * FROM cartitems where cid='"+session[:customerid]+"'"
+			@subjects = Cartitem.find_by_sql(@subjects1)
+			@cidstr = "cid = " + session[:customerid]
+			Cartitem.delete_all(@cidstr)
+	  end #end else
+		return
 	end#end submit 
   if params[:commit] == "delete"
 			@cust = Customer.find_by_id(session[:custId])
@@ -348,8 +345,8 @@ def sales
 		  flash[:result] = @sqladelcart
 		  sql.commit_db_transaction
 		  @cidstr = "cid = " + session[:customerid]
-		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S'))-(discount*to_number(quantity, '99G999D9S'))", :conditions => [@cidstr])
-		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')-(discount*to_number(quantity, '99G999D9S'))+price*to_number(quantity,'99G999D9S')*.0875)", :conditions => [@cidstr])
+  		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S'))-(discount*to_number(quantity, '99G999D9S'))", :conditions => [@cidstr])
+  		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')-(discount*to_number(quantity, '99G999D9S'))+price*to_number(quantity,'99G999D9S')*.0875)", :conditions => [@cidstr])
 		  params[:stotal] = @subtotal 
 		  params[:ttoal] =  @totalprice
 		  flash[:notice] = @sqladelcart

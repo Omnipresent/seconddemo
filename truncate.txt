@@ -1,0 +1,23 @@
+truncate addresses;
+truncate audits;
+truncate cartitems;
+truncate categories;
+truncate contactlinks;
+truncate contacts;
+truncate customers;
+truncate custphyslinks;
+truncate orderdetails;
+truncate orders;
+truncate paymentdistributions;
+truncate payments;
+truncate physicians;
+truncate prescriptions;
+truncate proddiscounts;
+truncate productprices;
+truncate products;
+truncate schema_migrations;
+truncate stores;
+truncate stores_users;
+truncate userizations;
+truncate users;
+
