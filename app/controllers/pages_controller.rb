@@ -209,7 +209,7 @@ end
 @cust = Customer.new(:firstname => params[:firstname], :lastname => params[:lastname], :dob => params[:dob], :dln => params[:dln], :sex => params[:sex], :referral => params[:referral], :reffredby => params[:reffredby], :notes => params[:notes], :statemmp => params[:statemmp], :recom => params[:recom], :countyid => params[:countyid], :suffix => params[:suffix], :dlnstate => params[:dlnstate], :dlnexpiry => params[:dlnexp])
 @cust.save		 
 
-    puts "line 2 is: " + params[:line2]
+   
 
   		 @addy = @cust.create_address(:line1 => params[:line1], :line2 => params[:line2], :city => params[:city], :state => params[:state], :zip => params[:zip], :county => params[:county])
        @addy.save
