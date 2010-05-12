@@ -196,18 +196,10 @@ function hideModal(divID)
                                  
                                  <td align="left" style="width:123px"><%= text_field_tag :reffredby, params[:reffredby] %>
                                  </td>
-                                 	<script type="text/javascript"> 
-		            var reffredby = new LiveValidation('reffredby');
-		            reffredby.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
                                  <td align="right">Notes:
                                  </td>
                                  
                                  <td colspan="1" align="left"><%= text_field_tag :notes, params[:notes] %></td>
-	<script type="text/javascript"> 
-		            var notes = new LiveValidation('notes');
-		            notes.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
 				            <td align="right">DLN:</td>
 				            
 				            <td  align="left"><%= text_field_tag :dln, params[:dln] %></td>
@@ -265,10 +257,6 @@ function hideModal(divID)
 		          </script>
 				    <td align="right">Line&nbsp;2:</td>
 				                            <td align="left"><%= text_field_tag :line2, params[:line2] %></td>
-    				                         <script type="text/javascript"> 
-		            var line2 = new LiveValidation('line2');
-		            line2.add(Validate.Presence, 4e3,{failureMessage: "*"});
-		          </script>
     				                    </tr>
 				                        <tr>
 				                          

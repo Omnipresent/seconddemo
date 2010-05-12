@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100323021747) do
+ActiveRecord::Schema.define(:version => 20100512022920) do
 
   create_table "addresses", :force => true do |t|
     t.string   "line1"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20100323021747) do
     t.datetime "updated_at"
     t.integer  "userid"
     t.integer  "storeid"
+    t.integer  "cid"
   end
 
   create_table "audits", :force => true do |t|
