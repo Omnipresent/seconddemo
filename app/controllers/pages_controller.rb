@@ -435,20 +435,26 @@ puts "five!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					puts "yooooooooooooooooooooooooooooooooooo: " + "#{params[:quantity].to_s.length}"
 			end
 
-			@sqladdcart = "INSERT INTO cartitems (volume, category_name, thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+params[:volume].to_s+"','"+ @prodCat +"','"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:product][:prod_name] + "', '"+ @pid + "', '"+ '0' +  "', '"+  @quant.to_s+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
-			sql.begin_db_transaction
-			@id3= sql.insert(@sqladdcart)
-			sql.commit_db_transaction
+#			@sqladdcart = "INSERT INTO cartitems (volume, category_name, thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+params[:volume].to_s+"','"+ @prodCat +"','"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:product][:prod_name] + "', '"+ @pid + "', '"+ '0' +  "', '"+  @quant.to_s+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
+
+      @citems = Cartitem.new(:volume => params[:volume], :category_name => @prodCat, :thc => @prodthc, :rating => @prodrating, :prodtype => @prodType, :conditions => @pconditions, :cid => session[:customerid], :pid => params[:product][:prod_name], :ptype => @pid, :ptype => "0", :quality => @quant.to_s, :price => @indprodprice, :discount => @inddisc)
+@citems.save
+		#	sql.begin_db_transaction
+			@id3= @citems.id
+			#sql.commit_db_transaction
 
 			@quant = params[:quantity]
 			puts "Quant!!!!!!!!!!!!!!!!!!!!!!!! " + @quant.to_s
 			if @quant.to_s.length <= 0
 				@quant = 0;
 		  end
-			@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+params[:product][:prod_name]  + "', '"+ @indprodprice + "', '" +@quant.to_s+"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
-			sql.begin_db_transaction
-			@orderdetailsid= sql.insert(@sqladdorderdetails)
-			sql.commit_db_transaction
+		#	@sqladdorderdetails = "INSERT INTO orderdetails (orderid,  prodid, prodsaleprice, quantity,created_at,updated_at,status, cartid,userid,storeid) VALUES ('" + session[:ordersid]+ "', '"+params[:product][:prod_name]  + "', '"+ @indprodprice + "', '" +@quant.to_s+"',current_date, current_date, 'p','"+@id3+"','"+"2"+"','"+"2"+"')"
+			@odtails = Orderdetail.new(:orderid => session[:ordersid], :prodid => params[:product][:prod_name], :prodsaleprice => @indprodprice, :quantity=>@quant.to_s, :status=>'p', :cartid => @id3, :userid=>'2', :storeid=>'2')
+			@odtails.save
+			
+			#sql.begin_db_transaction
+			@orderdetailsid= @odtails.id
+		#	sql.commit_db_transaction
 			@cidstr = "cid = " + session[:customerid]
 		@subtotal = Cartitem.sum("(price*to_number(quantity, '99G999D9S'))-(discount*to_number(quantity, '99G999D9S'))", :conditions => [@cidstr])
 		@totalprice = Cartitem.sum("(price*to_number(quantity, '99G999D9S')-(discount*to_number(quantity, '99G999D9S'))+price*to_number(quantity,'99G999D9S')*.0875)", :conditions => [@cidstr])
