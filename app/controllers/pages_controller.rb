@@ -119,7 +119,13 @@ def editcustomer
   @varinsert = {:firstname=>params[:firstname], :lastname=>params[:lastname], :dob=>params[:dob],:dln=>params[:dln],:sex=>params[:sex], :referral=>params[:referral], :reffredby=>params[:reffredby],:notes=>params[:notes],:statemmp=>params[:statemmp],:recom=>params[:recom], :countyid=>params[:countyid], :suffix=>params[:suffix], :dlnstate=>params[:dlnstate], :dlnexpiry=>params[:dlnexp]}
   @cust = Customer.update(@custid, @varinsert)
   @varinsert = {:line1=>params[:line1] , :county=>params[:county], :line2=>@varline2, :city=>params[:city],:state=>params[:state], :zip=>params[:zip]}
-  @cust = Address.update_all(@varinsert, "cid = " + @custid)
+  @ad = Address.find_by_cid(@custid)
+  if @ad != nil
+    @cust = Address.update_all(@varinsert, "cid = " + @custid)
+  else
+    @cust = Customer.find(@custid)
+    @cust = @cust.create_address(@varinsert)
+  end
   
 if (params[:sms].nil? or params[:sms] == 0)
 	    @varsms = "no"
