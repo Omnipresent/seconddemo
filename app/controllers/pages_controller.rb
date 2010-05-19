@@ -443,7 +443,7 @@ puts "five!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #			@sqladdcart = "INSERT INTO cartitems (volume, category_name, thc,rating,prodtype,conditions, cid,  pid, ptype, quality, quantity, price, discount,created_at,updated_at) VALUES ('"+params[:volume].to_s+"','"+ @prodCat +"','"+ @prodthc + "','"+ @prodrating + "','" + @prodType +"','"+ @pconditions +"','" + session[:customerid]+ "', '"+ params[:product][:prod_name] + "', '"+ @pid + "', '"+ '0' +  "', '"+  @quant.to_s+  "', '"+     @indprodprice + "', '"+     @inddisc +"',current_date, current_date)"
 
-      @citems = Cartitem.new(:volume => params[:volume], :category_name => @prodCat, :thc => @prodthc, :rating => @prodrating, :prodtype => @prodType, :conditions => @pconditions, :cid => session[:customerid], :pid => params[:product][:prod_name], :ptype => @pid, :ptype => "0", :quality => @quant.to_s, :price => @indprodprice, :discount => @inddisc)
+      @citems = Cartitem.new(:volume => params[:volume], :category_name => @prodCat, :thc => @prodthc, :rating => @prodrating, :prodtype => @prodType, :conditions => @pconditions, :cid => session[:customerid], :pid => params[:product][:prod_name], :ptype => @pid, :quality => "0", :quantity => @quant.to_s, :price => @indprodprice, :discount => @inddisc)
 @citems.save
 		#	sql.begin_db_transaction
 			@id3= @citems.id
