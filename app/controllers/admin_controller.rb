@@ -2,7 +2,7 @@ class AdminController < ApplicationController
 	layout "application", :except => [:login, :select_store, :changepwd]
 	
 	def admin_main
-				
+			puts "test"	
 	end
 	
 	def changepwd
